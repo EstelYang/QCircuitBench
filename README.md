@@ -43,13 +43,13 @@ Below is an illustration of the directory structure of QCircuitBench.
 │   ├──📂 Quantum_Information/
 │       └── Includes tasks related to quantum information protocols.
 │   ├──📂 Variational_Circuits/
-│       └── Contains Variational Quantum Algorithms.
+│   │   └── Contains Variational Quantum Algorithms.
 │
 ├──📂 Random_Circuits/
-    ├──📂 Clifford/
-    │   └── Random circuits with Clifford gate set.
-    ├──📂 Universal/
-        └── Random circuits with universal gate set.
+│   ├──📂 Clifford/
+│   │   └── Random circuits with Clifford gate set.
+│   ├──📂 Universal/
+│       └── Random circuits with universal gate set.
 │
 ├──📂 Cirq Version/
     └── Implementation of the full dataset with Cirq.
@@ -344,10 +344,19 @@ def main():
         check_dataset()
 ```
 
+# 📈 Data Proportion
+
+The following charts provide an overview of the proportion of different algorithms within the QCircuitBench dataset.
+<p align="center">
+  <img src="readme_img/task_algo.png" width="45%">
+  <img src="readme_img/task_oracle.png" width="45%">
+</p>
+
+
 
 # 🔊 Download
 
-We host a demo version of the dataset on this GitHub repository to illustrate its structure and provide sample data. For the complete dataset, please download it from [Google Drive](https://drive.google.com/file/d/1Z__0PfOoHT9gz2I_Gc3S1zrbSrUMswqL/view?usp=share_link).
+We host a demo version of the dataset on this GitHub repository to illustrate its structure and provide sample data. For the complete dataset, please download it from [Google Drive](https://drive.google.com/file/d/1usO1ur3ArdFtzbotvukM--oLt_-MPcT1/view?usp=share_link).
 
 
 # 📚 Citation
