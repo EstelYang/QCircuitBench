@@ -1,90 +1,101 @@
-# QCircuitNet Dataset
+# QCircuitBench Dataset
 
-QCircuitNet is the first benchmark dataset designed to evaluate the capabilities of AI in designing and implementing quantum algorithms from the perspective of programming languages. 
+<p align="center">
+  <a href="https://arxiv.org/abs/2410.07961">
+    <img src="https://img.shields.io/badge/Paper-QCircuitBench-9b59b6?style=flat-square" alt="QCircuitBench Paper" />
+  </a>
+</p>
 
-Key features of QCircuitNet include:
+QCircuitBench is the first benchmark dataset designed to evaluate the capabilities of AI in designing and implementing quantum algorithms from the perspective of code generation. 
+
+Key features of QCircuitBench include:
 
 1. **Comprehensive Framework**: A general framework which formulates the key features of quantum algorithm design task for Large Language Models, including problem description, quantum circuit codes, classical post-processing, and verification functions.
 2. **Wide Range of Quantum Algorithms**: Implementation for a wide range of quantum algorithms from basic primitives to advanced applications, with easy extension to more quantum algorithms.
 3. **Validation and Verification Functions**: Automatic validation and verification functions, allowing for iterative evaluation and interactive reasoning without human inspection.
-4. **Training Potential**: Promising potential as a training dataset through primitive fine-tuning results.
+4. **Training Potential**: Promising potential as a training dataset through preliminary fine-tuning results.
 
-![image](./readme_img/Dataset.jpg)
+![image](./readme_img/Dataset.png)
 
 # 🚀 Benchmarking Workflow
 
 The workflow of our benchmark is illustrated as follows:
 
-![image](./readme_img/Workflow.jpg)
+![image](./readme_img/Workflow.png)
 
 
 # 🌲 Directory Tour
 
-Below is an illustration of the directory structure of QCircuitNet.
+Below is an illustration of the directory structure of QCircuitBench.
 
 ```
-📂 QCircuitNet/
+📂 QCircuitBench/
 │
-├──📂 Oracle Construction/
-│   ├──📂 Quantum Logic Synthesis/
+├──📂 Oracle_Construction/
+│   ├──📂 Quantum_Logic_Synthesis/
 │   │   └── Contains textbook-level and advanced oracles.
-│   ├──📂 Problem Encoding/
-│       └── Oracles encoding application scenarios.
+│   ├──📂 Problem_Encoding/
+│       └── Scenarios of encoding applications.
 │
-├──📂 Algorithm Design/
-│   ├──📂 Quantum Computing/
+├──📂 Algorithm_Design/
+│   ├──📂 Quantum_Computing/
 │   │   └── Contains universal quantum computing algorithms.
-│   ├──📂 Quantum Information/
+│   ├──📂 Quantum_Information/
 │       └── Includes tasks related to quantum information protocols.
+│   ├──📂 Variational_Circuits/
+│       └── Contains Variational Quantum Algorithms.
 │
-├──📂 Random Circuits/
+├──📂 Random_Circuits/
     ├──📂 Clifford/
     │   └── Random circuits with Clifford gate set.
     ├──📂 Universal/
         └── Random circuits with universal gate set.
+│
+├──📂 Cirq Version/
+    └── Implementation of the full dataset with Cirq.
 ```
 
 Each subdirectory contains algorithm-specific data. For instance, the directory structure for Simon's algorithm under "Algorithm Design" is as follows:
 
 ```
-📂 Algorithm Design/
-└──📂 Quantum Computing/
+📂 Algorithm_Design/
+└──📂 Quantum_Computing/
     └──📂 simon/                            # All data for the Simon's Problem
-        ├──📄 simon-dataset.py              # Dataset creation script
-        ├──📄 simon-generation.py           # Qiskit generation code
-        ├──📄 simon-post-processing.py      # Post-processing function
-        ├──📄 simon-utils.py                # Utility functions for verification
-        ├──📄 simon-verification.py         # Verification function
-        ├──📄 simon-description.txt         # Problem description
-        ├──📄 simon-verification.txt        # Verification results of the data points
-        ├──📂 full-circuit/                 # Raw data of quantum circuits
-        │   ├──📂 simon-n2/
-        │   │   └──📄 simon-n2-s11-k11.qasm # Full circuit for a concrete setting
-        │   └──📂 simon-n3/
-        │       ├──📄 simon-n3-s011-k001.qasm
-        │       ├──📄 simon-n3-s011-k101.qasm
+        ├──📄 simon_dataset.py              # Dataset creation script
+        ├──📄 simon_generation.py           # Qiskit generation code
+        ├──📄 simon_post_processing.py      # Post-processing function
+        ├──📄 simon_utils.py                # Utility functions for verification
+        ├──📄 simon_verification.py         # Verification function
+        ├──📄 simon_description.txt         # Problem description
+        ├──📄 simon_verification.txt        # Verification results of the data points
+        ├──📂 full_circuit/                 # Raw data of quantum circuits
+        │   ├──📂 simon_n2/
+        │   │   └──📄 simon_n2_s11_k11.qasm # Full circuit for a concrete setting
+        │   └──📂 simon_n3/
+        │       ├──📄 simon_n3_s011_k001.qasm
+        │       ├──📄 simon_n3_s011_k101.qasm
         │       └── ...                   
-        └──📂 test-oracle/                  # Extracted oracle definitions
+        └──📂 test_oracle/                  # Extracted oracle definitions
             ├──📂 n2/
             │   ├──📂 trial1/
             │   │   ├──📄 oracle.inc        # Oracle definition as a .inc file
-            │   │   └──📄 oracle-info.txt   # Oracle information (such as key strings)
+            │   │   └──📄 oracle_info.txt   # Oracle information (such as key strings)
             └──📂 n3/
                 ├──📂 trial1/
                 │   ├──📄 oracle.inc
-                │   └──📄 oracle-info.txt
+                │   └──📄 oracle_info.txt
                 ├──📂 trial2/
                 │   ├──📄 oracle.inc
-                │   └──📄 oracle-info.txt
+                │   └──📄 oracle_info.txt
                 └── ...                   
-        ├──📄 simon-n2.qasm                 # Algorithm circuit for model output
-        ├──📄 simon-n3.qasm                 
+        ├──📄 simon_n2.qasm                 # Algorithm circuit for model output
+        ├──📄 simon_n3.qasm                 
         └── ...                           
 ```
 
 # 📜 Example
 
-In this subsection, we provide concrete examples to illustrate the different components of QCircuitNet. We use the case of Simon's Problem throughout the demonstration to achieve better consistency. For further details, please check the code repository.
+In this subsection, we provide concrete examples to illustrate the different components of QCircuitBench. We use the case of Simon's Problem throughout the demonstration to achieve better consistency. For further details, please check the code repository.
 
 ### Problem Description
 
@@ -231,36 +242,80 @@ The following function checks the correctness of the generated model. The file i
 ```python
 from simon_utils import *
 
-def check_model(qasm_string, code_string, n):
-    """Check the Simon model."""
-    with open(f"test_oracle/n{n}/trial1/oracle.inc", "r") as file:
+def check_model(qasm_string, code_string, n, t=1):
+    """Check the implementation for Simon's Problem."""
+    qasm_syntax = -1
+    code_syntax = -1
+    result_score = 0.0
+    gate_count_ratio = float("nan")
+    shot_ratio = float("nan")
+    time_ratio = float("nan")
+
+    # QASM syntax verification
+    dire = "./test_oracle"
+    dire_gt = "."
+    with open(f"{dire}/n{n}/trial{t}/oracle.inc", "r") as file:
         oracle_def = file.read()
     full_qasm = plug_in_oracle(qasm_string, oracle_def)
     circuit = verify_qasm_syntax(full_qasm)
-
     if circuit is None:
-        return -1
-    
+        print("QASM syntax error detected, using ground truth.")
+        qasm_syntax = 0
+        with open(f"{dire_gt}/simon_n{n}.qasm", "r") as file:
+            qasm_string = file.read()
+    else:
+        qasm_syntax = 1
+
+    # Post-processing code verification
     try:
-        exec(code_string, globals())
-        aer_sim = AerSimulator()
-        total_success, total_fail = 0, 0
-        shots = 10
-
-        for t in range(1, 11):
-            with open(f"test_oracle/n{n}/trial{t}/oracle_info.txt", "r") as file:
-                secret_string = re.search(r"Secret string: ([01]+)", file.read()).group(1)
-            circuit = transpile(circuit, aer_sim)
-            prediction = run_and_analyze(circuit.copy(), aer_sim)
-            if prediction == secret_string:
-                total_success += 1
-            else:
-                total_fail += 1
-        return total_success / (total_success + total_fail)
-
+        local_vars = {}
+        code = "\n".join(
+            [
+                line
+                for line in code_string.splitlines()
+                if not line.strip().startswith("from qiskit")
+                and "import qiskit" not in line
+            ]
+        )
+        code_string = code.replace(
+            "def run_and_analyze(circuit, aer_sim):\n",
+            "def run_and_analyze(circuit, aer_sim):\n    circuit = transpile(circuit, aer_sim)\n",
+            1,
+        )
+        exec(code_string, globals(), local_vars)
+        run_and_analyze_func = local_vars["run_and_analyze"]
+        code_syntax = 1
+        print("Post-processing code loaded successfully.")
     except Exception as e:
-        print(f"Error: {e}")
-        return -1
+        print(f"Post-processing syntax error: {e}\nusing ground truth.")
+        run_and_analyze_func = ground_truth_run_and_analyze
+        code_syntax = 0
+
+    # Efficiency check & semantic evaluation
+    if qasm_syntax == 1 and code_syntax == 1:
+        gate_count_ratio, shot_ratio, time_ratio = efficiency_check(
+            qasm_string,
+            dire_gt,
+            code_string,
+            run_and_analyze_func,
+            ground_truth_run_and_analyze,
+            dire,
+            n,
+        )
+        try:
+            result_score = execute_test_cases(qasm_string, run_and_analyze_func, n)
+        except Exception as e:
+            print(f"Post-processing running-time error: {e}")
+            code_syntax = 0
+
+    return (
+        qasm_syntax,
+        code_syntax,
+        result_score,
+        gate_count_ratio,
+        shot_ratio,
+        time_ratio,
+    )
 ```
 
 ### Dataset Creation Script
@@ -288,124 +343,23 @@ def main():
     elif args.func == "check":
         check_dataset()
 ```
-# 📈 Data Proportion
 
-The following charts provide an overview of the proportion of different data types within the QCircuitNet dataset.
-
-### Algorithm Design
-![image](./readme_img/Algo_Design.jpg)
-### Oracle Construction
-![image](./readme_img/Oracle_Construction.jpg)
-### Random Circuits
-![image](./readme_img/Random.jpg)
-
-
-# ✂️ Hierarchical Sampling
-
-To provide users with an intuitive view of the dataset content, facilitate display on GitHub pages, and comply with GitHub's policies regarding file number and size, we performed a hierarchical sampling of the dataset. Random sampling was employed to minimize bias inherent in manual selection, thereby maintaining the dataset's diversity and representativeness.
-
-The sampling process is implemented via a function named `hierarchical_sample`, which processes the dataset's root directory and handles subdirectories based on their specific structures. The sampling methodology for each main directory is detailed below:
-
-1. **Algorithm_Design**
-
-   This directory contains two subdirectories: `Quantum_Computing` and `Quantum_Information`.
-
-   a. **Quantum_Computing**
-
-      The `Quantum_Computing` folder includes the following subdirectories:
-
-      - `bernstein_vazirani`
-      - `deutsch_jozsa`
-      - `generalized_simon_multi`
-      - `generalized_simon_ternary`
-      - `grover`
-      - `phase_estimation`
-      - `quantum_fourier_transformation`
-      - `simon`
-
-      Each of these subdirectories contains files named `algorithmname_n{}.qasm` (e.g., `bernstein_vazirani_n{}.qasm`), where `algorithmname` matches the folder name. From each subdirectory, we randomly sampled **10 files** to retain.
-
-      Additionally, each subdirectory contains a `test_oracle` folder, which further contains `n{}` subfolders (with varying counts). For each `test_oracle` folder, we randomly sampled **10 `n{}` subfolders** to retain. Within each retained `n{}` folder, if the number of `trial{}` subfolders exceeds 5, we randomly sampled **5 `trial{}` subfolders** to retain and deleted the rest.
-
-   b. **Quantum_Information**
-
-      The `Quantum_Information` folder includes the following subdirectories:
-
-      - `ghz_state`
-      - `quantum_key_distribution`
-      - `quantum_teleportation`
-      - `random_number_generator`
-      - `superdense_coding`
-      - `swap_test`
-      - `w_state`
-
-      - **`ghz_state`**: Contains files named `ghz_state_n{}.qasm` (for `n` from 2 to 133). We randomly sampled **10 files** to retain.
-
-      - **`quantum_key_distribution`**: Contains subdirectories named `qkd_n{}` (for `n` from 20 to 50). We randomly sampled **10 `qkd_n{}` subdirectories** to retain. Each `qkd_n{}` folder contains files named `qkd_n{}_trial{True/False}` with corresponding `.qasm` and `.txt` files (e.g., `qkd_n47_trial1_False.qasm` and `qkd_n47_trial1_False.txt`). For each retained `qkd_n{}` folder, we randomly sampled **5 trials** to retain, where each trial consists of four files:
-
-        - `qkd_n{}_trial{}_True.qasm`
-        - `qkd_n{}_trial{}_True.txt`
-        - `qkd_n{}_trial{}_False.qasm`
-        - `qkd_n{}_trial{}_False.txt`
-
-      - **`quantum_teleportation`**: Contains a `test_oracle` folder with `trial{}` subfolders. We randomly sampled **5 `trial{}` subfolders** to retain.
-
-      - **`random_number_generator`**: Contains files named `qrng_n{}.qasm` (for `n` from 1 to 133). We randomly sampled **10 files** to retain.
-
-      - **`swap_test`**: Contains files named `swap_test_n{}.qasm` (for `n` from 1 to 20). We randomly sampled **10 files** to retain.
-
-        Additionally, there is a `test_oracle` folder containing `n{}` subfolders (number varies). We randomly sampled **10 `n{}` subfolders** to retain. Within each retained `n{}` folder, if the number of `trial{}` subfolders exceeds 5, we randomly sampled **5 `trial{}` subfolders** to retain and deleted the rest.
-
-      - **`w_state`**: Contains files named `w_state_n{}.qasm` (for `n` from 2 to 133). We randomly sampled **10 files** to retain.
-
-        Additionally, there is a `gate_circuit` folder containing files named `w_state_n{}.qasm` (for `n` from 2 to 133). We randomly sampled **10 files** from this folder to retain.
-
-2. **Oracle_Construction**
-
-   This directory contains two subdirectories: `Problem_Encoding` and `Quantum_Logic_Synthesis`.
-
-   a. **Problem_Encoding**
-
-      No sampling was performed on this folder; all contents are retained.
-
-   b. **Quantum_Logic_Synthesis**
-
-      This folder contains the following subdirectories:
-
-      - `bernstein_vazirani`
-      - `deutsch_jozsa`
-      - `diffusion_operator`
-      - `generalized_simon_multi`
-      - `generalized_simon_ternary`
-      - `grover`
-      - `simon`
-
-      Each subdirectory contains subfolders named `algorithmname_n{}` (e.g., `bernstein_vazirani_n{}` for `n` from 2 to 14). For each subdirectory:
-
-      - If the number of `algorithmname_n{}` subfolders exceeds 5, we randomly sampled **5 subfolders** to retain.
-      - Within each retained `algorithmname_n{}` subfolder, if the number of items (files or subfolders) exceeds 5, we randomly sampled **5 items** to retain.
-      - If the contents of an `algorithmname_n{}` subfolder are themselves subfolders, we applied the same rule recursively: if a subfolder contains more than 5 items, we randomly sampled **5 items** to retain.
-
-3. **Random_Circuits**
-
-   This directory contains two subdirectories: `clifford` and `universal`.
-
-   a. **clifford**
-
-      Contains subdirectories named `clifford_n{}`. We randomly sampled **10 `clifford_n{}` subfolders** to retain.
-
-      - Within each retained `clifford_n{}` folder, there are multiple `I{}` subfolders. We randomly sampled **5 `I{}` subfolders** to retain.
-      - Within each retained `I{}` subfolder, we randomly sampled **5 pairs** of `.qasm` and `.txt` files to retain. Each pair consists of the corresponding `.qasm` and `.txt` files (e.g., `clifford_n6_I100_4.qasm` and `clifford_n6_I100_4.txt`).
-
-   b. **universal**
-
-      Contains subdirectories named `universal_n{}`. We randomly sampled **10 `universal_n{}` subfolders** to retain.
-
-      - Within each retained `universal_n{}` folder, there are multiple `I{}` subfolders. We randomly sampled **5 `I{}` subfolders** to retain.
-      - Within each retained `I{}` subfolder, we randomly sampled **5 pairs** of `.qasm` and `.txt` files to retain. Each pair consists of the corresponding `.qasm` and `.txt` files (e.g., `universal_n6_I100_4.qasm` and `universal_n6_I100_4.txt`).
-
-By applying this hierarchical sampling procedure, we significantly reduced the dataset size while preserving its diversity and representativeness. This makes the dataset more accessible and manageable for users and ensures compliance with GitHub's file size and number policies.
 
 # 🔊 Download
 
 We host a demo version of the dataset on this GitHub repository to illustrate its structure and provide sample data. For the complete dataset, please download it from [Google Drive](https://drive.google.com/file/d/1Z__0PfOoHT9gz2I_Gc3S1zrbSrUMswqL/view?usp=share_link).
+
+
+# 📚 Citation
+
+If you use QCircuitBench in your work, please cite:
+
+```bibtex
+@inproceedings{yang2025qcircuitbench,
+  title={QCircuitBench: A Large-Scale Dataset for Benchmarking Quantum Algorithm Design},
+  author={Yang, Rui and Wang, Ziruo and Gu, Yuntian and Liang, Yitao and Li, Tongyang},
+  booktitle={The Thirty-ninth Annual Conference on Neural Information Processing Systems (NeurIPS 2025), Datasets and Benchmarks Track},
+  year={2025},
+  url={https://arxiv.org/abs/2410.07961}
+}
+
