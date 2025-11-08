@@ -1,4 +1,4 @@
-OPENQASM 3;
+OPENQASM 3.0;
 include "stdgates.inc";
 gate GH _gate_q_0, _gate_q_1, _gate_q_2, _gate_q_3, _gate_q_4, _gate_q_5, _gate_q_6, _gate_q_7 {
   u3(0.8446094769634604, 1.0931380177326417, 1.9018689446176733) _gate_q_0;

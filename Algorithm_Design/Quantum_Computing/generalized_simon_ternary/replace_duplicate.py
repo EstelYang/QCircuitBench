@@ -54,14 +54,9 @@ def detect_and_replace_duplicate_gates(qasm_string):
             gate_replacement_mapping[gate_name] = new_name
             gate_counter += 1
 
-    # 替换QASM字符串中的门名称，包括定义和调用
     optimized_qasm = qasm_string
     for old_name, new_name in gate_replacement_mapping.items():
         print(old_name, new_name)
-        # 先替换定义
-        # optimized_qasm = re.sub(rf'gate\s+{old_name}\b', f'gate {new_name}', optimized_qasm)
-        # 再替换调用
-        # optimized_qasm = re.sub(rf'\b{old_name}\b', new_name, optimized_qasm)
         optimized_qasm = optimized_qasm.replace(old_name, new_name)
 
     qasm_string = optimized_qasm
@@ -73,7 +68,7 @@ def detect_and_replace_duplicate_gates(qasm_string):
     if header_match:
         header = header_match.group(0)
     else:
-        header = "OPENQASM 3;\ninclude \"stdgates.inc\";\n"
+        header = "OPENQASM 3.0;\ninclude \"stdgates.inc\";\n"
 
     unique_gate_definitions = set()
     gate_definitions_section = []

@@ -29,17 +29,13 @@ def generate_circuit_qasm(depth=20):
     for n in range(2, 13):
         for l in range(1, depth * n + 1):
             directory = f"universal_n{n}/l{l}"
-            for i in range(4 * n):
+            for i in range(40 * n):
                 circuit = random_universal_circuit(n, l)
                 filename = f"universal_n{n}_l{l}_{i}.qasm"
                 save_qasm(circuit, directory, filename)
                 txt_filename = f"universal_n{n}_l{l}_{i}.txt"
                 output_state = Statevector(circuit).data
                 save_txt(output_state, directory, txt_filename)
-
-
-def generate_dataset_json():
-    pass
 
 
 def main():
@@ -54,8 +50,6 @@ def main():
 
     if args.func == "qasm":
         generate_circuit_qasm()
-    elif args.func == "json":
-        generate_dataset_json()
 
 
 if __name__ == "__main__":

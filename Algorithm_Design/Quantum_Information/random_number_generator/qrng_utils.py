@@ -3,8 +3,6 @@ from qiskit.qasm3 import loads
 from scipy.stats import chisquare, entropy
 import numpy as np
 
-# import argparse
-
 
 def frequency_test(data, bit_length):
     # Count occurrences of each possible outcome
@@ -47,7 +45,7 @@ def print_and_save(message, text):
 
 
 def verify_qasm_syntax(output):
-    """Verify the syntax of the output and return the corresponding QuantumCircuit (if it is valid)."""
+    """Verify the syntax of the output and return the corresponding QuantumCircuit."""
     assert isinstance(output, str)
     try:
         # Parse the OpenQASM 3.0 code

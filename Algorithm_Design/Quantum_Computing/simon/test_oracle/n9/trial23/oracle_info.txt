@@ -1,2 +1,0 @@
-Secret string: 001001110
-Key string: 101011010

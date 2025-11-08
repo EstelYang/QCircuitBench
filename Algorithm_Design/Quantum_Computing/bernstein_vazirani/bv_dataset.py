@@ -102,16 +102,6 @@ def extract_gate_definition():
                 circuit_save = True
 
 
-def generate_dataset_json():
-    """Generates a JSON dataset for the Algorithm.
-    Format: {"input": description, "output": circuit}
-
-    """
-    # Replace the placeholder in the description with the qubit number
-    # Create the json file with different entries.
-    pass
-
-
 def check_dataset():
     """Check the generated dataset."""
     text = []
@@ -160,10 +150,6 @@ def check_dataset():
                     cnt_success += 1
                 else:
                     cnt_fail += 1
-                # print_and_save(
-                #     f"        Prediction: {prediction}; Secret String: {secret_string}",
-                #     text,
-                # )
             print_and_save(
                 f"        Success: {cnt_success}/{shots}, Fail: {cnt_fail}/{shots}",
                 text,
@@ -183,14 +169,12 @@ def main():
     parser.add_argument(
         "-f",
         "--func",
-        choices=["qasm", "json", "gate", "check"],
-        help="The function to call: generate qasm circuit, json dataset or extract gate definition.",
+        choices=["qasm", "gate", "check"],
+        help="The function to call: generate qasm circuit, extract gate definition, or check dataset correctness.",
     )
     args = parser.parse_args()
     if args.func == "qasm":
         generate_circuit_qasm()
-    elif args.func == "json":
-        generate_dataset_json()
     elif args.func == "gate":
         extract_gate_definition()
     elif args.func == "check":

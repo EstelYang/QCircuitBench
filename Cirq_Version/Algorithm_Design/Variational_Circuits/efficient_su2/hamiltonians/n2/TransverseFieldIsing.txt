@@ -1,0 +1,7 @@
+Hamiltonian (TransverseFieldIsing) for n=2 qubits:
+0.0 * II
+- 1.0 * ZZ
+- 1.0 * XI
+- 1.0 * IX
+
+Ground state energy: -2.236068

@@ -18,7 +18,7 @@ def sudoku_oracle():
     clause_qubits = QuantumRegister(4, name="c")
     output_qubit = QuantumRegister(1, name="out")
     qubit_num = var_qubits.size + clause_qubits.size + output_qubit.size
-    circuit = QuantumCircuit(var_qubits, clause_qubits, output_qubit)
+    circuit = QuantumCircuit(var_qubits, output_qubit, clause_qubits)
 
     # Compute clauses
     i = 0

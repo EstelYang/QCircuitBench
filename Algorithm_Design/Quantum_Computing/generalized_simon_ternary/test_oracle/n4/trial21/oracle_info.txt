@@ -1,2 +1,0 @@
-Secret string: 2202
-Key string: 0002

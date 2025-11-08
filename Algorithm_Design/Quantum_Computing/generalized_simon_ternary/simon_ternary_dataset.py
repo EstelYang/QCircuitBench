@@ -25,7 +25,7 @@ def simon_oracle_3d(n, secret_string, key_string):
 
         def add_ternary(t1, t2):
 
-            return ''.join(str((int(t1[i]) + int(t2[i])) % 3) for i in range(len(t1)))
+            return "".join(str((int(t1[i]) + int(t2[i])) % 3) for i in range(len(t1)))
 
         def find_cycle(start, secret_string):
 
@@ -64,17 +64,21 @@ def simon_oracle_3d(n, secret_string, key_string):
     base_gate = XGate()
 
     for cycle_idx, cycle in enumerate(cycles):
-        binary_idx = format(cycle_idx, f'0{math.ceil(math.log2(len(cycles)))}b')  # Binary encoding of the cycle index
+        binary_idx = format(
+            cycle_idx, f"0{math.ceil(math.log2(len(cycles)))}b"
+        )  # Binary encoding of the cycle index
         for number in cycle:
-            ctrl_states = ''.join(format(int(digit), '02b') for digit in number)
+            ctrl_states = "".join(format(int(digit), "02b") for digit in number)
             # For each bit in the binary index, add control logic to the corresponding ancilla qubit
             for bit_pos, bit in enumerate(binary_idx):
-                if bit == '1':
-                    cgate = base_gate.control(num_ctrl_qubits=len(ctrl_states), ctrl_state=ctrl_states)
-                    oracle.append(cgate, qr1[:len(ctrl_states)] + [qr2[bit_pos]])
+                if bit == "1":
+                    cgate = base_gate.control(
+                        num_ctrl_qubits=len(ctrl_states), ctrl_state=ctrl_states
+                    )
+                    oracle.append(cgate, qr1[: len(ctrl_states)] + [qr2[bit_pos]])
 
     for qubit in range(2 * n, math.ceil(math.log2(len(cycles)))):
-        key_string2 = ''.join(format(int(digit), '02b') for digit in key_string)
+        key_string2 = "".join(format(int(digit), "02b") for digit in key_string)
         if key_string2[qubit - n] == "1":
             oracle.x(qubit)
 
@@ -164,31 +168,24 @@ def extract_gate_definition():
             gh_end = gh_pos + content[gh_pos:].find("}") + 1
             igh_end = igh_pos + content[igh_pos:].find("}") + 1
             oracle_def = oracle_def.replace(content[gh_pos:gh_end].strip(), "")
-            oracle_def = oracle_def.replace(content[igh_pos:igh_end].strip(), "").strip()
+            oracle_def = oracle_def.replace(
+                content[igh_pos:igh_end].strip(), ""
+            ).strip()
 
             with open(f"{oracle_dir}/{oracle_file}", "w") as file:
                 file.write(oracle_def)
 
             if not circuit_save:
                 rest_qasm = (
-                        content[:gh_end].strip()  # Keep GH definition
-                        + "\n\n" + content[igh_pos:igh_end].strip()  # Keep IGH definition
-                        + f'\n\ninclude "{oracle_file}";\n'
-                        + content[bit_pos:].strip()  # Keep the rest of the circuit
+                    content[:gh_end].strip()  # Keep GH definition
+                    + "\n\n"
+                    + content[igh_pos:igh_end].strip()  # Keep IGH definition
+                    + f'\n\ninclude "{oracle_file}";\n'
+                    + content[bit_pos:].strip()  # Keep the rest of the circuit
                 )
                 with open(output_qasm_file, "w") as file:
                     file.write(rest_qasm)
                 circuit_save = True
-
-
-def generate_dataset_json():
-    """Generates a JSON dataset for the Algorithm.
-    Format: {"input": description, "output": circuit}
-
-    """
-    # Replace the placeholder in the description with the qubit number
-    # Create the json file with different entries.
-    pass
 
 
 def remove_header(qasm_code):
@@ -204,10 +201,8 @@ def remove_space_between_cu_and_parenthesis(qasm_code):
     """
     Remove spaces between 'cu_{n}' and '('.
     """
-    # 正则表达式用于查找 cu_n 和 ( 之间的空格
-    pattern = re.compile(r'(cu_\d+)\s+\(')
-    # 用re.sub方法将其替换为没有空格的形式
-    modified_qasm = pattern.sub(r'\1(', qasm_code)
+    pattern = re.compile(r"(cu_\d+)\s+\(")
+    modified_qasm = pattern.sub(r"\1(", qasm_code)
     return modified_qasm
 
 
@@ -242,7 +237,7 @@ def check_dataset():
         t_range = min(10, 4 ** (n - 2))
         for t in range(1, 1 + t_range):
             print(t)
-            print('*'*10)
+            print("*" * 10)
             print_and_save(f"   Running Test Case {t}", text)
             with open(f"test_oracle/n{n}/trial{t}/oracle.inc", "r") as file:
                 oracle_def = file.read()
@@ -266,8 +261,10 @@ def check_dataset():
                 n = len(secret_string)
                 equivalents = set()
                 equivalents.add(secret_string)
-                rotated_string = ''.join(
-                    str((int(secret_string[i]) + int(secret_string[i])) % 3) for i in range(len(secret_string)))
+                rotated_string = "".join(
+                    str((int(secret_string[i]) + int(secret_string[i])) % 3)
+                    for i in range(len(secret_string))
+                )
                 equivalents.add(rotated_string)
 
                 if not isinstance(prediction, str):
@@ -295,14 +292,12 @@ def main():
     parser.add_argument(
         "-f",
         "--func",
-        choices=["qasm", "json", "gate", "check"],
-        help="The function to call: generate qasm circuit, json dataset or extract gate definition.",
+        choices=["qasm", "gate", "check"],
+        help="The function to call: generate qasm circuit, extract gate definition, or check dataset.",
     )
     args = parser.parse_args()
     if args.func == "qasm":
         generate_circuit_qasm()
-    elif args.func == "json":
-        generate_dataset_json()
     elif args.func == "gate":
         extract_gate_definition()
     elif args.func == "check":

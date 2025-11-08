@@ -1,0 +1,14 @@
+Given a black box function $f(a) = x^a mod N$. The function is guaranteed to return the modular exponentiation of a fixed integer $x$ raised to the input $a$, modulo the integer $N$. In other words, given input $a$, the oracle returns $x^a mod N$. Please design a quantum algorithm to factor the integer $N$ with given $a$. The function is provided as a black-box oracle gate named "Oracle" implemented as Cirq Gate, which operates as $O_f \ket{a}\ket{y}\ket{aux}= \ket{a}\ket{y \oplus (x^a mod N)}\ket{aux}$. It should be applied in the circuit using "circuit.append(Oracle.on(*qubits))". We can use $n = ceil(log_2 N)$ to represent $N$.Then the auxillary $\ket{aux}$ are indexed from $0$ to $n+1$, the input qubits $\ket{a}$ are indexed from $n+2$ to $3\times n + 1$ and the output qubits $\ket{f(x)}$ are indexed from $3\times n + 2$ to $4\times n + 1$. When you measure the circuit, please follow the format "circuit.append(cirq.measure(qubits[i], key=f"c{i}"))" for each qubit. Please provide the following components for algorithm design to factor $N = $\{The number needed to factor\} with $a = $\{coprime base\}. The quantum circuit should have $n = $\{qubit number\}: 1. the corresponding quantum circuit implementation with Cirq. 2.the post-processing code run_and_analyze(circuit, N, a) (circuit should be a cirq.Circuit object, 'N' is int, 'a' is int) in python which simulates the circuit and returns the factors of $N$ according to the simulation results.
+For part 1, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def algorithm(Oracle):"
+the function must return a cirq.Circuit object.
+For part 2, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def run_and_analyze(circuit, N, a):"
+this function must return Optional[tuple[int, int]], which are the two factors of $N$ or None.
+Please strictly output in this format:
+cirq```
+[Cirq quantum circuit code here]
+```
+python```
+[Python post-processing code here]
+```

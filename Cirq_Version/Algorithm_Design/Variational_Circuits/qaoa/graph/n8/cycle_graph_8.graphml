@@ -1,0 +1,33 @@
+# This file represents a NetworkX graph
+
+
+Nodes in the graph:
+
+ - Node ID: 0
+ - Node ID: 1
+ - Node ID: 2
+ - Node ID: 3
+ - Node ID: 4
+ - Node ID: 5
+ - Node ID: 6
+ - Node ID: 7
+
+
+Edges in the graph:
+
+ - Edge between Node 0 and Node 1
+ - Edge between Node 0 and Node 7
+ - Edge between Node 1 and Node 2
+ - Edge between Node 2 and Node 3
+ - Edge between Node 3 and Node 4
+ - Edge between Node 4 and Node 5
+ - Edge between Node 5 and Node 6
+ - Edge between Node 6 and Node 7
+
+
+Graph structure summary:
+
+ - Total nodes: 8
+
+ - Total edges: 8
+

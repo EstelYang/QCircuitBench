@@ -1,0 +1,16 @@
+OPENQASM 3.0;
+include "stdgates.inc";
+qubit[12] q;
+t q[6];
+h q[6];
+cx q[0], q[10];
+t q[3];
+t q[4];
+t q[9];
+h q[6];
+s q[5];
+s q[8];
+s q[9];
+h q[3];
+h q[11];
+h q[10];

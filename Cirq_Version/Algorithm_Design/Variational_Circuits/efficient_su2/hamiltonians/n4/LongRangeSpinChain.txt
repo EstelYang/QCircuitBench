@@ -1,0 +1,22 @@
+Hamiltonian (LongRangeSpinChain) for n=4 qubits:
+0.0 * IIII
++ 1.0 * XXII
++ 1.0 * YYII
++ 1.0 * ZZII
++ 0.25 * XIXI
++ 0.25 * YIYI
++ 0.25 * ZIZI
++ 0.1111111111111111 * XIIX
++ 0.1111111111111111 * YIIY
++ 0.1111111111111111 * ZIIZ
++ 1.0 * IXXI
++ 1.0 * IYYI
++ 1.0 * IZZI
++ 0.25 * IXIX
++ 0.25 * IYIY
++ 0.25 * IZIZ
++ 1.0 * IIXX
++ 1.0 * IIYY
++ 1.0 * IIZZ
+
+Ground state energy: -6.223995

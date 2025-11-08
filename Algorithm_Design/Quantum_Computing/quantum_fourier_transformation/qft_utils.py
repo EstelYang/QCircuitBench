@@ -93,6 +93,5 @@ def verify_result_vector(circuit, n, x, eps=1e-3):
     statevector = result.get_statevector(circ)
 
     goal_state = goal_state_vector(n, x)
-    # print(f"    Goal State: {goal_state.data}    Output State: {statevector.data}")
 
     return statevector.equiv(goal_state, rtol=eps)

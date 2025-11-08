@@ -1,0 +1,14 @@
+The W State is a quantum superposition with equal expansion coefficients of all possible pure states in which exactly one of the qubits is in the excited state $\ket{1}$ while all other ones are in the ground state $\ket{0}$. For a system with $n$ qubits, the W state is defined as $\ket{\mathrm{W}}=\frac{1}{\sqrt{n}}(\ket{100 \ldots 0}+\ket{010 \ldots 0}+\ldots+\ket{00 \ldots 01})$. Please design a quantum algorithm to prepare the W state. Please provide the following components for the algorithm design with $n = $\{qubit number\}: 1. the corresponding quantum circuit implementation with Cirq. 2. the post-processing code run_and_analyze(circuit) (circuit should be a cirq.Circuit object) in python which returns the qubit indices of the prepared state as a list, where circuit is the implemented circuit.
+For part 1, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def algorithm():"
+the function must return a cirq.Circuit object.
+For part 2, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def run_and_analyze(circuit):"
+this function must return a list, which is the qubit indices of the prepared state.
+Please strictly output in this format:
+cirq```
+[Cirq quantum circuit code here]
+```
+python```
+[Python post-processing code here]
+```

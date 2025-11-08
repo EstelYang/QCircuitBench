@@ -1,7 +1,10 @@
 import os
-def generate_dataset_json():
-    directory = "Quantum_Computing/simon"
-    with open(f"{directory}/simon_description.txt", "r") as f:
+import json
+
+
+def generate_dataset_json(output_path):
+    directory = "."
+    with open(f"{directory}/simon_description.txt", "r", encoding='utf-8') as f:
         template = f.read()
     with open(f"{directory}/simon_post_processing.py", "r") as f:
         post = f.read()
@@ -12,9 +15,12 @@ def generate_dataset_json():
         with open(os.path.join(directory, filename), "r") as f:
             completion = f.read()
         qubit_number = filename.split("_")[1].split(".")[0][1:]
-        if int(qubit_number) > 14:
-            continue
         prompt = template.replace("$\{qubit number\}", f"{qubit_number}$").replace("\{QASM / Qiskit\}", "QASM")
         dic = {"prompt": prompt, "completion": f"```qasm\n{completion}```\n```python\n{post}```"}
         data.append(dic)
+    os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as fout:
+        for item in data:
+            fout.write(json.dumps(item, ensure_ascii=False) + "\n")
+    print('ok')
     return data

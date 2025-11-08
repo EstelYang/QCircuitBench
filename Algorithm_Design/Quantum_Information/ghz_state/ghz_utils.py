@@ -59,7 +59,6 @@ def verify_result_vector(circuit, n, eps=1e-3):
     circ = circuit.copy()
     circ.save_statevector()
     circ = transpile(circ, aer_sim)
-    # qubit_indices = run_and_analyze(circ, aer_sim)
     goal_state = goal_state_vector(n)
     result = aer_sim.run(circ).result()
     statevector = result.get_statevector(circ)

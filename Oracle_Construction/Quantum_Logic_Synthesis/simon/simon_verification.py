@@ -1,7 +1,8 @@
+from pathlib import Path
+import time
 from qiskit.qasm3 import loads
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import AerSimulator
-import numpy as np
 import random
 
 
@@ -30,14 +31,88 @@ def generate_random_strings(n, test_num=20):
     return list(selected_strings)
 
 
+def _compute_gate_count(circuit):
+    return sum(circuit.count_ops().values())
+
+
+def _simulate_time(aer_sim, circuit, shots):
+    compiled = transpile(circuit, aer_sim)
+    for _ in range(warmup_runs := 3):
+        aer_sim.run(compiled, shots=shots).result()
+    start = time.time()
+    aer_sim.run(compiled, shots=shots).result()
+    return time.time() - start
+
+
+def efficiency_check(qasm_string, n, s_str, key_str, total_shot):
+    base_dir = None
+    base_dir = Path(base_dir) if base_dir else Path.cwd()
+    gt_path = (
+            base_dir
+            / "Oracle_Construction"
+            / "Quantum_Logic_Synthesis"
+            / "simon"
+            / f"simon_n{n}"
+            / f"s{s_str}"
+            / f"simon_n{n}_s{s_str}_k{key_str}.qasm"
+    )
+
+    try:
+        model_circuit = loads(qasm_string)
+        ground_truth_circuit = loads(gt_path.read_text())
+    except Exception:
+        return float("nan"), float("nan"), float("nan")
+
+    model_gate_count = _compute_gate_count(model_circuit)
+    ground_gate_count = _compute_gate_count(ground_truth_circuit)
+    gate_count_ratio = (
+        model_gate_count / ground_gate_count if model_gate_count else float("nan")
+    )
+
+    print("Oracle Construction tasks don't need shots. So here nan (N/A) is correct.")
+    shot_ratio = float("nan")
+
+    aer_sim = AerSimulator()
+    model_time = _simulate_time(aer_sim, model_circuit, total_shot)
+    ground_time = _simulate_time(aer_sim, ground_truth_circuit, total_shot)
+    time_ratio = model_time / ground_time if ground_time else float("nan")
+
+    return gate_count_ratio, shot_ratio, time_ratio
+
+
 def check_model(qasm_string, n, s_str, key_str):
+    qasm_syntax = -1
+    print(
+        "Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.")
+    code_syntax = float("nan")
+    result_score = 0.0
+    gate_count_ratio = float("nan")
+    shot_ratio = float("nan")
+    time_ratio = float("nan")
+
     oracle_circuit = verify_qasm_syntax(qasm_string)
     if oracle_circuit is None:
-        return -1
+        qasm_syntax = 0
+        return (
+            qasm_syntax,
+            code_syntax,
+            result_score,
+            gate_count_ratio,
+            shot_ratio,
+            time_ratio,
+        )
+    qasm_syntax = 1
+
     input_states = generate_random_strings(n)
     aer_sim = AerSimulator()
+
+    total_cases = 0
+    total_success = 0
+    total_shot = 10
+    gate_count_ratio, shot_ratio, time_ratio = efficiency_check(
+        qasm_string, n, s_str, key_str, total_shot
+    )
     try:
-        total_shot = 10
         j = s_str[::-1].find("1")
         for x_str in input_states:
             if x_str[::-1][j] == "0":
@@ -60,43 +135,36 @@ def check_model(qasm_string, n, s_str, key_str):
             circ = transpile(circuit, aer_sim)
             result = aer_sim.run(circ, shots=total_shot).result()
             count = result.get_counts()
+            total_cases += 1
             if len(count) != 1 or list(count.keys())[0] != str(correct_output):
                 print(f"        Error: counts: {count}")
-                return 0
             else:
-                print(f"        Success")
-        return 1
+                print("        Success")
+                total_success += 1
+
     except Exception as e:
-        print(f"Error: {e}")
-        return -1
+        print(f"Run-time error: {e}")
+
+    if total_cases > 0:
+        result_score = total_success / total_cases
+    return (
+        qasm_syntax,
+        code_syntax,
+        result_score,
+        gate_count_ratio,
+        shot_ratio,
+        time_ratio,
+    )
 
 
-def main():
-    qasm_string = """
-OPENQASM 3.0;
-include "stdgates.inc";
-gate Oracle _gate_q_0, _gate_q_1, _gate_q_2, _gate_q_3, _gate_q_4, _gate_q_5, _gate_q_6, _gate_q_7, _gate_q_8, _gate_q_9, _gate_q_10, _gate_q_11, _gate_q_12, _gate_q_13 {
-  cx _gate_q_0, _gate_q_7;
-  cx _gate_q_1, _gate_q_8;
-  cx _gate_q_2, _gate_q_9;
-  cx _gate_q_3, _gate_q_10;
-  cx _gate_q_4, _gate_q_11;
-  cx _gate_q_5, _gate_q_12;
-  cx _gate_q_6, _gate_q_13;
-  cx _gate_q_1, _gate_q_8;
-  cx _gate_q_1, _gate_q_10;
-  cx _gate_q_1, _gate_q_11;
-  x _gate_q_7;
-  x _gate_q_11;
-}
-qubit[14] q;
-Oracle q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7], q[8], q[9], q[10], q[11], q[12], q[13];
-"""
-    n = 7
-    s_str = "0011010"
-    key_str = "0010001"
-    print(check_model(qasm_string, n, s_str, key_str))
-
-
-if __name__ == "__main__":
-    main()
+def check_description(prompt):
+    s = "The oracle $O_f$ encodes the function $f:"
+    s2 = "secret string $s"
+    s3 = "consider the least index $j$ so that $s_j = 1$"
+    if s in prompt and s2 in prompt and s3 in prompt:
+        n = int(prompt.split("$n = ")[1].split("$")[0])
+        s_str = prompt.split("$s = ")[1].split("$")[0]
+        key_str = prompt.split("$b = ")[1].split("$")[0]
+        return True, {"n": n, "s_str": s_str, "key_str": key_str}
+    else:
+        return False, None

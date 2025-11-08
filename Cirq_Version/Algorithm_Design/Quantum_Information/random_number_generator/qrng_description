@@ -1,0 +1,14 @@
+The properties of quantum mechanics provide the opportunity to generate truly random numbers. Please design a quantum algorithm to generate $n$-bit random numbers. When you measure the circuit, please follow the format "circuit.append(cirq.measure(qubits[i], key=f"c{i}"))" for each qubit. Please provide the following components for the algorithm design with $n = $\{qubit number\}: 1. the corresponding quantum circuit implementation with Cirq. 2. the post-processing code run_and_analyze(circuit) (circuit should be a cirq.Circuit object) in python which simulates the circuit and returns the generated random number according to the simulation results.
+For part 1, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def algorithm():"
+the function must return a cirq.Circuit object.
+For part 2, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def run_and_analyze(circuit):"
+this function must return a str, which is the generated random number.
+Please strictly output in this format:
+cirq```
+[Cirq quantum circuit code here]
+```
+python```
+[Python post-processing code here]
+```

@@ -1,0 +1,13 @@
+Encode $N$ features $\mathbf{x} = (x_0, \ldots, x_{N-1})$ with single-qubit rotations (here via $R_Y$):
+$\lvert \mathbf{x} \rangle = \bigotimes_{i=1}^{N} \big( \cos(x_i)\lvert 0 \rangle + \sin(x_i)\lvert 1 \rangle \big).$
+This encodes one data point at a time and uses $N$ qubits with constant circuit depth.
+Define the unitary
+$S_{\mathbf{x}_j} = \bigotimes_{i=1}^{N} U(x_j^{(i)})$,
+where
+$U(x_j^{(i)}) = \begin{bmatrix} \cos(x_j^{(i)}) & -\sin(x_j^{(i)}) \\ \sin(x_j^{(i)}) & \cos(x_j^{(i)}) \end{bmatrix}.$
+Recall the single-qubit $Y$-rotation:
+$R_Y(\theta) = e^{-i \theta Y / 2} =
+\begin{bmatrix} \cos(\theta/2) & -\sin(\theta/2) \\ \sin(\theta/2) & \cos(\theta/2) \end{bmatrix}$,
+so $U(x_j^{(i)}) = R_Y(2 x_j^{(i)}).$
+We have data point $\mathbf{x} = (0, \pi/4, \pi/2)$ on 3 qubits.
+Provide the corresponding quantum circuit implementation for this type of data encoding in OpenQASM 3.0.

@@ -1,4 +1,4 @@
-OPENQASM 3;
+OPENQASM 3.0;
 include "stdgates.inc";
 include "oracle.inc";
 bit[11] c161;

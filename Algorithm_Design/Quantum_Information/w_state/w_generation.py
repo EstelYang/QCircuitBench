@@ -3,7 +3,6 @@ from qiskit import QuantumCircuit
 
 # This is modified from the original code of NWQBench
 
-
 def F_gate(theta):
     circuit = QuantumCircuit(2)
     circuit.ry(-theta, 1)

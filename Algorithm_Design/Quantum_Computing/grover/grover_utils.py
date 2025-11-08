@@ -16,7 +16,7 @@ def plug_in_oracle(qasm_code, oracle_def):
     full_qasm = (
         qasm_code[:oracle_pos]
         + oracle_def
-        + qasm_code[oracle_pos + len('include "oracle.inc";') :]
+        + qasm_code[oracle_pos + len('include "oracle.inc";'):]
     )
     return full_qasm
 

@@ -10,19 +10,15 @@ def replace_igh_with_inv(input_file, output_file):
     inside_igh_definition = False
 
     for line in lines:
-        # Detect the beginning of the IGH gate definition
         if "gate IGH" in line:
             inside_igh_definition = True
-            continue  # Skip this line
+            continue
 
-        # Detect the end of the IGH gate definition
         if inside_igh_definition and "}" in line:
             inside_igh_definition = False
-            continue  # Skip this line
+            continue
 
-        # If we're not inside the IGH definition, process the line
         if not inside_igh_definition:
-            # Replace any calls to the IGH gate with "inv @ GH"
             new_line = line.replace("IGH", "inv @ GH")
             new_lines.append(new_line)
 
@@ -51,7 +47,7 @@ def process_full_circuit_directory(root_directory):
                 print(f"Processed: {input_qasm_file} -> output_qasm_file")
 
 
-root_directory = "full_circuit"  # Replace with your root dir
+root_directory = "full_circuit"
 process_full_circuit_directory(root_directory)
 
 print("All files in full_circuit have been processed, checked, and executed.")

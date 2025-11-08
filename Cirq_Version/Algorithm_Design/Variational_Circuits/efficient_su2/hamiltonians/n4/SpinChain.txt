@@ -1,0 +1,13 @@
+Hamiltonian (SpinChain) for n=4 qubits:
+0.0 * IIII
++ 1.0 * XXII
++ 1.0 * YYII
++ 1.0 * ZZII
++ 1.0 * IXXI
++ 1.0 * IYYI
++ 1.0 * IZZI
++ 1.0 * IIXX
++ 1.0 * IIYY
++ 1.0 * IIZZ
+
+Ground state energy: -6.464102

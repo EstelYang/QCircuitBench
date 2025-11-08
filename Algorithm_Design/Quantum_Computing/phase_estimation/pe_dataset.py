@@ -50,7 +50,6 @@ def save_qasm(circuit, directory, filename):
         os.makedirs(directory)
 
     with open(f"{directory}/{filename}", "w") as file:
-        # dump(circuit, file, disable_constants=True)
         dump(circuit, file)
 
 
@@ -244,10 +243,6 @@ def check_dataset():
                 if not isinstance(prediction, float):
                     raise ValueError("The prediction should be a float.")
                 err = abs(prediction - theta)
-                # print_and_save(
-                #     f"        Prediction: {prediction}, True Phase{theta}, Error: {err}",
-                #     text,
-                # )
                 if err <= tol:
                     cnt_success += 1
                 else:
@@ -271,20 +266,17 @@ def main():
         "--func",
         choices=[
             "qasm",
-            "json",
             "gate",
             "oracle_rename",
             "qasm_rename",
             "power",
             "check",
         ],
-        help="The function to call: generate qasm circuit, json dataset or extract gate definition.",
+        help="The function to call: generate qasm circuit, extract gate definition, rename oracle files, rename qasm files, construct power gates, or check dataset correctness.",
     )
     args = parser.parse_args()
     if args.func == "qasm":
         generate_circuit_qasm()
-    elif args.func == "json":
-        generate_dataset_json()
     elif args.func == "gate":
         extract_gate_definition()
     elif args.func == "oracle_rename":

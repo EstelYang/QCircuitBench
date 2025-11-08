@@ -1,0 +1,14 @@
+OPENQASM 3.0;
+include "stdgates.inc";
+include "oracle.inc";
+bit[3] c0;
+qubit[5] q4;
+h q4[0];
+h q4[1];
+h q4[4];
+Oracle q4[0], q4[1], q4[2], q4[3], q4[4];
+h q4[0];
+h q4[1];
+c0[2] = measure q4[4];
+c0[0] = measure q4[0];
+c0[1] = measure q4[1];

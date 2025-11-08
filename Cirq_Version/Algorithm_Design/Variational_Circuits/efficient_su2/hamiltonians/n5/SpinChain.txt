@@ -1,0 +1,16 @@
+Hamiltonian (SpinChain) for n=5 qubits:
+0.0 * IIIII
++ 1.0 * XXIII
++ 1.0 * YYIII
++ 1.0 * ZZIII
++ 1.0 * IXXII
++ 1.0 * IYYII
++ 1.0 * IZZII
++ 1.0 * IIXXI
++ 1.0 * IIYYI
++ 1.0 * IIZZI
++ 1.0 * IIIXX
++ 1.0 * IIIYY
++ 1.0 * IIIZZ
+
+Ground state energy: -7.711545

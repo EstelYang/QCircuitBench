@@ -40,7 +40,6 @@ def post_processing(string_list):
     # Modulo 2
     M_I_final = M_I_rref[0].applyfunc(mod2)
 
-
     # Non-Trivial solution
     if all(value == 0 for value in M_I_final[-1, :M.shape[1]]):
         result_s = "".join(str(c) for c in M_I_final[-1, M.shape[1]:])

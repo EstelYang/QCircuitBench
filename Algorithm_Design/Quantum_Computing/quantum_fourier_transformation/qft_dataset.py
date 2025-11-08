@@ -100,16 +100,6 @@ def extract_gate_definition():
                 circuit_save = True
 
 
-def generate_dataset_json():
-    """Generates a JSON dataset for the Algorithm.
-    Format: {"input": description, "output": circuit}
-
-    """
-    # Replace the placeholder in the description with the qubit number
-    # Create the json file with different entries.
-    pass
-
-
 def check_dataset():
     """Check the QFT dataset."""
     shots = 10
@@ -155,16 +145,10 @@ def check_dataset():
             cnt_fail = 0
             for shot in range(shots):
                 flag = verify_result_vector(circuit, n, x_num, eps)
-                # qubit_indices = run_and_analyze(circuit.copy(), aer_sim)
-                # flag = verify_result_matrix(circuit, n, x_num, qubit_indices, eps)
                 if flag:
                     cnt_success += 1
                 else:
                     cnt_fail += 1
-                # print_and_save(
-                #     f"        Prediction: {prediction}; Secret String: {secret_string}",
-                #     text,
-                # )
             print_and_save(
                 f"        Success: {cnt_success}/{shots}, Fail: {cnt_fail}/{shots}",
                 text,
@@ -184,14 +168,12 @@ def main():
     parser.add_argument(
         "-f",
         "--func",
-        choices=["qasm", "json", "gate", "check"],
-        help="The function to call: generate qasm circuit, json dataset or extract gate definition.",
+        choices=["qasm", "gate", "check"],
+        help="The function to call: generate qasm circuit, extract gate definition, or check dataset correctness.",
     )
     args = parser.parse_args()
     if args.func == "qasm":
         generate_circuit_qasm()
-    elif args.func == "json":
-        generate_dataset_json()
     elif args.func == "gate":
         extract_gate_definition()
     elif args.func == "check":

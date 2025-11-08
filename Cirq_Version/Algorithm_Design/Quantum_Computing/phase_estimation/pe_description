@@ -1,0 +1,14 @@
+Given a black box unitary transformation $U$ and a quantum state $\ket{\psi}$, where $U \ket{\psi} = e^{2\pi i \theta} \ket{\psi}$, please design a quantum algorithm to estimate the phase $\theta$ of the eigenvalue to a precision of $\frac{1}{2^n}$. Specifically, we consider $1$-qubit quantum state $\ket{\psi}$ which can be prepared from a gate named "psi_gate" from $\ket{0}$. You are provided with a controlled-$U$ gate named "cu_gate" where the first qubit is control qubit, and the second qubit is target qubit. The gates "psi_gate" and "cu_gate" are implemented as Cirq Gate. "psi_gate" can be applied in the circuit using "circuit.append(psi_gate.on(qubits[i])" and "cu_gate" can be applied in the circuit using "circuit.append((cu_gate ** (2 ** k)).on(qubits[k], qubits[target]))". When you measure the circuit, please follow the format "circuit.append(cirq.measure(qubits[i], key=f"c{i}"))" for each qubit. Please provide the following components for the algorithm design with $n = $\{qubit number\}: 1. the corresponding quantum circuit implementation with Cirq. 2. the post-processing code run_and_analyze(circuit)  (circuit should be a cirq.Circuit object) in python which simulates the circuit and returns the estimated phase $\theta$ according to the simulation results.
+For part 1, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def algorithm(cu_gate, psi_gate):"
+the function must return a cirq.Circuit object.
+For part 2, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def run_and_analyze(circuit):"
+this function must return a float, which is the estimated phase $\theta$.
+Please strictly output in this format:
+cirq```
+[Cirq quantum circuit code here]
+```
+python```
+[Python post-processing code here]
+```

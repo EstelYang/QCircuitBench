@@ -1,0 +1,9 @@
+The diffusion operator $V$ is used to reflect the input state with respect to a uniform superposition state $\ket{\psi}=\frac{1}{\sqrt{2^n}} \sum_{x=0}^{2^n-1} \ket{x}$. It can be constructed as $V=2\ket{\psi}\bra{\psi}-I$. The total number of the qubits is $n$. The input qubits are indexed from $0$ to $n-1$. The output qubits are indexed from $0$ to $n-1$. Please design an oracle based on the above description, with $n = $\{qubit number\}. Please provide the corresponding quantum circuit implementation with Cirq.
+Please define exactly the function below, without adding any arguments, docstrings, or renaming:
+"def oracle_circuit():"
+the function must return a cirq.Circuit object.
+Please strictly output in this format:
+cirq```
+[Cirq code here]
+```
+with nothing else. No rationale, explanation, or intermediate step.

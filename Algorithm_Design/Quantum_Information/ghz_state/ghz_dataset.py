@@ -20,16 +20,6 @@ def generate_circuit_qasm():
         save_qasm(circuit, filename)
 
 
-def generate_dataset_json():
-    """Generates a JSON dataset for the Algorithm.
-    Format: {"input": description, "output": circuit}
-
-    """
-    # Replace the placeholder in the description with the qubit number
-    # Create the json file with different entries.
-    pass
-
-
 def check_dataset():
     """Check the dataset for the GHZ state."""
     shots = 100
@@ -71,14 +61,12 @@ def main():
     parser.add_argument(
         "-f",
         "--func",
-        choices=["qasm", "json", "verify"],
-        help="The function to call: generate qasm circuit, json dataset or verify dataset. These commands work in given sequences.",
+        choices=["qasm", "verify"],
+        help="The function to call: generate qasm circuit or verify dataset.",
     )
     args = parser.parse_args()
     if args.func == "qasm":
         generate_circuit_qasm()
-    elif args.func == "json":
-        generate_dataset_json()
     elif args.func == "verify":
         check_dataset()
 

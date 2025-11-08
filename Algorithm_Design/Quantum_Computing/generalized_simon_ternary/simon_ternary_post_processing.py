@@ -8,7 +8,7 @@ def binary_to_ternary(binary_str):
     """
     Convert binary qubit results to a ternary qudit string.
     """
-    return ''.join(str(int(binary_str[i:i+2], 2)) for i in range(0, len(binary_str), 2))
+    return ''.join(str(int(binary_str[i:i + 2], 2)) for i in range(0, len(binary_str), 2))
 
 
 def ternary_to_binary(ternary_str):
@@ -19,10 +19,6 @@ def ternary_to_binary(ternary_str):
 
 
 def mod3(x):
-    """
-    Helper function to compute x mod 3.
-    """
-
     return S(x % 3)
 
 
@@ -145,4 +141,3 @@ def run_and_analyze(circuit, aer_sim):
     counts = results.get_counts()
     prediction = recover_secret_string_3d(n, counts)
     return prediction
-

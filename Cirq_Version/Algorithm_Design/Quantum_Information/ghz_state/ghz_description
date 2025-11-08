@@ -1,0 +1,14 @@
+The Greenberger-Horne-Zeilinger State (GHZ State) is a maximally entangled state defined as $\ket{\mathrm{GHZ}}=\frac{\ket{0}^{\otimes n}+\ket{1}^{\otimes n}}{\sqrt{2}}$ for $n$ qubits. Please design a quantum algorithm to prepare the GHZ state. Please provide the following components for the algorithm design with $n = $\{qubit number\}: 1. the corresponding quantum circuit implementation with Cirq. 2. the post-processing code run_and_analyze(circuit) (circuit should be a cirq.Circuit object) in python which returns the qubit indices of the prepared state as a list, where circuit is the implemented circuit.
+For part 1, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def algorithm():"
+the function must return a cirq.Circuit object.
+For part 2, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def run_and_analyze(circuit):"
+this function must return a list, which is the qubit indices of the prepared state.
+Please strictly output in this format:
+cirq```
+[Cirq quantum circuit code here]
+```
+python```
+[Python post-processing code here]
+```

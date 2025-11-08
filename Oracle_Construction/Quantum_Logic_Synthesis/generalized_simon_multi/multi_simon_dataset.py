@@ -21,7 +21,7 @@ def save_qasm(circuit, directory, filename):
         qasm_content = file.read()
 
     # Replace all occurrences of '-' with '_'
-    qasm_content = re.sub(r'-', '_', qasm_content)
+    qasm_content = re.sub(r"-", "_", qasm_content)
 
     # Save the modified content back to the file
     with open(qasm_path, "w") as file:
@@ -47,51 +47,28 @@ def generate_circuit_qasm(test_num=5):
         key_strings = generate_random_strings(n, test_num)
         for secret_string1, secret_string2 in zip(secret_strings1, secret_strings2):
             for key_string in key_strings:
-                oracle = multi_simon_oracle(n, secret_string1, secret_string2, key_string)
+                oracle = multi_simon_oracle(
+                    n, secret_string1, secret_string2, key_string
+                )
                 circuit = QuantumCircuit(2 * n + 1)
                 circuit.append(oracle, range(2 * n + 1))
                 filename = f"multi_simon_n{n}_s(1){secret_string1}_s(2){secret_string2}_k{key_string}.qasm"
                 save_qasm(circuit, directory, filename)
 
 
-def generate_dataset_json():
-    """Generates a JSON dataset for the simon oracle.
-    Format: {"prompt": description, "completion": circuit}
-
-    """
-    with open("simon/simon_description.txt", "r") as f:
-        template = f.read()
-    DATA = []
-    for n in range(2, 15):
-        directory = f"simon/simon_n{n}"
-        data = []
-        for secret in os.listdir(directory):
-            current_dir = os.path.join(directory, secret)
-            secret_string = secret[1:]
-            for key in os.listdir(current_dir):
-                key_string = key.split('_')[3].split('.')[0][1:]
-                with open(os.path.join(current_dir, key), "r") as f:
-                    completion = f.read()
-            prompt = template.replace("$\{qubit number\}", f"{n}$").replace("$\{key string\}", f"{key_string}$").replace("$\{secret string\}", f"{secret_string}$").replace("\{QASM / Qiskit\}", "QASM")
-            dic = {"prompt": prompt, "completion": completion}
-            data.append(dic)
-        DATA.append(data)
-    return DATA
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-f",
         "--func",
-        choices=["qasm", "json"],
-        help="The function to call: generate qasm circuit or json dataset.",
+        choices=["qasm"],
+        help="The function to call: generate qasm circuit.",
     )
     args = parser.parse_args()
     if args.func == "qasm":
         generate_circuit_qasm()
-    elif args.func == "json":
-        generate_dataset_json()
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    generate_circuit_qasm()

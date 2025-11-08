@@ -1,0 +1,14 @@
+Given two $n$-qubit states $\ket{\psi}$ and $\ket{\phi}$, please design a quantum algorithm to calculate the similarity $| \braket{\psi | \phi}|^2$. The states can be prepared from $\ket{0^n}$ with two black box gates "Psi" and "Phi", they are jointly encapsulated as a single Cirq gate named "Oracle". It should be applied in the circuit using "circuit.append(Oracle.on(*psi_qubits, *phi_qubits))". When you measure the circuit, please follow the format "circuit.append(cirq.measure(qubits[i], key='result'))". Please provide the following components for the algorithm design with $n = $\{qubit number\}: 1. the corresponding quantum circuit implementation with Cirq. 2. the post-processing code run_and_analyze(circuit) (circuit should be a cirq.Circuit object) in python which simulates the circuit and returns the calculated similarity $| \braket{\psi | \phi}|^2$ according to the simulation results.
+For part 1, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def algorithm(Oracle):"
+the function must return a cirq.Circuit object.
+For part 2, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def run_and_analyze(circuit):"
+this function must return a float, which is the calculated similarity $| \braket{\psi | \phi}|^2$.
+Please strictly output in this format:
+cirq```
+[Cirq quantum circuit code here]
+```
+python```
+[Python post-processing code here]
+```

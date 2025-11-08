@@ -1,0 +1,13 @@
+Hamiltonian (LongRangeSpinChain) for n=3 qubits:
+0.0 * III
++ 1.0 * XXI
++ 1.0 * YYI
++ 1.0 * ZZI
++ 0.25 * XIX
++ 0.25 * YIY
++ 0.25 * ZIZ
++ 1.0 * IXX
++ 1.0 * IYY
++ 1.0 * IZZ
+
+Ground state energy: -3.750000

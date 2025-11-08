@@ -9,7 +9,13 @@ from multi_simon_generation import multi_simon_algorithm
 from multi_simon_post_processing import *
 from multi_simon_utils import *
 
-from qiskit import QuantumCircuit, transpile, QuantumRegister, ClassicalRegister, AncillaRegister
+from qiskit import (
+    QuantumCircuit,
+    transpile,
+    QuantumRegister,
+    ClassicalRegister,
+    AncillaRegister,
+)
 from qiskit.qasm3 import dump
 from qiskit_aer import AerSimulator
 import os
@@ -18,14 +24,14 @@ from multi_simon_post_processing import recover_secret_string
 
 
 def multi_simon_oracle(n, s1, s2, key_string):
-    """Creates a Simon oracle for the given secret string s.
+    """Creates a Generalized Simon oracle for the given secret string s.
 
     Parameters:
     - n (int): number of qubits
     - s (str): the secret string of length n
 
     Returns:
-    - Gate: the Simon oracle circuit as a gate
+    - Gate: the Generalized Simon oracle circuit as a gate
     """
 
     # Reverse the secret string to fit qiskit's qubit ordering
@@ -99,7 +105,7 @@ def save_qasm(circuit, directory, filename):
         qasm_content = file.read()
 
     # Replace all occurrences of '-' with '_'
-    qasm_content = re.sub(r'-', '_', qasm_content)
+    qasm_content = re.sub(r"-", "_", qasm_content)
 
     # Save the modified content back to the file
     with open(qasm_path, "w") as file:
@@ -117,7 +123,7 @@ def generate_random_strings(n, test_num=5):
 
 
 def generate_circuit_qasm(test_num=5):
-    """Generates QASM files for the Simon algorithm with different oracles."""
+    """Generates QASM files for the Generalized Simon algorithm with different oracles."""
     for n in range(2, 31):
         directory = f"full_circuit/multi_simon_n{n}"
         secret_strings1 = generate_random_strings(n, test_num)
@@ -125,7 +131,9 @@ def generate_circuit_qasm(test_num=5):
         key_strings = generate_random_strings(n, test_num)
         for secret_string1, secret_string2 in zip(secret_strings1, secret_strings2):
             for key_string in key_strings:
-                oracle = multi_simon_oracle(n, secret_string1, secret_string2, key_string)
+                oracle = multi_simon_oracle(
+                    n, secret_string1, secret_string2, key_string
+                )
                 circuit = multi_simon_algorithm(n, oracle)
                 filename = f"multi_simon_n{n}_s(1){secret_string1}_s(2){secret_string2}_k{key_string}.qasm"
                 save_qasm(circuit, directory, filename)
@@ -163,45 +171,29 @@ def extract_gate_definition():
             with open(input_file, "r") as file:
                 content = file.read()
 
-            # 查找 gate Oracle 的定义位置
             oracle_pos = content.find("gate Oracle")
             if oracle_pos == -1:
                 raise ValueError("Oracle gate not found in the file")
 
-            # 查找 qubit 和 bit 的定义位置
             register_pos = content.find("bit")
             if register_pos == -1:
                 raise ValueError("Register not found in the file")
 
-            # 提取从第一个 gate 定义开始的内容
             first_gate_pos = content.find("gate ")
             pre_gate_def = content[first_gate_pos:register_pos]
 
-            # 保存所有 gate 定义（包括 Oracle）到 oracle.inc 文件中
             with open(f"{oracle_dir}/{oracle_file}", "w") as file:
                 file.write(pre_gate_def)
 
-            # 修改 QASM 文件，将 Oracle 部分替换为 include 语句
             if not circuit_save:
                 rest_qasm = (
-                    content[:first_gate_pos]  # 保留到第一个 gate 之前的内容
+                    content[:first_gate_pos]
                     + f'include "{oracle_file}";\n'
-                    + content[register_pos:]  # 从 bit 定义开始的内容
+                    + content[register_pos:]
                 )
                 with open(output_qasm_file, "w") as file:
                     file.write(rest_qasm)
                 circuit_save = True
-
-
-
-def generate_dataset_json():
-    """Generates a JSON dataset for the Algorithm.
-    Format: {"input": description, "output": circuit}
-
-    """
-    # Replace the placeholder in the description with the qubit number
-    # Create the json file with different entries.
-    pass
 
 
 def check_dataset():
@@ -229,13 +221,11 @@ def check_dataset():
         total_fail = 0
         t_range = min(10, 4 ** (n - 2))
         for t in range(1, 1 + t_range):
-            # print(t)
-            # print('*'*10)
             print_and_save(f"   Running Test Case {t}", text)
             with open(f"test_oracle/n{n}/trial{t}/oracle.inc", "r") as file:
                 oracle_def = file.read()
             full_qasm = plug_in_oracle(qasm_code, oracle_def)
-            print(f't:{t}')
+            print(f"t:{t}")
             circuit = loads(full_qasm)
             with open(f"test_oracle/n{n}/trial{t}/oracle_info.txt", "r") as file:
                 content = file.read()
@@ -281,14 +271,12 @@ def main():
     parser.add_argument(
         "-f",
         "--func",
-        choices=["qasm", "json", "gate", "check"],
-        help="The function to call: generate qasm circuit, json dataset or extract gate definition.",
+        choices=["qasm", "gate", "check"],
+        help="The function to call: generate qasm circuit, extract gate definition, or check dataset correctness.",
     )
     args = parser.parse_args()
     if args.func == "qasm":
         generate_circuit_qasm()
-    elif args.func == "json":
-        generate_dataset_json()
     elif args.func == "gate":
         extract_gate_definition()
     elif args.func == "check":
@@ -297,4 +285,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -29,7 +29,8 @@ def generate_circuit_qasm(depth=20):
     for n in range(2, 13):
         for l in range(1, depth * n + 1):
             directory = f"clifford_n{n}/l{l}"
-            for i in range(3 * n):
+            # for i in range(3 * n):
+            for i in range(30 * n):  # change here to 30 扩大数据量
                 circuit = random_clifford_circuit(n, l)
                 filename = f"clifford_n{n}_l{l}_{i}.qasm"
                 save_qasm(circuit, directory, filename)
@@ -38,24 +39,18 @@ def generate_circuit_qasm(depth=20):
                 save_txt(output_state, directory, txt_filename)
 
 
-def generate_dataset_json():
-    pass
-
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-f",
         "--func",
-        choices=["qasm", "json"],
-        help="The function to call: generate qasm circuit or json dataset.",
+        choices=["qasm"],
+        help="The function to call: generate qasm circuit.",
     )
     args = parser.parse_args()
 
     if args.func == "qasm":
         generate_circuit_qasm()
-    elif args.func == "json":
-        generate_dataset_json()
 
 
 if __name__ == "__main__":

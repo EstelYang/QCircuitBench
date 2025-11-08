@@ -1,0 +1,20 @@
+# This file represents a NetworkX graph
+
+
+Nodes in the graph:
+
+ - Node ID: 0
+ - Node ID: 1
+
+
+Edges in the graph:
+
+ - Edge between Node 0 and Node 1
+
+
+Graph structure summary:
+
+ - Total nodes: 2
+
+ - Total edges: 1
+

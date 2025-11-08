@@ -1,0 +1,9 @@
+Given the initial state $\ket{{0}}^{{\otimes n}}$, we want to apply a Clifford circuit $C$ to transform it into a target state $\ket{{\psi}}$, i.e. $C \ket{{0}}^{{\otimes n}} = \ket{{\psi}}$. A Clifford circuit consists of gates from the Clifford group, including Hadamard (H), Phase (S), and CNOT gates. It is known that the transformation can be constructed without ancilla qubits. The input and output qubits are indexed from $0$ to $n−1$. Please design a circuit based on the above description, with $n=$ {qubit_number}, and the target state $\ket{{\psi}} = $ {target_state}. Please provide the corresponding quantum circuit implementation with Cirq using quantum gates from the given set.
+Please define exactly the function below, without adding any arguments, docstrings, or renaming:
+"def algorithm():"
+the function must return a cirq.Circuit object.
+Please strictly output in this format:
+cirq```
+[Cirq code here]
+```
+with nothing else. No rationale, explanation, or intermediate step.

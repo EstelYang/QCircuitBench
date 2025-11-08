@@ -1,22 +1,96 @@
+import json
+import argparse
+from pathlib import Path
 import os
-def generate_dataset_json():
-    """Generates a JSON dataset for the simon oracle.
-    Format: {"prompt": description, "completion": circuit}
 
-    """
-    with open("simon/simon_description.txt", "r") as f:
-        template = f.read()
-    DATA = []
-    for n in range(2, 15):
-        directory = f"simon/simon_n{n}"
-        for secret in os.listdir(directory):
-            current_dir = os.path.join(directory, secret)
-            secret_string = secret[1:]
-            for key in os.listdir(current_dir):
-                key_string = key.split('_')[3].split('.')[0][1:]
-                with open(os.path.join(current_dir, key), "r") as f:
-                    completion = f.read()
-            prompt = template.replace("$\{qubit number\}", f"{n}$").replace("$\{key string\}", f"{key_string}$").replace("$\{secret string\}", f"{secret_string}$").replace("\{QASM / Qiskit\}", "QASM")
-            dic = {"prompt": prompt, "completion": f"```qasm\n{completion}```"}
-            DATA.append(dic)
-    return DATA
+
+def read_text(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        return path.read_text(encoding="utf-8", errors="replace")
+
+
+def replace_qubit_number(desc: str, x: int) -> str:
+    desc = desc.replace(r"$\{qubit number\}", str(x) + str('$'))
+    desc = desc.replace("${qubit number}", str(x) + str('$'))
+    return desc
+
+
+def replace_type(desc: str) -> str:
+    desc = desc.replace("\{QASM / Qiskit\}", str('OpenQASM3.0'))
+    return desc
+
+
+def replace_str(desc: str, x, k) -> str:
+    desc = desc.replace("$\{secret string\}", str(x) + str('$'))
+    desc = desc.replace("$\{key string\}", str(k) + str('$'))
+    return desc
+
+
+def make_completion(cirq_src: str) -> str:
+    cirq_src = cirq_src.replace("\r\n", "\n").replace("\r", "\n")
+    blocks = [
+        "```qasm\n" + cirq_src + "\n```"
+    ]
+    return "\n".join(blocks)
+
+
+def build_dataset(
+        desc_path: Path,
+        algo_dir: Path,
+        out_jsonl: Path,
+):
+    bv_desc = read_text(desc_path)
+
+    out_jsonl.parent.mkdir(parents=True, exist_ok=True)
+
+    num_written = 0
+    with out_jsonl.open("w", encoding="utf-8") as fout:
+        for root, dirs, files in os.walk(algo_dir):
+            for filename in files:
+                if not filename.endswith(".qasm"):
+                    continue
+                file_path = os.path.join(root, filename)
+                parts = filename.replace(".qasm", "").split("_")
+                n = parts[1][1:]
+                secret = parts[2][1:]
+                key = parts[3][1:]
+                prompt = replace_qubit_number(bv_desc, int(n))
+                prompt = replace_type(prompt)
+                prompt = replace_str(prompt, secret, key)
+
+                qasm_src = read_text(Path(file_path))
+                completion = make_completion(qasm_src)
+
+                item = {
+                    "prompt": prompt,
+                    "completion": completion,
+                }
+                fout.write(json.dumps(item, ensure_ascii=False) + "\n")
+                num_written += 1
+
+    print(f"[DONE] Wrote {num_written} items to {out_jsonl}")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Build Simon JSONL dataset from description + QASM algos."
+    )
+    parser.add_argument("--desc", type=str, default="simon_description.txt",
+                        help="Path to simon_description")
+    parser.add_argument("--algo_dir", type=str, default="./",
+                        help="Directory containing simon_nX dir")
+    parser.add_argument("--out", type=str, default="sm_oracle_prompts.jsonl",
+                        help="Output JSONL path")
+    args = parser.parse_args()
+
+    build_dataset(
+        desc_path=Path(args.desc),
+        algo_dir=Path(args.algo_dir),
+        out_jsonl=Path(args.out),
+    )
+
+
+if __name__ == "__main__":
+    main()

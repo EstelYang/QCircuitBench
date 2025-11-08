@@ -1,0 +1,14 @@
+Given a black box function $f: \{0,1\}^n \longmapsto \{0,1\}^n$. The function is guaranteed to be a two-to-one mapping according to a secret string $s\in \{0, 1\}^n, s \neq 0^n$, where given $x_1 \neq x_2$，$f(x_1) = f(x_2) \iff x_1 \oplus x_2 = s$. Please design a quantum algorithm to find $s$. The function is provided as a black-box oracle gate named "oracle_gate" implemented as Cirq Gate, which operates as $O_f\ket{x}\ket{y} = \ket{x}\ket{y \oplus f(x)}$. It should be applied in the circuit using "circuit.append(oracle_gate.on(*qubits))". The input qubits $\ket{x}$ are indexed from $0$ to $n-1$, and the output qubits $\ket{f(x)}$ are indexed from $n$ to $2n-1$. When you measure the circuit, please follow the format "circuit.append(cirq.measure(qubits[i], key=f"c{i}"))" for each qubit. Please provide the following components for the algorithm design with $n = $\{qubit number\}: 1. the corresponding quantum circuit implementation with Cirq. 2. the post-processing code run_and_analyze(circuit) (circuit should be a cirq.Circuit object) in python which simulates the circuit and returns the secret string $s$ according to the simulation results.
+For part 1, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def algorithm(oracle_gate):"
+the function must return a cirq.Circuit object.
+For part 2, please define exactly one function below, without adding any arguments, docstrings, or renaming:
+"def run_and_analyze(circuit):"
+this function must return a str, which is the secret string $s$.
+Please strictly output in this format:
+cirq```
+[Cirq quantum circuit code here]
+```
+python```
+[Python post-processing code here]
+```

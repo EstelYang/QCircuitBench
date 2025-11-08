@@ -1,0 +1,2 @@
+psi: Statevector([0.5+0.5j, 0.5+0.5j],
+            dims=(2,))

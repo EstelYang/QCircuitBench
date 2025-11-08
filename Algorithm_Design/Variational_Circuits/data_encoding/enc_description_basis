@@ -1,0 +1,8 @@
+Map an $N$-bit string $\mathbf{x} = (b_1, \ldots, b_N)$ to the computational basis state 
+$\lvert \mathbf{x} \rangle = \lvert b_1 b_2 \cdots b_N \rangle$, where $b_i \in \{0, 1\}$.  
+A dataset $\mathcal{X} = \{ x^{(1)}, \ldots, x^{(M)} \}$ can be represented as  
+$\lvert \mathcal{X} \rangle = \frac{1}{\sqrt{M}} \sum_{m=1}^{M} \lvert x^{(m)} \rangle.$  
+Now we have a dataset $\mathcal{X} = \{ 101, 111 \}$ on 3 qubits; target  
+$\lvert \mathcal{X} \rangle = \frac{1}{\sqrt{2}}(\lvert 101 \rangle + \lvert 111 \rangle).$  
+Provide the corresponding quantum circuit implementation for this type of data encoding in OpenQASM 3.0.
+ 

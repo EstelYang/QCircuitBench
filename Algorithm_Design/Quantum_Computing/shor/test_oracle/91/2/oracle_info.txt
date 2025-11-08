@@ -1,0 +1,1 @@
+Oracle function : x^2 mod 91
