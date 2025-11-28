@@ -1,0 +1,2 @@
+Secret string: 0211
+Key string: 2010

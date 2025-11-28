@@ -1,0 +1,5 @@
+psi: Statevector([0.0582346 +0.j        , 0.67731098-0.73338842j],
+            dims=(2,))
+phi: Statevector([1.+0.j, 0.+0.j],
+            dims=(2,))
+overlap: 0.0033912683638923496

@@ -1,0 +1,1 @@
+Max Cut Solution (Binary): 11000010101001010110101010101

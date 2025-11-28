@@ -1,0 +1,1 @@
+Oracle function : x^10 mod 21

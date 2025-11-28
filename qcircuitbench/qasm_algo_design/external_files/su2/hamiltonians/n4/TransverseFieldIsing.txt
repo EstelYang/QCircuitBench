@@ -1,0 +1,11 @@
+Hamiltonian (TransverseFieldIsing) for n=4 qubits:
+0.0 * IIII
+- 1.0 * ZZII
+- 1.0 * IZZI
+- 1.0 * IIZZ
+- 1.0 * XIII
+- 1.0 * IXII
+- 1.0 * IIXI
+- 1.0 * IIIX
+
+Ground state energy: -4.758770

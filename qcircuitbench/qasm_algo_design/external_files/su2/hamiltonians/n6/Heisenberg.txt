@@ -1,0 +1,19 @@
+Hamiltonian (Heisenberg) for n=6 qubits:
+0.0 * IIIIII
++ 1.0 * XXIIII
++ 1.0 * YYIIII
++ 1.0 * ZZIIII
++ 1.0 * IXXIII
++ 1.0 * IYYIII
++ 1.0 * IZZIII
++ 1.0 * IIXXII
++ 1.0 * IIYYII
++ 1.0 * IIZZII
++ 1.0 * IIIXXI
++ 1.0 * IIIYYI
++ 1.0 * IIIZZI
++ 1.0 * IIIIXX
++ 1.0 * IIIIYY
++ 1.0 * IIIIZZ
+
+Ground state energy: -9.974309

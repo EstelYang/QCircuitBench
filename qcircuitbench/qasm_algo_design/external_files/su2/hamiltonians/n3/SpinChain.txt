@@ -1,0 +1,10 @@
+Hamiltonian (SpinChain) for n=3 qubits:
+0.0 * III
++ 1.0 * XXI
++ 1.0 * YYI
++ 1.0 * ZZI
++ 1.0 * IXX
++ 1.0 * IYY
++ 1.0 * IZZ
+
+Ground state energy: -4.000000

@@ -1,0 +1,3 @@
+Secret string 1: 0001010010
+Secret string 2: 1011100110
+Key string: 0001110100

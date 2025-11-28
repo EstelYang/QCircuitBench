@@ -1,0 +1,3 @@
+include: cirq_algo_bv.yaml
+task: cirq_algo_grover
+dataset_path: /home/chenhuanran/zwork/QCircuitNet/cirq_dataset/grover_prompts.jsonl

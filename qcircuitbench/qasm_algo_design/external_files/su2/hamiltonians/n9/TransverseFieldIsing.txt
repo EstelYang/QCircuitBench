@@ -1,0 +1,21 @@
+Hamiltonian (TransverseFieldIsing) for n=9 qubits:
+0.0 * IIIIIIIII
+- 1.0 * ZZIIIIIII
+- 1.0 * IZZIIIIII
+- 1.0 * IIZZIIIII
+- 1.0 * IIIZZIIII
+- 1.0 * IIIIZZIII
+- 1.0 * IIIIIZZII
+- 1.0 * IIIIIIZZI
+- 1.0 * IIIIIIIZZ
+- 1.0 * XIIIIIIII
+- 1.0 * IXIIIIIII
+- 1.0 * IIXIIIIII
+- 1.0 * IIIXIIIII
+- 1.0 * IIIIXIIII
+- 1.0 * IIIIIXIII
+- 1.0 * IIIIIIXII
+- 1.0 * IIIIIIIXI
+- 1.0 * IIIIIIIIX
+
+Ground state energy: -11.109566

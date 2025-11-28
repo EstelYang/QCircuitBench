@@ -1,0 +1,3 @@
+include: cirq_random_cli.yaml
+task: cirq_random_uni
+dataset_path: /root/zwork/QCircuitNet/sampled_cirq_oracle_dataset/uni_oracle_prompts.jsonl

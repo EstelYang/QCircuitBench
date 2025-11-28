@@ -1,0 +1,7 @@
+Hamiltonian (Heisenberg) for n=2 qubits:
+0.0 * II
++ 1.0 * XX
++ 1.0 * YY
++ 1.0 * ZZ
+
+Ground state energy: -3.000000

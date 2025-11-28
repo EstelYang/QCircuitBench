@@ -1,0 +1,3 @@
+include: qasm_oracle_bleu_bv.yaml
+task: qasm_oracle_bleu_ternary_simon
+dataset_path: /root/zwork/QCircuitNet/qasm_oracle_dataset/ternary_simon_oracle_prompts.jsonl

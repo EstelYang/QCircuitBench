@@ -1,0 +1,13 @@
+Hamiltonian (TransverseFieldIsing) for n=5 qubits:
+0.0 * IIIII
+- 1.0 * ZZIII
+- 1.0 * IZZII
+- 1.0 * IIZZI
+- 1.0 * IIIZZ
+- 1.0 * XIIII
+- 1.0 * IXIII
+- 1.0 * IIXII
+- 1.0 * IIIXI
+- 1.0 * IIIIX
+
+Ground state energy: -6.026674

@@ -1,0 +1,41 @@
+group:
+  - Quantum
+task: qasm_oracle_bv
+dataset_path: /root/zwork/QCircuitNet/qasm_oracle_dataset/bv_oracle_prompts.jsonl
+training_split: train
+test_split: train
+output_type: generate_until
+fewshot_split: train
+doc_to_text: "Question: {{prompt}}\nAnswer:"
+doc_to_target: "{{completion}}"
+process_results: !function qasm_oracle_utils.check_and_split
+metric_list:
+  - metric: semantic_score
+    aggregation: mean
+    higher_is_better: true
+  - metric: qasm_syntax_pass
+    aggregation: mean
+    higher_is_better: true
+  - metric: code_syntax_pass
+    aggregation: mean
+    higher_is_better: true
+  - metric: gate_count_ratio
+    aggregation: mean
+    higher_is_better: true
+  - metric: shot_ratio
+    aggregation: mean
+    higher_is_better: true
+  - metric: time_ratio
+    aggregation: mean
+    higher_is_better: true
+  - metric: exact_match
+    aggregation: mean
+    higher_is_better: true
+generation_kwargs:
+  until:
+    - "</s>"
+    - "Question"
+  do_sample: false
+  temperature: 0.0
+repeats: 1
+num_fewshot: 1

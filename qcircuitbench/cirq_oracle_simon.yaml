@@ -1,0 +1,3 @@
+include: cirq_oracle_bv.yaml
+task: cirq_oracle_simon
+dataset_path: /root/zwork/QCircuitNet/sampled_cirq_oracle_dataset/sm_oracle_prompts.jsonl

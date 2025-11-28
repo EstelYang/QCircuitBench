@@ -1,0 +1,81 @@
+# This file represents a NetworkX graph
+
+
+Nodes in the graph:
+
+ - Node ID: 0
+ - Node ID: 1
+ - Node ID: 2
+ - Node ID: 3
+ - Node ID: 4
+ - Node ID: 5
+ - Node ID: 6
+ - Node ID: 7
+ - Node ID: 8
+ - Node ID: 9
+ - Node ID: 10
+ - Node ID: 11
+ - Node ID: 12
+ - Node ID: 13
+ - Node ID: 14
+ - Node ID: 15
+ - Node ID: 16
+ - Node ID: 17
+ - Node ID: 18
+ - Node ID: 19
+ - Node ID: 20
+ - Node ID: 21
+ - Node ID: 22
+ - Node ID: 23
+ - Node ID: 24
+ - Node ID: 25
+ - Node ID: 26
+ - Node ID: 27
+ - Node ID: 28
+ - Node ID: 29
+
+
+Edges in the graph:
+
+ - Edge between Node 0 and Node 1
+ - Edge between Node 0 and Node 2
+ - Edge between Node 0 and Node 3
+ - Edge between Node 0 and Node 4
+ - Edge between Node 0 and Node 5
+ - Edge between Node 1 and Node 2
+ - Edge between Node 1 and Node 3
+ - Edge between Node 1 and Node 4
+ - Edge between Node 1 and Node 12
+ - Edge between Node 2 and Node 3
+ - Edge between Node 2 and Node 4
+ - Edge between Node 3 and Node 4
+ - Edge between Node 3 and Node 24
+ - Edge between Node 4 and Node 18
+ - Edge between Node 5 and Node 6
+ - Edge between Node 6 and Node 7
+ - Edge between Node 7 and Node 8
+ - Edge between Node 8 and Node 9
+ - Edge between Node 9 and Node 10
+ - Edge between Node 10 and Node 11
+ - Edge between Node 12 and Node 13
+ - Edge between Node 13 and Node 14
+ - Edge between Node 14 and Node 15
+ - Edge between Node 15 and Node 16
+ - Edge between Node 16 and Node 17
+ - Edge between Node 18 and Node 19
+ - Edge between Node 19 and Node 20
+ - Edge between Node 20 and Node 21
+ - Edge between Node 21 and Node 22
+ - Edge between Node 22 and Node 23
+ - Edge between Node 24 and Node 25
+ - Edge between Node 25 and Node 26
+ - Edge between Node 26 and Node 27
+ - Edge between Node 27 and Node 28
+ - Edge between Node 28 and Node 29
+
+
+Graph structure summary:
+
+ - Total nodes: 30
+
+ - Total edges: 35

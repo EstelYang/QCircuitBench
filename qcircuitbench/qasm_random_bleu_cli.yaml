@@ -1,0 +1,20 @@
+group:
+  - Quantum
+task: qasm_random_bleu_cli
+dataset_path: /root/zwork/QCircuitNet/qasm_oracle_dataset/cli_oracle_prompts.jsonl
+training_split: train
+test_split: test
+output_type: generate_until
+doc_to_text: "Question: {{prompt}}\nAnswer:"
+doc_to_target: "{{completion}}"
+generation_kwargs:
+  until:
+    - "</s>"
+    - "Question"
+  do_sample: false
+  temperature: 0.0
+metric_list:
+  - metric: bleu
+    aggregation: bleu
+    higher_is_better: true
+

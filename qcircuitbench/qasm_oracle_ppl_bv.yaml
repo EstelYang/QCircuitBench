@@ -1,0 +1,13 @@
+group:
+  - Quantum
+task: qasm_oracle_ppl_bv
+dataset_path: /home/chenhuanran/zwork/QCircuitNet/qasm_oracle_dataset/bv_prompts.jsonl
+training_split: train
+test_split: test
+output_type: loglikelihood
+doc_to_text: "Question: {{prompt}}\nAnswer:"
+doc_to_target: "{{completion}}"
+metric_list:
+  - metric: perplexity
+    aggregation: perplexity
+    higher_is_better: false

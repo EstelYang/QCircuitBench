@@ -1,0 +1,22 @@
+Hamiltonian (SpinChain) for n=7 qubits:
+0.0 * IIIIIII
++ 1.0 * XXIIIII
++ 1.0 * YYIIIII
++ 1.0 * ZZIIIII
++ 1.0 * IXXIIII
++ 1.0 * IYYIIII
++ 1.0 * IZZIIII
++ 1.0 * IIXXIII
++ 1.0 * IIYYIII
++ 1.0 * IIZZIII
++ 1.0 * IIIXXII
++ 1.0 * IIIYYII
++ 1.0 * IIIZZII
++ 1.0 * IIIIXXI
++ 1.0 * IIIIYYI
++ 1.0 * IIIIZZI
++ 1.0 * IIIIIXX
++ 1.0 * IIIIIYY
++ 1.0 * IIIIIZZ
+
+Ground state energy: -11.344959

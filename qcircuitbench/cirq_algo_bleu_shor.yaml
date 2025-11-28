@@ -1,0 +1,3 @@
+include: cirq_algo_bleu_bv.yaml
+task: cirq_algo_bleu_shor
+dataset_path: /home/chenhuanran/zwork/QCircuitNet/cirq_dataset/shor_prompts.jsonl

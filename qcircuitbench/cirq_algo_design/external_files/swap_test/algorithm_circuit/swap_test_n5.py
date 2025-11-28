@@ -1,0 +1,21 @@
+import cirq
+
+def algorithm(Oracle):
+    qubits = cirq.LineQubit.range(2 * 5 + 1)
+    ancilla = qubits[-1]
+    psi_qubits = qubits[:5]
+    phi_qubits = qubits[5:2 * 5]
+    circuit = cirq.Circuit()
+
+    circuit.append(Oracle.on(*psi_qubits, *phi_qubits))
+
+    circuit.append(cirq.H(ancilla))
+    circuit.append(cirq.CSWAP(ancilla, psi_qubits[0], phi_qubits[0]))
+    circuit.append(cirq.CSWAP(ancilla, psi_qubits[1], phi_qubits[1]))
+    circuit.append(cirq.CSWAP(ancilla, psi_qubits[2], phi_qubits[2]))
+    circuit.append(cirq.CSWAP(ancilla, psi_qubits[3], phi_qubits[3]))
+    circuit.append(cirq.CSWAP(ancilla, psi_qubits[4], phi_qubits[4]))
+    circuit.append(cirq.H(ancilla))
+    circuit.append(cirq.measure(ancilla, key='result'))
+
+    return circuit
