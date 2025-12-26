@@ -142,7 +142,7 @@ def efficiency_check(qasm_string, dire_gt, code_string, run_and_analyze_func, gd
     lines = full_qasm.splitlines()
     query_m = sum(1 for line in lines if re.match(pattern, line.strip()))
 
-    with open(f"./qae_state{state}.qasm",
+    with open(f"./qae_n8.qasm",
               "r") as file:
         gd_qasm_string = file.read()
     gd_full_qasm = plug_in_oracle(gd_qasm_string, oracle_def, swap_def)
@@ -287,7 +287,7 @@ def check_model(qasm_string, code_string, t=1):
     if variational_circuit is None:
         print("QASM syntax error detected, using ground truth.")
         qasm_syntax = 0
-        with open(f"{dire_gt}/qae_state{state}.qasm", "r") as file:
+        with open(f"{dire_gt}/qae_n8.qasm", "r") as file:
             qasm_string = file.read()
     else:
         qasm_syntax = 1

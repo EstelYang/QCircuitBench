@@ -94,7 +94,7 @@ def _simulate_time(aer_sim, circuit, shots):
 
 def efficiency_check(qasm_string, n, secret_string, key_string, total_shot):
     base_dir = Path(__file__).resolve().parent
-    gt_path = base_dir / f"ternary_simon_n{n}_s{secret_string}_k{key_string}.qasm"
+    gt_path = base_dir / f"ternary_simon_n{n}.qasm"
     try:
         model_circuit = loads(qasm_string)
         ground_truth_circuit = loads(gt_path.read_text())

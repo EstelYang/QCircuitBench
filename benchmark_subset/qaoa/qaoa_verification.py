@@ -161,7 +161,7 @@ def fetch_target_cut_value(text):
 
 def efficiency_check(qasm_string, dire_gt, run_and_analyze_func, gd_run_and_analyze_func, n, t, mode='regular'):
     full_qasm = qasm_string
-    with open(f"{dire_gt}/qaoa_maxcut_3_{mode}_n{n}_l{t}.qasm", "r") as file:
+    with open(f"{dire_gt}/qaoa_n{n}.qasm", "r") as file:
         gd_qasm_string = file.read()
 
     gd_full_qasm = gd_qasm_string
@@ -255,7 +255,7 @@ def check_model(qasm_string, code_string, n, mode, t=1):
     if variational_circuit is None:
         print("QASM syntax error detected, using ground truth.")
         qasm_syntax = 0
-        with open(f"{dire_gt}/qaoa_maxcut_3_regular_n{n}_l{t}.qasm",
+        with open(f"{dire_gt}/qaoa_n{n}.qasm",
                   "r") as file:  # model generated is wrong, use ground truth
             qasm_string = file.read()
     else:

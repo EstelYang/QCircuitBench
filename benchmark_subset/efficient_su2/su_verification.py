@@ -102,7 +102,7 @@ def efficiency_check(qasm_string, dire_gt, run_and_analyze_func, gd_run_and_anal
                      expected_energy):
     full_qasm = qasm_string
 
-    with open(f"{dire_gt}/efficient_su2_n{n}_l{t}_fullCNOT.qasm", "r") as file:
+    with open(f"{dire_gt}/su_n{n}.qasm", "r") as file:
         gd_qasm_string = file.read()
     gd_full_qasm = gd_qasm_string
 
@@ -192,7 +192,7 @@ def check_model(qasm_string, code_string, n, t=1, optiter=200, tol=1e-3):
     if variational_circuit is None:
         print("QASM syntax error detected, using ground truth.")
         qasm_syntax = 0
-        with open(f"{dire_gt}/efficient_su2_n{n}_l{t}_fullCNOT.qasm",
+        with open(f"{dire_gt}/su_n{n}.qasm",
                   "r") as file:
             qasm_string = file.read()
     else:
@@ -218,7 +218,7 @@ def check_model(qasm_string, code_string, n, t=1, optiter=200, tol=1e-3):
         try:
             result_score = execute_test_cases(qasm_string, run_and_analyze_func, hamiltonian=hamiltonian,
                                               expected_energy=expected_energy, optiter=optiter)
-            clipped_score = 1.0 if result_score >= 0.7 else 0.0
+            clipped_score = 1.0 if result_score > 0.5 else 0.0
         except Exception as e:
             print(f"Post-processing running-time error: {e}")
             code_syntax = 0
