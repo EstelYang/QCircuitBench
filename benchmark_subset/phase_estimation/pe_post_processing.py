@@ -9,5 +9,8 @@ def run_and_analyze(circuit, aer_sim):
     count = result.get_counts()
 
     # The key is the solution to the problem
-    prediction = list(count.keys())[0]
+    y = list(count.keys())[0]
+    n = len(y)
+    y = int(y, 2)
+    prediction = y / (2**n)
     return prediction
