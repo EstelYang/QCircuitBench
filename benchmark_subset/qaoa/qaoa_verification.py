@@ -290,7 +290,7 @@ def check_model(qasm_string, code_string, n, mode, t=1):
                 result_score += itr_score
                 print(itr_score)
             result_score /= 20
-            clipped_score = 1.0 if result_score >= 0.7 else 0.0
+            clipped_score = 1.0 if result_score >= 0.7 else (result_score / 0.7)
         except Exception as e:
             print(f"Post-processing running-time error: {e}")
             code_syntax = 0

@@ -157,6 +157,8 @@ def efficiency_check(qasm_string, dire_gt, code_string, run_and_analyze_func, gd
     # Gate Count
     try:
         model_generated_count = int(sum(circuit_model.count_ops().values()))
+        import pdb
+        pdb.set_trace()
         gd_count = int(sum(qc_gd.count_ops().values()))
     except Exception:
         model_generated_count = 0

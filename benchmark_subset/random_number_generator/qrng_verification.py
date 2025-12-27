@@ -264,7 +264,7 @@ def check_model(qasm_string, code_string, n, t=1):
                                                                     ground_truth_run_and_analyze, n)
         try:
             result_score = execute_test_cases(qasm_string, run_and_analyze_func, n)
-            clipped_score = 1.0 if result_score > 0.5 else 0.0
+            clipped_score = 1.0 if result_score > 0.5 else (result_score / 0.501)
         except Exception as e:
             print(f"Post-processing running-time error: {e}")
             code_syntax = 0
