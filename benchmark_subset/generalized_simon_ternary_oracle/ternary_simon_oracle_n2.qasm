@@ -1,4 +1,4 @@
-OPENQASM 3;
+OPENQASM 3.0;
 include "stdgates.inc";
 gate cu_1(_gate_p_0) _gate_q_0, _gate_q_1 {u1(pi/4) _gate_q_0;
   cx _gate_q_0, _gate_q_1;
