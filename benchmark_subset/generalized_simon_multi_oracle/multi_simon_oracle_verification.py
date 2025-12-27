@@ -70,7 +70,10 @@ def efficiency_check(qasm_string, n, s1, s2, key_str, total_shot):
     return gate_count_ratio, shot_ratio, time_ratio
 
 
-def check_model(qasm_string, n, s1, s2, key_str):
+def check_model(qasm_string, n):
+    s1 = '00010111'
+    s2 = '10101111'
+    key_str = '01101111'
     qasm_syntax = -1
     print(
         "Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.")
@@ -217,5 +220,5 @@ Oracle q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7], q[8], q[9], q[10], q[11],
     s1 = '00010111'
     s2 = '10101111'
     k = '01101111'
-    result = check_model(qasm_string, n, s1, s2, k)
+    result = check_model(qasm_string, n)
     print(result)

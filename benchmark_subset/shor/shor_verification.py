@@ -448,9 +448,11 @@ def execute_test_cases(qasm_string, run_and_analyze_func, N, a, shots=20, test_c
             return 0.0
 
 
-def check_model(qasm_string, code_string, N, a):
+def check_model(qasm_string, code_string):
     """Check the Shor model."""
     # Verify the syntax of the QASM code with the first test case oracle
+    N = 15
+    a = 4
     qasm_syntax = -1
     code_syntax = -1
     result_score = 0.
@@ -653,5 +655,5 @@ def run_and_analyze(circuit, aer_sim, N: int, a: int):
 
     return factors
 """
-    result = check_model(qasm_string, code_string, N, a)
+    result = check_model(qasm_string, code_string)
     print(result)

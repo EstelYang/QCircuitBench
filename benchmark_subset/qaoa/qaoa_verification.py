@@ -239,9 +239,11 @@ def execute_test_cases(qasm_string, run_and_analyze_func, n, mode='regular'):
     return result_score
 
 
-def check_model(qasm_string, code_string, n, mode, t=1):
+def check_model(qasm_string, code_string):
     """Check the QAOA model."""
     # Verify the syntax of the QASM code with the first test case oracle
+    n = 8
+    mode = 'regular'
     qasm_syntax = -1
     code_syntax = -1
     clipped_score = 0.
@@ -281,7 +283,7 @@ def check_model(qasm_string, code_string, n, mode, t=1):
 
     if qasm_syntax == 1 and code_syntax == 1:
         gate_count_ratio, shot_ratio, time_ratio = efficiency_check(qasm_string, dire_gt, run_and_analyze_func,
-                                                                    ground_truth_run_and_analyze, n, t)
+                                                                    ground_truth_run_and_analyze, n, t=1)
         try:
             result_score = 0.
             for itr in range(20):
@@ -412,7 +414,7 @@ def run_and_analyze(circuit, aer_sim, graph):
 
     return top_two
 """
-    result = check_model(qasm_string, code_string, n, mode='regular')
+    result = check_model(qasm_string, code_string)
     print(result)
 
 
