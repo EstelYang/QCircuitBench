@@ -7,6 +7,6 @@ dependencies:
   - pip
   - matplotlib
   - pip:
-      - qiskit==2.1.1
+      - qiskit==1.1.0
       - qiskit-aer==0.17.2
       - qiskit-qasm3-import==0.6.0
