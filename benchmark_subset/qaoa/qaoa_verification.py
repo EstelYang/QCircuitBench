@@ -253,7 +253,7 @@ def execute_test_cases(qasm_string, run_and_analyze_func, n, mode="regular"):
     return result_score
 
 
-def check_model(qasm_string, code_string, n):
+def check_model(qasm_string, code_string, n=8):
     """Check the QAOA model."""
     # Verify the syntax of the QASM code with the first test case oracle
     n = 8

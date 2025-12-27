@@ -12,3 +12,4 @@ dependencies:
       - qiskit-qasm3-import==0.6.0
       - qiskit-algorithms==0.3.0
       - qiskit-machine-learning==0.7.2
+      - networkx==3.4.2
