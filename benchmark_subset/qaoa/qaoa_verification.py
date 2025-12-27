@@ -11,7 +11,7 @@ import time
 algorithm_globals.random_seed = 300
 np.random.seed(300)
 
-provided_code = '''
+provided_code = """
 from scipy.optimize import minimize
 from qiskit import transpile
 
@@ -30,7 +30,7 @@ def compute_expectation(counts, graph):
         avg += obj * count
         sum_count += count
     return -avg / sum_count
-        '''
+        """
 
 text = """# This file represents a NetworkX graph
 
@@ -93,8 +93,14 @@ def ground_truth_run_and_analyze(circuit, aer_sim, graph):
     transpiled_circ = transpile(circuit, aer_sim)
 
     def execute_circuit(theta):
-        param_binds = {param: [float(value)] for param, value in zip(circuit.parameters, theta)}
-        counts = aer_sim.run(transpiled_circ, parameter_binds=[param_binds], shots=1024).result().get_counts()
+        param_binds = {
+            param: [float(value)] for param, value in zip(circuit.parameters, theta)
+        }
+        counts = (
+            aer_sim.run(transpiled_circ, parameter_binds=[param_binds], shots=1024)
+            .result()
+            .get_counts()
+        )
         return counts
 
     def expectation_value(theta):
@@ -102,7 +108,7 @@ def ground_truth_run_and_analyze(circuit, aer_sim, graph):
         return -compute_expectation(counts, graph)
 
     initial_params = [0.132] * circuit.num_parameters
-    result = minimize(expectation_value, initial_params, method='COBYLA', tol=1e-9)
+    result = minimize(expectation_value, initial_params, method="COBYLA", tol=1e-9)
     counts = execute_circuit(result.x)
     sorted_counts = sorted(counts.items(), key=lambda item: item[1], reverse=True)
     top_two = [state[::-1] for state, count in sorted_counts[:2]]
@@ -154,12 +160,20 @@ def fetch_target_cut_value(text):
     graph.add_nodes_from(nodes)
     graph.add_edges_from(edges)
 
-    standard_solution = '10011010'
+    standard_solution = "10011010"
     target_cut_value = compute_cut_value(graph, standard_solution)
     return graph, target_cut_value
 
 
-def efficiency_check(qasm_string, dire_gt, run_and_analyze_func, gd_run_and_analyze_func, n, t, mode='regular'):
+def efficiency_check(
+    qasm_string,
+    dire_gt,
+    run_and_analyze_func,
+    gd_run_and_analyze_func,
+    n,
+    t,
+    mode="regular",
+):
     full_qasm = qasm_string
     with open(f"{dire_gt}/qaoa_n{n}.qasm", "r") as file:
         gd_qasm_string = file.read()
@@ -170,14 +184,14 @@ def efficiency_check(qasm_string, dire_gt, run_and_analyze_func, gd_run_and_anal
     ### Gate Count ###
     # for model
     cleaned_lines = [
-        line for line in full_qasm.splitlines()
-        if not line.strip().startswith("Oracle")
+        line for line in full_qasm.splitlines() if not line.strip().startswith("Oracle")
     ]
     full_qasm = "\n".join(cleaned_lines)
 
     # for gd
     gd_cleaned_lines = [
-        line for line in gd_full_qasm.splitlines()
+        line
+        for line in gd_full_qasm.splitlines()
         if not line.strip().startswith("Oracle")
     ]
     gd_full_qasm = "\n".join(gd_cleaned_lines)
@@ -193,14 +207,14 @@ def efficiency_check(qasm_string, dire_gt, run_and_analyze_func, gd_run_and_anal
 
     if model_generated_count == 0:
         print("Model Gate Count is nan.")
-        gate_count_ratio = float('nan')
+        gate_count_ratio = float("nan")
     else:
         gate_count_ratio = model_generated_count / gd_count
 
     ### Func Check ###
     # for model
     print("QAOA tasks don't need shots. So here nan (N/A) is correct.")
-    shot_ratio = float('nan')
+    shot_ratio = float("nan")
 
     ### Python Time ###
     try:
@@ -222,12 +236,12 @@ def efficiency_check(qasm_string, dire_gt, run_and_analyze_func, gd_run_and_anal
         time_ratio = time_m / time_gd
     except Exception as e:
         print(f"[Time Ratio Error] Details: {e}")
-        time_ratio = float('nan')
+        time_ratio = float("nan")
 
     return gate_count_ratio, shot_ratio, time_ratio
 
 
-def execute_test_cases(qasm_string, run_and_analyze_func, n, mode='regular'):
+def execute_test_cases(qasm_string, run_and_analyze_func, n, mode="regular"):
     variational_circuit = loads(qasm_string)
     aer_sim = AerSimulator()
 
@@ -239,17 +253,17 @@ def execute_test_cases(qasm_string, run_and_analyze_func, n, mode='regular'):
     return result_score
 
 
-def check_model(qasm_string, code_string, n=8):
+def check_model(qasm_string, code_string, n):
     """Check the QAOA model."""
     # Verify the syntax of the QASM code with the first test case oracle
     n = 8
-    mode = 'regular'
+    mode = "regular"
     qasm_syntax = -1
     code_syntax = -1
-    clipped_score = 0.
-    gate_count_ratio = float('nan')
-    shot_ratio = float('nan')
-    time_ratio = float('nan')
+    clipped_score = 0.0
+    gate_count_ratio = float("nan")
+    shot_ratio = float("nan")
+    time_ratio = float("nan")
     dire_gt = f"."
 
     # QASM syntax verification
@@ -257,8 +271,9 @@ def check_model(qasm_string, code_string, n=8):
     if variational_circuit is None:
         print("QASM syntax error detected, using ground truth.")
         qasm_syntax = 0
-        with open(f"{dire_gt}/qaoa_n{n}.qasm",
-                  "r") as file:  # model generated is wrong, use ground truth
+        with open(
+            f"{dire_gt}/qaoa_n{n}.qasm", "r"
+        ) as file:  # model generated is wrong, use ground truth
             qasm_string = file.read()
     else:
         qasm_syntax = 1
@@ -266,14 +281,22 @@ def check_model(qasm_string, code_string, n=8):
     # Post-Processing code verification
     try:
         local_vars = {}
-        code = '\n'.join([line for line in code_string.splitlines() if
-                          not line.strip().startswith('from qiskit') and 'import qiskit' not in line])
-        code_string = code.replace("def run_and_analyze(circuit, aer_sim):\n",
-                                   "def run_and_analyze(circuit, aer_sim):\n    circuit = transpile(circuit, aer_sim)\n",
-                                   1)
+        code = "\n".join(
+            [
+                line
+                for line in code_string.splitlines()
+                if not line.strip().startswith("from qiskit")
+                and "import qiskit" not in line
+            ]
+        )
+        code_string = code.replace(
+            "def run_and_analyze(circuit, aer_sim):\n",
+            "def run_and_analyze(circuit, aer_sim):\n    circuit = transpile(circuit, aer_sim)\n",
+            1,
+        )
         code_string = provided_code + code_string
         exec(code_string, globals(), local_vars)
-        run_and_analyze_func = local_vars['run_and_analyze']
+        run_and_analyze_func = local_vars["run_and_analyze"]
         code_syntax = 1
         print("Post-processing code loaded successfully.")
     except Exception as e:
@@ -282,10 +305,16 @@ def check_model(qasm_string, code_string, n=8):
         code_syntax = 0
 
     if qasm_syntax == 1 and code_syntax == 1:
-        gate_count_ratio, shot_ratio, time_ratio = efficiency_check(qasm_string, dire_gt, run_and_analyze_func,
-                                                                    ground_truth_run_and_analyze, n, t=1)
+        gate_count_ratio, shot_ratio, time_ratio = efficiency_check(
+            qasm_string,
+            dire_gt,
+            run_and_analyze_func,
+            ground_truth_run_and_analyze,
+            n,
+            t=1,
+        )
         try:
-            result_score = 0.
+            result_score = 0.0
             for itr in range(20):
                 print(f"    Running Test Iteration {itr}")
                 itr_score = execute_test_cases(qasm_string, run_and_analyze_func, n)
@@ -297,14 +326,21 @@ def check_model(qasm_string, code_string, n=8):
             print(f"Post-processing running-time error: {e}")
             code_syntax = 0
 
-    return qasm_syntax, code_syntax, clipped_score, gate_count_ratio, shot_ratio, time_ratio
+    return (
+        qasm_syntax,
+        code_syntax,
+        clipped_score,
+        gate_count_ratio,
+        shot_ratio,
+        time_ratio,
+    )
 
 
 def check_description(prompt):
     s = "Given a graph $G = (V, E)$"
     if s in prompt:
         n = int(prompt.split("$n = ")[1].split("$")[0])
-        mode = 'cycle' if 'Cycle' in prompt else '3-regular'
+        mode = "cycle" if "Cycle" in prompt else "3-regular"
         return s in prompt, {"n": n, "mode": mode}
     else:
         return False, {}
@@ -418,5 +454,5 @@ def run_and_analyze(circuit, aer_sim, graph):
     print(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
