@@ -72,11 +72,9 @@ def _simulate_time(aer_sim, circuit, shots):
     return time.time() - start
 
 
-def efficiency_check(qasm_string, n, marked_str, total_shot):
+def efficiency_check(qasm_string, n, marked_str, total_shot, oracle_def):
     base_dir = Path(__file__).resolve().parent
     gt_path = base_dir / f"grover_oracle_n{n}.qasm"
-    custom_path = base_dir / "customgates.inc"
-    oracle_def = custom_path.read_text()
     try:
         model_full_qasm = plug_in_oracle(qasm_string, oracle_def)
         ground_full_qasm = plug_in_oracle(gt_path.read_text(), oracle_def)
@@ -115,8 +113,77 @@ def check_model(qasm_string, n):
     shot_ratio = float("nan")
     time_ratio = float("nan")
 
-    with open(f"./customgates.inc", "r") as file:
-        oracle_def = file.read()
+    oracle_def = """gate mcphase_6071450752(_gate_p_0) _gate_q_0, _gate_q_1, _gate_q_2, _gate_q_3 {
+  cp(pi/8) _gate_q_2, _gate_q_3;
+  cx _gate_q_2, _gate_q_1;
+  cp(-pi/8) _gate_q_1, _gate_q_3;
+  cx _gate_q_2, _gate_q_1;
+  cp(pi/8) _gate_q_1, _gate_q_3;
+  cx _gate_q_1, _gate_q_0;
+  cp(-pi/8) _gate_q_0, _gate_q_3;
+  cx _gate_q_2, _gate_q_0;
+  cp(pi/8) _gate_q_0, _gate_q_3;
+  cx _gate_q_1, _gate_q_0;
+  cp(-pi/8) _gate_q_0, _gate_q_3;
+  cx _gate_q_2, _gate_q_0;
+  cp(pi/8) _gate_q_0, _gate_q_3;
+}
+gate c4z _gate_q_0, _gate_q_1, _gate_q_2, _gate_q_3, _gate_q_4 {
+  U(pi/2, 0, pi) _gate_q_4;
+  cx _gate_q_1, _gate_q_4;
+  p(-pi/4) _gate_q_4;
+  cx _gate_q_0, _gate_q_4;
+  p(pi/4) _gate_q_4;
+  cx _gate_q_1, _gate_q_4;
+  p(pi/4) _gate_q_1;
+  p(-pi/4) _gate_q_4;
+  cx _gate_q_0, _gate_q_4;
+  cx _gate_q_0, _gate_q_1;
+  p(pi/4) _gate_q_0;
+  p(-pi/4) _gate_q_1;
+  cx _gate_q_0, _gate_q_1;
+  U(pi/4, pi/2, -pi/4) _gate_q_4;
+  cx _gate_q_3, _gate_q_4;
+  p(-pi/4) _gate_q_4;
+  cx _gate_q_2, _gate_q_4;
+  p(pi/4) _gate_q_4;
+  cx _gate_q_3, _gate_q_4;
+  p(pi/4) _gate_q_3;
+  p(-pi/4) _gate_q_4;
+  cx _gate_q_2, _gate_q_4;
+  cx _gate_q_2, _gate_q_3;
+  p(pi/4) _gate_q_2;
+  p(-pi/4) _gate_q_3;
+  cx _gate_q_2, _gate_q_3;
+  U(pi/4, -pi/2, 3*pi/4) _gate_q_4;
+  cx _gate_q_1, _gate_q_4;
+  p(-pi/4) _gate_q_4;
+  cx _gate_q_0, _gate_q_4;
+  p(pi/4) _gate_q_4;
+  cx _gate_q_1, _gate_q_4;
+  p(pi/4) _gate_q_1;
+  p(-pi/4) _gate_q_4;
+  cx _gate_q_0, _gate_q_4;
+  cx _gate_q_0, _gate_q_1;
+  p(pi/4) _gate_q_0;
+  p(-pi/4) _gate_q_1;
+  cx _gate_q_0, _gate_q_1;
+  U(pi/4, pi/2, -pi/4) _gate_q_4;
+  cx _gate_q_3, _gate_q_4;
+  p(-pi/4) _gate_q_4;
+  cx _gate_q_2, _gate_q_4;
+  p(pi/4) _gate_q_4;
+  cx _gate_q_3, _gate_q_4;
+  p(pi/4) _gate_q_3;
+  p(-pi/4) _gate_q_4;
+  cx _gate_q_2, _gate_q_4;
+  cx _gate_q_2, _gate_q_3;
+  p(pi/4) _gate_q_2;
+  p(-pi/4) _gate_q_3;
+  cx _gate_q_2, _gate_q_3;
+  U(pi/2, pi/4, -3*pi/4) _gate_q_4;
+  mcphase_6071450752(pi/2) _gate_q_0, _gate_q_1, _gate_q_2, _gate_q_3;
+}"""
     try:
         full_qasm = plug_in_oracle(qasm_string, oracle_def)
     except Exception:
@@ -150,7 +217,7 @@ def check_model(qasm_string, n):
     total_success = 0
     total_shot = 10
     gate_count_ratio, shot_ratio, time_ratio = efficiency_check(
-        qasm_string, n, marked_str, total_shot
+        qasm_string, n, marked_str, total_shot, oracle_def
     )
     try:
         for x_str in input_states:
