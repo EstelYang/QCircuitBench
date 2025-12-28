@@ -8,4 +8,4 @@ $\lVert \boldsymbol{\alpha} \rVert = \sqrt{1.5^2 + 0^2 + (-2)^2 + 3^2} = \sqrt{1
 Target 2-qubit state:
 $\lvert \mathcal{X} \rangle = \alpha_0 \lvert 00 \rangle + \alpha_1 \lvert 01 \rangle + \alpha_2 \lvert 10 \rangle + \alpha_3 \lvert 11 \rangle$,
 where $\boldsymbol{\alpha} = (1.5, 0, -2, 3)/\sqrt{15.25}.$
- Provide the corresponding quantum circuit implementation for this type of data encoding in OpenQASM 3.0.
+Please provide a single Python file solution.py with following component: 1. the corresponding quantum circuit implementation for this type of data encoding in OpenQASM 3.0 defined as qasm_string.
