@@ -467,7 +467,7 @@ def execute_test_cases(qasm_string, run_and_analyze_func, n, shots=10, test_case
     return result_score
 
 
-def check_model(qasm_string, code_string, n, t=1):
+def check_model(qasm_string, code_string, n):
     """Check the Ternary-Simon model."""
     # Verify the syntax of the QASM code with the first test case oracle
     qasm_syntax = -1
