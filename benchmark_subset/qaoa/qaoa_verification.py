@@ -30,7 +30,7 @@ def compute_expectation(counts, graph):
         avg += obj * count
         sum_count += count
     return -avg / sum_count
-        """
+"""
 
 text = """# This file represents a NetworkX graph
 
