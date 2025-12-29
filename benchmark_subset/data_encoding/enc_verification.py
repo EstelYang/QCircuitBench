@@ -24,10 +24,11 @@ def _basis_baseline() -> QuantumCircuit:
 
 def _amplitude_baseline() -> QuantumCircuit:
     desired_state = [
-        1 / math.sqrt(15.25) * 1.5,
-        0,
-        1 / math.sqrt(15.25) * -2,
-        1 / math.sqrt(15.25) * 3]
+        0.0,
+        1 / math.sqrt(3),
+        0.0,
+        math.sqrt(2) / math.sqrt(3),
+    ]
 
     qc = QuantumCircuit(2, name="amplitude_encoding")
     qc.initialize(desired_state, [0, 1])
@@ -59,8 +60,10 @@ def _target_basis_state() -> np.ndarray:
 
 
 def _target_amplitude_state() -> np.ndarray:
-    norm = math.sqrt(15.25)
-    return np.array([1.5 / norm, 0.0, -2.0 / norm, 3.0 / norm], dtype=complex)
+    return np.array(
+        [0.0, 1 / math.sqrt(3), 0.0, math.sqrt(2) / math.sqrt(3)],
+        dtype=complex
+    )
 
 
 def _fidelity(psi: np.ndarray, phi: np.ndarray) -> float:
@@ -157,8 +160,6 @@ def efficiency_check(qasm_string, dire_gt, code_string, run_and_analyze_func, gd
     # Gate Count
     try:
         model_generated_count = int(sum(circuit_model.count_ops().values()))
-        import pdb
-        pdb.set_trace()
         gd_count = int(sum(qc_gd.count_ops().values()))
     except Exception:
         model_generated_count = 0

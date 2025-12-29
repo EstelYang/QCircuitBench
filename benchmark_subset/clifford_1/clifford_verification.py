@@ -35,9 +35,9 @@ def _compute_gate_count(circuit):
 def _simulate_time(aer_sim, circuit, shots):
     compiled = transpile(circuit, aer_sim)
     for _ in range(warmup_runs := 3):
-        aer_sim.run(compiled, shots=shots).result()
+        aer_sim.run(compiled, shots=shots)
     start = time.time()
-    aer_sim.run(compiled, shots=shots).result()
+    aer_sim.run(compiled, shots=shots)
     return time.time() - start
 
 
@@ -56,7 +56,7 @@ def efficiency_check(model_circuit, ground_truth_circuit):
     aer_sim = AerSimulator()
     total_shot = 5
     # warmup runs
-    aer_sim.run(model_circuit, shots=total_shot).result()
+    aer_sim.run(model_circuit, shots=total_shot)
     model_time = _simulate_time(aer_sim, model_circuit, total_shot)
     ground_time = _simulate_time(aer_sim, ground_truth_circuit, total_shot)
     time_ratio = model_time / ground_time if ground_time else float("nan")
