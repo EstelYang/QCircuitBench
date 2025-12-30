@@ -32,9 +32,9 @@ def plug_in_oracle(qasm_code, oracle_def):
         print("[QASM Syntax Error]: Can't find 'include \"oracle.inc\";'")
         return qasm_code
     full_qasm = (
-        qasm_code[:oracle_pos]
-        + oracle_def
-        + qasm_code[oracle_pos + len('include "oracle.inc";') :]
+            qasm_code[:oracle_pos]
+            + oracle_def
+            + qasm_code[oracle_pos + len('include "oracle.inc";'):]
     )
     return full_qasm
 
@@ -98,11 +98,11 @@ def generate_test_cases(n, test_num=20):
 
 
 def expr_backtrack(
-    expr: str,
-    code_string: str,
-    eval_globals: dict,
-    local_vars: dict,
-    default=float("nan"),
+        expr: str,
+        code_string: str,
+        eval_globals: dict,
+        local_vars: dict,
+        default=float("nan"),
 ):
     try:
         value = eval(expr, eval_globals, local_vars)
@@ -143,13 +143,13 @@ def expr_backtrack(
 
 
 def efficiency_check(
-    qasm_string,
-    dire_gt,
-    code_string,
-    run_and_analyze_func,
-    gd_run_and_analyze_func,
-    n,
-    oracle_def,
+        qasm_string,
+        dire_gt,
+        code_string,
+        run_and_analyze_func,
+        gd_run_and_analyze_func,
+        n,
+        oracle_def,
 ):
     aer_sim = AerSimulator()
     full_qasm = plug_in_oracle(qasm_string, oracle_def)
@@ -297,6 +297,14 @@ def execute_test_cases(qasm_string, run_and_analyze_func, n, shots=10, test_case
     return result_score
 
 
+def load_run_and_analyze(code_string: str):
+    ns = {"__builtins__": __builtins__}
+    exec(code_string, ns, ns)
+    if "run_and_analyze" not in ns or not callable(ns["run_and_analyze"]):
+        raise RuntimeError("run_and_analyze not defined in code_string")
+    return ns, ns["run_and_analyze"]
+
+
 def check_model(qasm_string, code_string, n):
     """Check the Bernstein-Vazirani model."""
     # Verify the syntax of the QASM code with the first test case oracle
@@ -327,21 +335,8 @@ def check_model(qasm_string, code_string, n):
     # Post-Processing code verification
     try:
         local_vars = {}
-        code = "\n".join(
-            [
-                line
-                for line in code_string.splitlines()
-                if not line.strip().startswith("from qiskit")
-                and "import qiskit" not in line
-            ]
-        )
-        code_string = code.replace(
-            "def run_and_analyze(circuit, aer_sim):\n",
-            "def run_and_analyze(circuit, aer_sim):\n    circuit = transpile(circuit, aer_sim)\n",
-            1,
-        )
         exec(code_string, globals(), local_vars)
-        run_and_analyze_func = local_vars["run_and_analyze"]
+        local_vars, run_and_analyze_func = load_run_and_analyze(code_string)
         code_syntax = 1
         print("Post-processing code loaded successfully.")
     except Exception as e:
@@ -433,5 +428,3 @@ def run_and_analyze(circuit, aer_sim):
 """
     result = check_model(qasm_string, code_string, n)
     print(result)
-
-

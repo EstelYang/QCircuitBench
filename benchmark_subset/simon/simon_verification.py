@@ -326,6 +326,14 @@ def execute_test_cases(qasm_string, run_and_analyze_func, n, shots=10, test_case
     return result_score
 
 
+def load_run_and_analyze(code_string: str):
+    ns = {"__builtins__": __builtins__}
+    exec(code_string, ns, ns)
+    if "run_and_analyze" not in ns or not callable(ns["run_and_analyze"]):
+        raise RuntimeError("run_and_analyze not defined in code_string")
+    return ns, ns["run_and_analyze"]
+
+
 def check_model(qasm_string, code_string, n, t=1):
     """Check the Bernstein-Vazirani model."""
     # Verify the syntax of the QASM code with the first test case oracle
@@ -355,13 +363,8 @@ def check_model(qasm_string, code_string, n, t=1):
     # Post-Processing code verification
     try:
         local_vars = {}
-        code = '\n'.join([line for line in code_string.splitlines() if
-                          not line.strip().startswith('from qiskit') and 'import qiskit' not in line])
-        code_string = code.replace("def run_and_analyze(circuit, aer_sim):\n",
-                                   "def run_and_analyze(circuit, aer_sim):\n    circuit = transpile(circuit, aer_sim)\n",
-                                   1)
         exec(code_string, globals(), local_vars)
-        run_and_analyze_func = local_vars['run_and_analyze']
+        local_vars, run_and_analyze_func = load_run_and_analyze(code_string)
         code_syntax = 1
         print("Post-processing code loaded successfully.")
     except Exception as e:
@@ -392,36 +395,36 @@ def check_description(prompt):
 if __name__ == "__main__":
     n = 8
     qasm_string = """OPENQASM 3.0;
-include "stdgates.inc";
-include "oracle.inc";
-bit[8] c;
-qubit[16] q;
-h q[0];
-h q[1];
-h q[2];
-h q[3];
-h q[4];
-h q[5];
-h q[6];
-h q[7];
-Oracle q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7], q[8], q[9], q[10], q[11], q[12], q[13], q[14], q[15];
-h q[0];
-h q[1];
-h q[2];
-h q[3];
-h q[4];
-h q[5];
-h q[6];
-h q[7];
-c[0] = measure q[0];
-c[1] = measure q[1];
-c[2] = measure q[2];
-c[3] = measure q[3];
-c[4] = measure q[4];
-c[5] = measure q[5];
-c[6] = measure q[6];
-c[7] = measure q[7];
-"""
+    include "stdgates.inc";
+    include "oracle.inc";
+    bit[8] c;
+    qubit[16] q;
+    h q[0];
+    h q[1];
+    h q[2];
+    h q[3];
+    h q[4];
+    h q[5];
+    h q[6];
+    h q[7];
+    Oracle q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7], q[8], q[9], q[10], q[11], q[12], q[13], q[14], q[15];
+    h q[0];
+    h q[1];
+    h q[2];
+    h q[3];
+    h q[4];
+    h q[5];
+    h q[6];
+    h q[7];
+    c[0] = measure q[0];
+    c[1] = measure q[1];
+    c[2] = measure q[2];
+    c[3] = measure q[3];
+    c[4] = measure q[4];
+    c[5] = measure q[5];
+    c[6] = measure q[6];
+    c[7] = measure q[7];
+    """
     code_string = """from sympy import Matrix
 import numpy as np
 from qiskit import transpile
@@ -470,6 +473,6 @@ def run_and_analyze(circuit, aer_sim):
     else:
         prediction = solve_equation(equations)
     return prediction
-"""
+    """
     result = check_model(qasm_string, code_string, n)
     print(result)

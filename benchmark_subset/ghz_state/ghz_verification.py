@@ -154,6 +154,14 @@ def execute_test_cases(qasm_string, run_and_analyze_func, n):
     return result_score
 
 
+def load_run_and_analyze(code_string: str):
+    ns = {"__builtins__": __builtins__}
+    exec(code_string, ns, ns)
+    if "run_and_analyze" not in ns or not callable(ns["run_and_analyze"]):
+        raise RuntimeError("run_and_analyze not defined in code_string")
+    return ns, ns["run_and_analyze"]
+
+
 def check_model(qasm_string, code_string, n):
     """Check the GHZ model."""
     # Verify the syntax of the QASM code with the first test case oracle
@@ -178,10 +186,8 @@ def check_model(qasm_string, code_string, n):
     # Post-Processing code verification
     try:
         local_vars = {}
-        code_string = '\n'.join([line for line in code_string.splitlines() if
-                                 not line.strip().startswith('from qiskit') and 'import qiskit' not in line])
         exec(code_string, globals(), local_vars)
-        run_and_analyze_func = local_vars['run_and_analyze']
+        local_vars, run_and_analyze_func = load_run_and_analyze(code_string)
         code_syntax = 1
         print("Post-processing code loaded successfully.")
     except Exception as e:
@@ -227,4 +233,3 @@ cx q[0], q[7];
 """
     result = check_model(qasm_string, code_string, n)
     print(result)
-

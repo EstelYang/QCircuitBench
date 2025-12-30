@@ -326,6 +326,14 @@ def execute_test_cases(qasm_string, run_and_analyze_func, n, shots=10, test_case
     return result_score
 
 
+def load_run_and_analyze(code_string: str):
+    ns = {"__builtins__": __builtins__}
+    exec(code_string, ns, ns)
+    if "run_and_analyze" not in ns or not callable(ns["run_and_analyze"]):
+        raise RuntimeError("run_and_analyze not defined in code_string")
+    return ns, ns["run_and_analyze"]
+
+
 def check_model(qasm_string, code_string, n, t=1):
     """Check the Phase-Estimation model."""
     # Verify the syntax of the QASM code with the first test case oracle
@@ -356,13 +364,8 @@ def check_model(qasm_string, code_string, n, t=1):
     # Post-Processing code verification
     try:
         local_vars = {}
-        code = '\n'.join([line for line in code_string.splitlines() if
-                          not line.strip().startswith('from qiskit') and 'import qiskit' not in line])
-        code_string = code.replace("def run_and_analyze(circuit, aer_sim):\n",
-                                   "def run_and_analyze(circuit, aer_sim):\n    circuit = transpile(circuit, aer_sim)\n",
-                                   1)
         exec(code_string, globals(), local_vars)
-        run_and_analyze_func = local_vars['run_and_analyze']
+        local_vars, run_and_analyze_func = load_run_and_analyze(code_string)
         code_syntax = 1
         print("Post-processing code loaded successfully.")
     except Exception as e:
@@ -376,7 +379,7 @@ def check_model(qasm_string, code_string, n, t=1):
                                                                     ground_truth_run_and_analyze, n, oracle_def)
         try:
             result_score = execute_test_cases(qasm_string, run_and_analyze_func, n, test_cases=test_cases)
-            clipped_score = 1.0 if result_score > 7 else (result_score / 0.7)
+            clipped_score = 1.0 if result_score > 0.7 else (result_score / 0.7)
         except Exception as e:
             print(f"Post-processing running-time error: {e}")
             code_syntax = 0
