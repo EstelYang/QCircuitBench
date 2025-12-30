@@ -7,6 +7,7 @@ import re
 import time
 import numpy as np
 from qiskit_algorithms.utils import algorithm_globals
+from math import gcd
 
 algorithm_globals.random_seed = 300
 np.random.seed(300)
@@ -176,24 +177,23 @@ def extract_oracle_definition(N, a):
     oracle_pos = qasm_string.find("gate Oracle")
     if oracle_pos == -1:
         raise ValueError("Oracle gate not found in the generated QASM.")
-    register_pos = qasm_string.find("bit")
-    if register_pos == -1:
+    iqft_pos = qasm_string.find("gate IQFT")
+    if iqft_pos == -1:
         raise ValueError("Register declaration not found in the generated QASM.")
 
-    return qasm_string[oracle_pos:register_pos]
+    return qasm_string[oracle_pos:iqft_pos]
 
 
 def plug_in_oracle(qasm_code, oracle_def):
     """Plug-in the oracle definition into the QASM code."""
     oracle_pos = qasm_code.find('include "oracle.inc";')
-    bit_pos = qasm_code.find('bit[')
     if oracle_pos == -1:
         print("[QASM Syntax Error]: Can't find 'include \"oracle.inc\";'")
         return qasm_code
     full_qasm = (
             qasm_code[:oracle_pos]
             + oracle_def
-            + qasm_code[bit_pos:]
+            + qasm_code[oracle_pos + len('include "oracle.inc";'):]
     )
     return full_qasm
 

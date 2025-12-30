@@ -26,14 +26,13 @@ def print_and_save(message, text):
 def plug_in_oracle(qasm_code, oracle_def):
     """Plug-in the oracle definition into the QASM code."""
     oracle_pos = qasm_code.find('include "oracle.inc";')
-    bits_pos = qasm_code.find('bit[')
     if oracle_pos == -1:
         print("[QASM Syntax Error]: Can't find 'include \"oracle.inc\";'")
         return qasm_code
     full_qasm = (
             qasm_code[:oracle_pos]
             + oracle_def
-            + qasm_code[bits_pos:]
+            + qasm_code[oracle_pos + len('include "oracle.inc";'):]
     )
     return full_qasm
 
@@ -117,11 +116,11 @@ def extract_oracle_definition(n, marked_state):
     oracle_pos = qasm_string.find("gate mcphase")
     if oracle_pos == -1:
         raise ValueError("Oracle gate not found in the generated QASM.")
-    register_pos = qasm_string.find("bit")
-    if register_pos == -1:
-        raise ValueError("Register declaration not found in the generated QASM.")
+    diffuser_pos = qasm_string.find("gate Diffuser")
+    if diffuser_pos == -1:
+        raise ValueError("Diffuser declaration not found in the generated QASM.")
 
-    return qasm_string[oracle_pos:register_pos]
+    return qasm_string[oracle_pos:diffuser_pos]
 
 
 def generate_test_cases(n, test_num=20):
@@ -131,28 +130,6 @@ def generate_test_cases(n, test_num=20):
         oracle_def = extract_oracle_definition(n, marked_item)
         test_cases.append((marked_item, oracle_def))
     return test_cases
-
-
-def oracle_qasm3_to_gate(oracle_def: str):
-    m = oracle_def.split("gate Oracle", 1)[1].split("{", 1)[0].count("_gate_q_")
-    qasm = (
-            "OPENQASM 3.0;\n"
-            + "include \"stdgates.inc\";\n"
-            + oracle_def
-            + f"qubit[{m}] q;\n"
-            + "Oracle " + ", ".join([f"q[{i}]" for i in range(m)]) + ";\n"
-    )
-    qc = loads(qasm)
-    op, qargs, cargs = next(
-        (op, qargs, cargs)
-        for (op, qargs, cargs) in qc.data
-        if op.name == "Oracle"
-    )
-    try:
-        oracle_gate = op.to_gate()
-    except Exception:
-        oracle_gate = op
-    return oracle_gate
 
 
 def verify_qasm_syntax(output):
@@ -216,8 +193,9 @@ def efficiency_check(qasm_string, dire_gt, code_string, run_and_analyze_func, gd
     lines = full_qasm.splitlines()
     query_m = sum(1 for line in lines if re.match(pattern, line.strip()))
 
-    gd_oracle_gate = oracle_qasm3_to_gate(oracle_def)
-    gd_full_qasm = dumps(grover_algorithm(n, gd_oracle_gate))
+    with open(f"{dire_gt}/grover_n{n}.qasm", "r") as file:
+        gd_qasm_string = file.read()
+    gd_full_qasm = plug_in_oracle(gd_qasm_string, oracle_def)
     lines = gd_full_qasm.splitlines()
     query_gd = sum(1 for line in lines if re.match(pattern, line.strip()))
 
@@ -356,8 +334,9 @@ def check_model(qasm_string, code_string, n, t=1):
     if circuit is None:
         print("QASM syntax error detected, using ground truth.")
         qasm_syntax = 0
-        gd_oracle_gate = oracle_qasm3_to_gate(oracle_def)
-        qasm_string = dumps(grover_algorithm(n, gd_oracle_gate))
+        with open(f"{dire_gt}/grover_n{n}.qasm", "r") as file:
+            gd_qasm_string = file.read()
+        qasm_string = plug_in_oracle(gd_qasm_string, oracle_def)
     else:
         qasm_syntax = 1
 
