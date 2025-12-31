@@ -1,5 +1,3 @@
-import pdb
-
 from qiskit.qasm3 import dumps, loads
 from qiskit_aer import AerSimulator
 from qiskit import QuantumCircuit, transpile

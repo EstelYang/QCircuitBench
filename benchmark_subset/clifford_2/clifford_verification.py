@@ -56,7 +56,7 @@ def efficiency_check(model_circuit, ground_truth_circuit):
     aer_sim = AerSimulator()
     total_shot = 5
     # warmup runs
-    aer_sim.run(model_circuit, shots=total_shot).result()
+    aer_sim.run(model_circuit, shots=total_shot)
     model_time = _simulate_time(aer_sim, model_circuit, total_shot)
     ground_time = _simulate_time(aer_sim, ground_truth_circuit, total_shot)
     time_ratio = model_time / ground_time if ground_time else float("nan")
@@ -150,5 +150,6 @@ h q[3];
 h q[2];
 s q[3];
 cx q[1], q[0];
-"""
+    """
+
     print(check_model(qasm_string, n))

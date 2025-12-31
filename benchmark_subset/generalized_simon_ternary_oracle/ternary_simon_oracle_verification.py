@@ -88,7 +88,7 @@ def _compute_gate_count(circuit):
 def _simulate_time(aer_sim, circuit, shots):
     compiled = transpile(circuit, aer_sim)
     start = time.time()
-    aer_sim.run(compiled, shots=shots).result()
+    aer_sim.run(compiled, shots=shots)
     return time.time() - start
 
 
