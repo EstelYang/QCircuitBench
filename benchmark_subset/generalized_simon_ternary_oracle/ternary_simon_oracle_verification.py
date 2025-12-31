@@ -94,7 +94,7 @@ def _simulate_time(aer_sim, circuit, shots):
 
 def efficiency_check(qasm_string, n, secret_string, key_string, total_shot):
     base_dir = Path(__file__).resolve().parent
-    gt_path = base_dir / f"ternary_simon_n{n}.qasm"
+    gt_path = base_dir / f"ternary_simon_oracle_n{n}.qasm"
     try:
         model_circuit = loads(qasm_string)
         ground_truth_circuit = loads(gt_path.read_text())
@@ -119,11 +119,12 @@ def efficiency_check(qasm_string, n, secret_string, key_string, total_shot):
 
 
 def check_model(qasm_string, n):
-    secret_string = '02'
-    key_string = '20'
+    secret_string = "02"
+    key_string = "20"
     qasm_syntax = -1
     print(
-        "Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.")
+        "Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct."
+    )
     code_syntax = float("nan")
     result_score = 0.0
     gate_count_ratio = float("nan")

@@ -46,7 +46,7 @@ def _simulate_time(aer_sim, circuit, shots):
 
 def efficiency_check(qasm_string, n, s1, s2, key_str, total_shot):
     base_dir = Path(__file__).resolve().parent
-    gt_path = base_dir / f"multi_simon_n{n}.qasm"
+    gt_path = base_dir / f"multi_simon_oracle_n{n}.qasm"
     try:
         model_circuit = loads(qasm_string)
         ground_truth_circuit = loads(gt_path.read_text())
@@ -65,18 +65,19 @@ def efficiency_check(qasm_string, n, s1, s2, key_str, total_shot):
     aer_sim = AerSimulator()
     model_time = _simulate_time(aer_sim, model_circuit, total_shot)
     ground_time = _simulate_time(aer_sim, ground_truth_circuit, total_shot)
-    time_ratio = model_time / ground_time if ground_time else float("nan")
+    time_ratio = model_time / (ground_time + 1e-8)
 
     return gate_count_ratio, shot_ratio, time_ratio
 
 
 def check_model(qasm_string, n):
-    s1 = '00010111'
-    s2 = '10101111'
-    key_str = '01101111'
+    s1 = "00010111"
+    s2 = "10101111"
+    key_str = "01101111"
     qasm_syntax = -1
     print(
-        "Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.")
+        "Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct."
+    )
     code_syntax = float("nan")
     result_score = 0.0
     gate_count_ratio = float("nan")
@@ -136,7 +137,11 @@ def check_model(qasm_string, n):
             else:
                 output = list(count.keys())[0]
                 print(output)
-                if output not in [str(correct_output_1), str(correct_output_2), str(correct_output_3)]:
+                if output not in [
+                    str(correct_output_1),
+                    str(correct_output_2),
+                    str(correct_output_3),
+                ]:
                     print(f"        Error: counts: {count}")
                 else:
                     print("        Success")
@@ -217,8 +222,8 @@ gate Oracle _gate_q_0, _gate_q_1, _gate_q_2, _gate_q_3, _gate_q_4, _gate_q_5, _g
 qubit[17] q;
 Oracle q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7], q[8], q[9], q[10], q[11], q[12], q[13], q[14], q[15], q[16];
 """
-    s1 = '00010111'
-    s2 = '10101111'
-    k = '01101111'
+    s1 = "00010111"
+    s2 = "10101111"
+    k = "01101111"
     result = check_model(qasm_string, n)
     print(result)
