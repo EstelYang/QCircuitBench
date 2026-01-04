@@ -1,0 +1,68 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 28
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Jan  2 07:35 ..
+-rw-r--r-- 1  501 dialout  3953 Dec 31 06:10 ternary_simon_oracle_n2.qasm
+-rwxr-xr-x 1  501 dialout 13217 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 12
+drwxr-xr-x 1 root root 4096 Jan  2 07:35 .
+drwxr-xr-x 1 root root 4096 Jan  2 07:35 ..
+-rw-r--r-- 1 root root  240 Jan  2 07:35 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 240 Jan  2 07:35 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+
+gate oracle i0, i1, i2, i3, o0, o1 {
+  x i0;
+  x i1;
+  ccx i0, i1, o0;
+  x i1;
+  x i0;
+
+  x i1;
+  ccx i0, i1, o1;
+  x i1;
+}
+
+qubit[6] q;
+oracle q[0], q[1], q[2], q[3], q[4], q[5];
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 240 Jan  2 07:35 /logs/verifier/solution.py
+Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Oracle Construction tasks don't need shots. So here nan (N/A) is correct.
+    Running Test Case 1
+    Input: 00, Expected output (binary idx): 00
+        Error: counts: {'01': 10}
+    Input: 02, Expected output (binary idx): 00
+        Success: counts={'00': 10}
+    Input: 01, Expected output (binary idx): 00
+        Error: counts: {'10': 10}
+    Running Test Case 2
+    Input: 10, Expected output (binary idx): 10
+        Error: counts: {'01': 10}
+    Input: 12, Expected output (binary idx): 10
+        Error: counts: {'00': 10}
+    Input: 11, Expected output (binary idx): 10
+        Success: counts={'10': 10}
+    Running Test Case 3
+    Input: 20, Expected output (binary idx): 01
+        Success: counts={'01': 10}
+    Input: 22, Expected output (binary idx): 01
+        Error: counts: {'00': 10}
+    Input: 21, Expected output (binary idx): 01
+        Error: counts: {'10': 10}
+qasm_syntax=1.0
+semantic_score=0.3333333333333333
+gate_count=1.0

@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 1,
+  "code_syntax": 1,
+  "result_score": 1.0,
+  "gate_count_ratio": 1.875,
+  "shot_ratio": 0.2,
+  "time_ratio": 11.024656474357922,
+  "task": "generalized_simon_ternary",
+  "group": "algorithm_design",
+  "pass": true
+}

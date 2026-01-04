@@ -1,0 +1,12 @@
+{
+  "workdir": "/mnt/d/RealScience/Quantum Computing/2023-2024 Projects/QCircuitNet/lm_evaluation_quantum/terminal_bench/tasks/shor",
+  "target_file": "/mnt/d/RealScience/Quantum Computing/2023-2024 Projects/QCircuitNet/lm_evaluation_quantum/terminal_bench/tasks/shor/solution.py",
+  "gen_model": "gpt-5.2",
+  "codex_model": "gpt-5.2",
+  "verify_cmd": null,
+  "stage1_skipped": false,
+  "codex_returncode": 0,
+  "post_verify_reward": null,
+  "usage": {},
+  "elapsed_sec": 180.76074957847595
+}

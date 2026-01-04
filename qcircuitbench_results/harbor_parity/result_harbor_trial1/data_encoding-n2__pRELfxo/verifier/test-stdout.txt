@@ -1,0 +1,37 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 28
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Jan  2 07:01 ..
+-rw-r--r-- 1  501 dialout   275 Dec 31 06:10 enc_n2.qasm
+-rwxr-xr-x 1  501 dialout 13741 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 12
+drwxr-xr-x 1 root root 4096 Jan  2 07:01 .
+drwxr-xr-x 1 root root 4096 Jan  2 07:01 ..
+-rw-r--r-- 1 root root  108 Jan  2 07:01 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 108 Jan  2 07:01 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+qubit[2] q;
+x q[0];
+ry(1.9106332362490186) q[1];
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 108 Jan  2 07:01 /logs/verifier/solution.py
+Data Encoding tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Data Encoding tasks don't need model to write post-processing. So here shot_ratio = nan (N/A) is correct.
+Data Encoding tasks don't need model to write post-processing. So here time_ratio = nan (N/A) is correct.
+        Result score (amplitude): 1.000000
+qasm_syntax=1.0
+semantic_score=1.0
+gate_count=1.0

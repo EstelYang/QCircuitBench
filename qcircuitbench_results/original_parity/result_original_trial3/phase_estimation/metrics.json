@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 1,
+  "code_syntax": 1,
+  "result_score": 1.0,
+  "gate_count_ratio": 12.0,
+  "shot_ratio": 4096.0,
+  "time_ratio": 1.1254305512906364,
+  "task": "phase_estimation",
+  "group": "algorithm_design",
+  "pass": true
+}

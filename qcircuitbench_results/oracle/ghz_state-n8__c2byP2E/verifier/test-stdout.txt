@@ -1,0 +1,37 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 28
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Dec 31 06:10 ..
+-rw-r--r-- 1  501 dialout   163 Dec 31 06:10 ghz_state_n8.qasm
+-rwxr-xr-x 1  501 dialout 13239 Dec 31 06:10 test.sh
+solution dir: /solution
+total 16
+drwxr-xr-x 2  501 dialout 4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root    4096 Dec 31 06:10 ..
+-rw-r--r-- 1 root root     355 Dec 31 06:10 solution.py
+-rwxr-xr-x 1  501 dialout  567 Dec 31 06:10 solve.sh
+app dir: /app
+total 12
+drwxr-xr-x 1 root root 4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root 4096 Dec 31 06:10 ..
+-rw-r--r-- 1 root root  355 Dec 31 06:10 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 355 Dec 31 06:10 /app/solution.py
+qasm_string = 'OPENQASM 3.0;\ninclude "stdgates.inc";\nqubit[8] q;\nh q[0];\ncx q[0], q[1];\ncx q[0], q[2];\ncx q[0], q[3];\ncx q[0], q[4];\ncx q[0], q[5];\ncx q[0], q[6];\ncx q[0], q[7];\n'
+code_string = 'def run_and_analyze(circuit, aer_sim):\n    """Return the qubit indices of the prepared GHZ state."""\n    return list(range(circuit.num_qubits))\n'
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 355 Dec 31 06:10 /logs/verifier/solution.py
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Post-processing code loaded successfully.
+GHZ post-processing doesn't need shots. So here nan (N/A) is correct.
+qasm_syntax=1.0
+semantic_score=1.0
+gate_count=1.0
+code_syntax=1.0

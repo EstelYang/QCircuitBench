@@ -1,0 +1,25 @@
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+qubit[4] q;
+bit[4] c;
+h q[0];
+h q[2];
+h q[3];
+s q[0];
+s q[0];
+t q[0];
+s q[2];
+s q[2];
+t q[2];
+cnot q[3], q[0];
+s q[0];
+cnot q[3], q[0];
+cnot q[3], q[2];
+s q[2];
+cnot q[3], q[2];
+cnot q[2], q[0];
+cnot q[3], q[0];
+s q[0];
+cnot q[3], q[0];
+cnot q[2], q[0];
+"""

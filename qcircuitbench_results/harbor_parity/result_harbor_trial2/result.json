@@ -1,0 +1,64 @@
+{
+    "id": "2be2c545-fc88-4df6-be12-d1a5f11d4286",
+    "started_at": "2025-12-31T14:13:46.829381",
+    "finished_at": "2025-12-31T15:38:28.643560",
+    "n_total_trials": 28,
+    "stats": {
+        "n_trials": 28,
+        "n_errors": 1,
+        "evals": {
+            "codex__qcircuitbench": {
+                "n_trials": 28,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.6507936507936508
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "clifford_2-n5__32U68ws",
+                            "simon-n8__iRB5X4E",
+                            "universal_1-n4__ie8pjyC",
+                            "data_encoding-n2__iLdr8Kq",
+                            "bernstein_vazirani-n8__CqtAHrS",
+                            "ghz_state-n8__UkZcxGa",
+                            "shor-n18__ArRxiQg",
+                            "diffusion_operator-n7__35hBu3f",
+                            "qaoa-n8__dtmmKhj",
+                            "bernstein_vazirani_oracle-n9__q7QTmRN",
+                            "grover_oracle-n5__DMvNskC",
+                            "swap_test-n8__hyWt9d2",
+                            "random_number_generator-n5__vqD5z3b",
+                            "deutsch_jozsa_oracle-n7__y5Q4snv",
+                            "clifford_1-n3__XdDEwAD",
+                            "w_state-n8__RAKn5Ci",
+                            "efficient_su2-n8__6nB3XS3",
+                            "deutsch_jozsa-n8__f5XPCT6"
+                        ],
+                        "0.0": [
+                            "universal_2-n9__F8qM2kG",
+                            "simon_oracle-n4__9KNncH3",
+                            "generalized_simon_multi_oracle-n__7TFn985",
+                            "generalized_simon_multi-n8__Z7MG42k",
+                            "generalized_simon_ternary-n3__JC2iQ8X",
+                            "generalized_simon_ternary_oracle__PKRBPEo",
+                            "quantum_fourier_transform-n8__LC7nEVm",
+                            "qae-n8__urhhrzt",
+                            "phase_estimation-n8__6kPaa23"
+                        ],
+                        "0.22222222222222224": [
+                            "grover-n8__UHDqga4"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "phase_estimation-n8__6kPaa23"
+                    ]
+                }
+            }
+        }
+    }
+}

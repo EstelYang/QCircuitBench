@@ -1,0 +1,50 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 24
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Jan  2 07:09 ..
+-rw-r--r-- 1  501 dialout   373 Dec 31 06:10 simon_oracle_n4.qasm
+-rwxr-xr-x 1  501 dialout 11304 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 16
+drwxr-xr-x 1 root root 4096 Jan  2 07:09 .
+drwxr-xr-x 1 root root 4096 Jan  2 07:09 ..
+drwxr-xr-x 2 root root 4096 Jan  2 07:09 __pycache__
+-rw-r--r-- 1 root root  228 Jan  2 07:09 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 228 Jan  2 07:09 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+gate oracle a0, a1, a2, a3, a4, a5, a6, a7 {
+  cx a0, a4;
+  x a5;
+  cx a2, a6;
+  cx a3, a7;
+  x a7;
+}
+qubit[8] q;
+oracle q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7];
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 228 Jan  2 07:09 /logs/verifier/solution.py
+Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Oracle Construction tasks don't need shots. So here nan (N/A) is correct.
+    Input: 0111, Expected output: 0110
+        Error: counts: {'1111': 10}
+    Input: 0011, Expected output: 0110
+        Error: counts: {'1011': 10}
+    Input: 0101, Expected output: 0100
+        Error: counts: {'1111': 10}
+    Input: 0110, Expected output: 0111
+        Error: counts: {'1110': 10}
+qasm_syntax=1.0
+semantic_score=0.0
+gate_count=1.0

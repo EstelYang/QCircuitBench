@@ -1,0 +1,179 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 32
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Dec 31 06:48 ..
+-rw-r--r-- 1  501 dialout  1046 Dec 31 06:10 qaoa_n8.qasm
+-rwxr-xr-x 1  501 dialout 18079 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 16
+drwxr-xr-x 1 root root 4096 Dec 31 06:48 .
+drwxr-xr-x 1 root root 4096 Dec 31 06:48 ..
+drwxr-xr-x 2 root root 4096 Dec 31 06:48 __pycache__
+-rw-r--r-- 1 root root 2398 Dec 31 06:48 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 2398 Dec 31 06:48 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+input float[64] gamma;
+input float[64] beta;
+qubit[8] q;
+bit[8] c;
+h q[0];
+h q[1];
+h q[2];
+h q[3];
+h q[4];
+h q[5];
+h q[6];
+h q[7];
+cx q[0], q[1];
+rz(gamma) q[1];
+cx q[0], q[1];
+cx q[0], q[3];
+rz(gamma) q[3];
+cx q[0], q[3];
+cx q[0], q[2];
+rz(gamma) q[2];
+cx q[0], q[2];
+cx q[1], q[4];
+rz(gamma) q[4];
+cx q[1], q[4];
+cx q[1], q[6];
+rz(gamma) q[6];
+cx q[1], q[6];
+cx q[2], q[4];
+rz(gamma) q[4];
+cx q[2], q[4];
+cx q[2], q[6];
+rz(gamma) q[6];
+cx q[2], q[6];
+cx q[4], q[7];
+rz(gamma) q[7];
+cx q[4], q[7];
+cx q[3], q[7];
+rz(gamma) q[7];
+cx q[3], q[7];
+cx q[3], q[5];
+rz(gamma) q[5];
+cx q[3], q[5];
+cx q[7], q[5];
+rz(gamma) q[5];
+cx q[7], q[5];
+cx q[5], q[6];
+rz(gamma) q[6];
+cx q[5], q[6];
+rx(beta) q[0];
+rx(beta) q[1];
+rx(beta) q[2];
+rx(beta) q[3];
+rx(beta) q[4];
+rx(beta) q[5];
+rx(beta) q[6];
+rx(beta) q[7];
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+measure q[2] -> c[2];
+measure q[3] -> c[3];
+measure q[4] -> c[4];
+measure q[5] -> c[5];
+measure q[6] -> c[6];
+measure q[7] -> c[7];
+"""
+
+code_string = """from qiskit import transpile
+from scipy.optimize import minimize
+
+def run_and_analyze(circuit, aer_sim, graph):
+    transpiled = transpile(circuit, aer_sim)
+    parameters = list(transpiled.parameters)
+
+    def objective(params):
+        bind = {}
+        for i in range(len(parameters)):
+            bind[parameters[i]] = [float(params[i])]
+        job = aer_sim.run(transpiled, parameter_binds=[bind], shots=2048)
+        result = job.result()
+        counts = result.get_counts(0)
+        return -compute_expectation(counts, graph)
+
+    initial_params = [0.1] * circuit.num_parameters
+    opt = minimize(objective, x0=initial_params, method="COBYLA", options={"maxiter": 80})
+
+    best_params = opt.x
+    best_bind = {}
+    for i in range(len(parameters)):
+        best_bind[parameters[i]] = [float(best_params[i])]
+
+    job = aer_sim.run(transpiled, parameter_binds=[best_bind], shots=8192)
+    result = job.result()
+    counts = result.get_counts(0)
+
+    sorted_items = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
+    top_two = []
+    if len(sorted_items) >= 1:
+        top_two.append(sorted_items[0][0])
+    if len(sorted_items) >= 2:
+        top_two.append(sorted_items[1][0])
+    if len(top_two) == 1:
+        top_two.append(top_two[0])
+    if len(top_two) == 0:
+        top_two = ["0" * 8, "0" * 8]
+    return top_two
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 2398 Dec 31 06:48 /logs/verifier/solution.py
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Post-processing code loaded successfully.
+QAOA tasks don't need shots. So here nan (N/A) is correct.
+    Running Test Iteration 0
+1.0
+    Running Test Iteration 1
+0.9
+    Running Test Iteration 2
+0.6
+    Running Test Iteration 3
+0.6
+    Running Test Iteration 4
+0.7
+    Running Test Iteration 5
+0.7
+    Running Test Iteration 6
+0.9
+    Running Test Iteration 7
+1.0
+    Running Test Iteration 8
+1.0
+    Running Test Iteration 9
+1.0
+    Running Test Iteration 10
+0.6
+    Running Test Iteration 11
+1.0
+    Running Test Iteration 12
+0.6
+    Running Test Iteration 13
+1.0
+    Running Test Iteration 14
+1.0
+    Running Test Iteration 15
+0.6
+    Running Test Iteration 16
+0.6
+    Running Test Iteration 17
+1.0
+    Running Test Iteration 18
+0.9
+    Running Test Iteration 19
+1.0
+qasm_syntax=1.0
+semantic_score=1.0
+gate_count=0.6166666666666666
+code_syntax=1.0

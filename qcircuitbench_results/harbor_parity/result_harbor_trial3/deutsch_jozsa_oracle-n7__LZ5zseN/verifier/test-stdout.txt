@@ -1,0 +1,89 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 24
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Jan  2 06:07 ..
+-rw-r--r-- 1  501 dialout   457 Dec 31 06:10 dj_oracle_n7.qasm
+-rwxr-xr-x 1  501 dialout 11524 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 12
+drwxr-xr-x 1 root root 4096 Jan  2 06:07 .
+drwxr-xr-x 1 root root 4096 Jan  2 06:07 ..
+-rw-r--r-- 1 root root  282 Jan  2 06:07 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 282 Jan  2 06:07 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+
+gate oracle_7bit a, b, c, d, e, f, g, h {
+  x c;
+  x e;
+  cx a, h;
+  cx b, h;
+  cx c, h;
+  cx d, h;
+  cx e, h;
+  cx f, h;
+  cx g, h;
+  x c;
+  x e;
+}
+
+qubit[8] q;
+oracle_7bit q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7];
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 282 Jan  2 06:07 /logs/verifier/solution.py
+Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Oracle Construction tasks don't need shots. So here nan (N/A) is correct.
+    Balance Type: balanced, Input: 0001011, Expected output: 1
+        Success
+    Balance Type: balanced, Input: 1110011, Expected output: 1
+        Success
+    Balance Type: balanced, Input: 1001011, Expected output: 0
+        Success
+    Balance Type: balanced, Input: 0001111, Expected output: 0
+        Success
+    Balance Type: balanced, Input: 0000101, Expected output: 0
+        Success
+    Balance Type: balanced, Input: 1110001, Expected output: 0
+        Success
+    Balance Type: balanced, Input: 0001110, Expected output: 1
+        Success
+    Balance Type: balanced, Input: 0010001, Expected output: 0
+        Success
+    Balance Type: balanced, Input: 1110000, Expected output: 1
+        Success
+    Balance Type: balanced, Input: 1011010, Expected output: 0
+        Success
+    Balance Type: balanced, Input: 1111110, Expected output: 0
+        Success
+    Balance Type: balanced, Input: 0000001, Expected output: 1
+        Success
+    Balance Type: balanced, Input: 1010101, Expected output: 0
+        Success
+    Balance Type: balanced, Input: 0100000, Expected output: 1
+        Success
+    Balance Type: balanced, Input: 1000010, Expected output: 0
+        Success
+    Balance Type: balanced, Input: 1001100, Expected output: 1
+        Success
+    Balance Type: balanced, Input: 0010100, Expected output: 0
+        Success
+    Balance Type: balanced, Input: 0110101, Expected output: 0
+        Success
+    Balance Type: balanced, Input: 1101000, Expected output: 1
+        Success
+    Balance Type: balanced, Input: 1000110, Expected output: 1
+        Success
+qasm_syntax=1.0
+semantic_score=1.0
+gate_count=1.0

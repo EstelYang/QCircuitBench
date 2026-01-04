@@ -1,0 +1,119 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 24
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Jan  2 05:45 ..
+-rw-r--r-- 1  501 dialout  2374 Dec 31 06:10 multi_simon_oracle_n8.qasm
+-rwxr-xr-x 1  501 dialout 11597 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 16
+drwxr-xr-x 1 root root 4096 Jan  2 05:45 .
+drwxr-xr-x 1 root root 4096 Jan  2 05:45 ..
+drwxr-xr-x 2 root root 4096 Jan  2 05:45 __pycache__
+-rw-r--r-- 1 root root  489 Jan  2 05:45 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 489 Jan  2 05:45 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+
+gate oracle q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15 {
+  cx q0, q8;
+  cx q1, q9;
+  cx q2, q10;
+  cx q3, q11;
+  cx q4, q12;
+  cx q5, q13;
+  cx q6, q14;
+  cx q7, q15;
+
+  cx q3, q11;
+  cx q3, q13;
+  cx q3, q14;
+  cx q3, q15;
+
+  x q9;
+  x q10;
+  x q12;
+  x q13;
+  x q14;
+  x q15;
+}
+
+qubit[16] q;
+oracle q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7], q[8], q[9], q[10], q[11], q[12], q[13], q[14], q[15];
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 489 Jan  2 05:45 /logs/verifier/solution.py
+Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Oracle Construction tasks don't need shots. So here nan (N/A) is correct.
+    Input: 00001111, Expected output: 01110111, 11001111 or 01100000
+00010001
+        Error: counts: {'00010001': 1024}
+    Input: 11000011, Expected output: 10111011, 00000011 or 10101100
+00110101
+        Error: counts: {'00110101': 1024}
+    Input: 01011111, Expected output: 00100111, 10011111 or 00110000
+01000001
+        Error: counts: {'01000001': 1024}
+    Input: 11011010, Expected output: 10100010, 00011010 or 10110101
+11000100
+        Error: counts: {'11000100': 1024}
+    Input: 10001010, Expected output: 11110010, 01001010 or 11100101
+10010100
+        Error: counts: {'10010100': 1024}
+    Input: 11110000, Expected output: 10001000, 00110000 or 10011111
+00000110
+        Error: counts: {'00000110': 1024}
+    Input: 10111111, Expected output: 11000111, 01111111 or 11010000
+10100001
+        Error: counts: {'10100001': 1024}
+    Input: 10111010, Expected output: 11000010, 01111010 or 11010101
+10100100
+        Error: counts: {'10100100': 1024}
+    Input: 11101011, Expected output: 10010011, 00101011 or 10000100
+11110101
+        Error: counts: {'11110101': 1024}
+    Input: 11110010, Expected output: 10001010, 00110010 or 10011101
+00000100
+        Error: counts: {'00000100': 1024}
+    Input: 01010101, Expected output: 00101101, 10010101 or 00111010
+10100011
+        Error: counts: {'10100011': 1024}
+    Input: 11001111, Expected output: 10110111, 00001111 or 10100000
+11010001
+        Error: counts: {'11010001': 1024}
+    Input: 10010011, Expected output: 11101011, 01010011 or 11111100
+01100101
+        Error: counts: {'01100101': 1024}
+    Input: 00000000, Expected output: 01111000, 11000000 or 01101111
+11110110
+        Error: counts: {'11110110': 1024}
+    Input: 11110001, Expected output: 10001001, 00110001 or 10011110
+00000111
+        Error: counts: {'00000111': 1024}
+    Input: 01100100, Expected output: 00011100, 10100100 or 00001011
+10010010
+        Error: counts: {'10010010': 1024}
+    Input: 10010010, Expected output: 11101010, 01010010 or 11111101
+01100100
+        Error: counts: {'01100100': 1024}
+    Input: 00110101, Expected output: 01001101, 11110101 or 01011010
+11000011
+        Error: counts: {'11000011': 1024}
+    Input: 01001010, Expected output: 00110010, 10001010 or 00100101
+01010100
+        Error: counts: {'01010100': 1024}
+    Input: 10110001, Expected output: 11001001, 01110001 or 11011110
+01000111
+        Error: counts: {'01000111': 1024}
+qasm_syntax=1.0
+semantic_score=0.0
+gate_count=1.0

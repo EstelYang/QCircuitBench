@@ -1,0 +1,86 @@
+{
+    "id": "33cde6b1-5fa7-450b-af7a-5f71bfa23c68",
+    "task_name": "bernstein_vazirani-n8",
+    "trial_name": "bernstein_vazirani-n8__aZ9e8dy",
+    "trial_uri": "file:///Users/yangrui/Starlight/WorkSpace/harbor/jobs/2025-12-31__14-10-36/bernstein_vazirani-n8__aZ9e8dy",
+    "task_id": {
+        "path": "datasets/qcircuitbench/bernstein_vazirani-n8"
+    },
+    "source": "qcircuitbench",
+    "task_checksum": "bf96c8fa605015c476b4e0a80c70ad5fab181bfaa20637ff1d3f6deda593baf4",
+    "config": {
+        "task": {
+            "path": "datasets/qcircuitbench/bernstein_vazirani-n8",
+            "git_url": null,
+            "git_commit_id": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "qcircuitbench"
+        },
+        "trial_name": "bernstein_vazirani-n8__aZ9e8dy",
+        "trials_dir": "jobs/2025-12-31__14-10-36",
+        "timeout_multiplier": 1.0,
+        "agent": {
+            "name": "oracle",
+            "import_path": null,
+            "model_name": null,
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {}
+        },
+        "environment": {
+            "type": "docker",
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "job_id": "0ed0b289-0ba2-4b23-bf8b-424e7135aa6a"
+    },
+    "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2025-12-31T14:10:44.261919",
+    "finished_at": "2025-12-31T14:10:49.498067",
+    "environment_setup": {
+        "started_at": "2025-12-31T14:10:44.265121",
+        "finished_at": "2025-12-31T14:10:44.994911"
+    },
+    "agent_setup": {
+        "started_at": "2025-12-31T14:10:44.994927",
+        "finished_at": "2025-12-31T14:10:44.994962"
+    },
+    "agent_execution": {
+        "started_at": "2025-12-31T14:10:44.994979",
+        "finished_at": "2025-12-31T14:10:45.231746"
+    },
+    "verifier": {
+        "started_at": "2025-12-31T14:10:45.231962",
+        "finished_at": "2025-12-31T14:10:47.998989"
+    }
+}

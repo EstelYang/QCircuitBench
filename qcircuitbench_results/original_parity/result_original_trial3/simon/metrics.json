@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 1,
+  "code_syntax": 1,
+  "result_score": 0.68,
+  "gate_count_ratio": 1.0,
+  "shot_ratio": 128.0,
+  "time_ratio": 1.061146058779506,
+  "task": "simon",
+  "group": "algorithm_design",
+  "pass": true
+}

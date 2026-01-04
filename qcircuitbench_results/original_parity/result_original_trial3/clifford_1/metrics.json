@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 1,
+  "code_syntax": NaN,
+  "result_score": 1.0,
+  "gate_count_ratio": 0.375,
+  "shot_ratio": NaN,
+  "time_ratio": 1.0714285714285714,
+  "task": "clifford_1",
+  "group": "random_circuit_synthesis",
+  "pass": true
+}

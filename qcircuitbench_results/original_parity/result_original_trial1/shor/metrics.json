@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 1,
+  "code_syntax": 1,
+  "result_score": 1.0,
+  "gate_count_ratio": 3.6666666666666665,
+  "shot_ratio": 4096.0,
+  "time_ratio": 0.7720168734943329,
+  "task": "shor",
+  "group": "algorithm_design",
+  "pass": true
+}

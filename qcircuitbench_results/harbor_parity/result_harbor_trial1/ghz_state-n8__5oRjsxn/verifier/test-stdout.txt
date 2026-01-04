@@ -1,0 +1,75 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 28
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Jan  2 07:05 ..
+-rw-r--r-- 1  501 dialout   163 Dec 31 06:10 ghz_state_n8.qasm
+-rwxr-xr-x 1  501 dialout 13239 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 16
+drwxr-xr-x 1 root root 4096 Jan  2 07:05 .
+drwxr-xr-x 1 root root 4096 Jan  2 07:05 ..
+drwxr-xr-x 2 root root 4096 Jan  2 07:05 __pycache__
+-rw-r--r-- 1 root root 1161 Jan  2 07:05 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 1161 Jan  2 07:05 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+qubit[8] q;
+h q[0];
+cx q[0], q[1];
+cx q[0], q[2];
+cx q[0], q[3];
+cx q[0], q[4];
+cx q[0], q[5];
+cx q[0], q[6];
+cx q[0], q[7];
+"""
+
+code_string = """from qiskit import transpile
+
+def run_and_analyze(circuit, aer_sim):
+    n_qubits = circuit.num_qubits
+    if circuit.num_clbits == 0:
+        circuit_to_run = circuit.copy()
+        circuit_to_run.measure_all()
+    else:
+        circuit_to_run = circuit
+
+    compiled = transpile(circuit_to_run, aer_sim)
+    result = aer_sim.run(compiled, shots=2048).result()
+    counts = result.get_counts()
+    total_shots = sum(counts.values()) or 1
+
+    def bit_at(classical_bitstring, qubit_index):
+        # Qiskit count keys are ordered c[n-1]..c[0] when measuring q[i] -> c[i].
+        return classical_bitstring[-1 - qubit_index]
+
+    prepared_qubits = []
+    for i in range(n_qubits):
+        same_as_q0 = sum(
+            count
+            for bitstring, count in counts.items()
+            if bit_at(bitstring, i) == bit_at(bitstring, 0)
+        )
+        if same_as_q0 / total_shots > 0.9:
+            prepared_qubits.append(i)
+
+    return prepared_qubits
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 1161 Jan  2 07:05 /logs/verifier/solution.py
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Post-processing code loaded successfully.
+GHZ post-processing doesn't need shots. So here nan (N/A) is correct.
+qasm_syntax=1.0
+semantic_score=1.0
+gate_count=1.0
+code_syntax=1.0

@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 1,
+  "code_syntax": NaN,
+  "result_score": 0.0,
+  "gate_count_ratio": 0.6875,
+  "shot_ratio": NaN,
+  "time_ratio": 0.9655172413793104,
+  "task": "universal_2",
+  "group": "random_circuit_synthesis",
+  "pass": true
+}

@@ -1,0 +1,62 @@
+{
+    "id": "338ebaa3-7036-4502-b71f-d5ee773bf073",
+    "started_at": "2026-01-02T13:18:23.044500",
+    "finished_at": "2026-01-02T14:28:42.562008",
+    "n_total_trials": 28,
+    "stats": {
+        "n_trials": 28,
+        "n_errors": 0,
+        "evals": {
+            "codex__qcircuitbench": {
+                "n_trials": 28,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.6269841269841271
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "clifford_2-n5__WKDLkTu",
+                            "simon-n8__qrVSeDT",
+                            "universal_1-n4__yYydL7v",
+                            "data_encoding-n2__bbfnuG3",
+                            "bernstein_vazirani-n8__LhLEkUd",
+                            "ghz_state-n8__X7Q9rt3",
+                            "diffusion_operator-n7__kWEejFn",
+                            "grover_oracle-n5__aLMVKUG",
+                            "swap_test-n8__653TDss",
+                            "generalized_simon_ternary-n3__cdjDnhJ",
+                            "random_number_generator-n5__4TM3Neu",
+                            "deutsch_jozsa_oracle-n7__LZ5zseN",
+                            "clifford_1-n3__KzKqTJy",
+                            "quantum_fourier_transform-n8__LgzpCfG",
+                            "w_state-n8__qSG9J58",
+                            "efficient_su2-n8__Tg9mkbG",
+                            "deutsch_jozsa-n8__Zwvht2g"
+                        ],
+                        "0.0": [
+                            "universal_2-n9__i42mwe2",
+                            "shor-n18__erAjzsH",
+                            "simon_oracle-n4__WDig6VR",
+                            "generalized_simon_multi_oracle-n__3m7Yy8G",
+                            "qaoa-n8__oQLa4XX",
+                            "bernstein_vazirani_oracle-n9__LDPwaCq",
+                            "generalized_simon_multi-n8__8WcK56Q",
+                            "qae-n8__SP7jEQT",
+                            "phase_estimation-n8__zfpPP8V"
+                        ],
+                        "0.22222222222222224": [
+                            "grover-n8__wzrTL6Y"
+                        ],
+                        "0.3333333333333333": [
+                            "generalized_simon_ternary_oracle__X9jwVyp"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

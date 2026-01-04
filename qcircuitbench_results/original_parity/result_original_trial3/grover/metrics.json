@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 1,
+  "code_syntax": 1,
+  "result_score": 0.11111111111111112,
+  "gate_count_ratio": 15.571428571428571,
+  "shot_ratio": 2048.0,
+  "time_ratio": 0.7619781769708639,
+  "task": "grover",
+  "group": "algorithm_design",
+  "pass": true
+}

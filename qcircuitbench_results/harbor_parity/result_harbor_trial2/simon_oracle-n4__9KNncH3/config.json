@@ -1,0 +1,38 @@
+{
+    "task": {
+        "path": "datasets/qcircuitbench/simon_oracle-n4",
+        "git_url": null,
+        "git_commit_id": null,
+        "overwrite": false,
+        "download_dir": null,
+        "source": "qcircuitbench"
+    },
+    "trial_name": "simon_oracle-n4__9KNncH3",
+    "trials_dir": "jobs/2025-12-31__14-13-46",
+    "timeout_multiplier": 2.0,
+    "agent": {
+        "name": "codex",
+        "import_path": null,
+        "model_name": "gpt-5.2",
+        "override_timeout_sec": null,
+        "override_setup_timeout_sec": null,
+        "max_timeout_sec": null,
+        "kwargs": {}
+    },
+    "environment": {
+        "type": "docker",
+        "force_build": false,
+        "delete": true,
+        "override_cpus": null,
+        "override_memory_mb": null,
+        "override_storage_mb": null,
+        "override_gpus": null,
+        "kwargs": {}
+    },
+    "verifier": {
+        "override_timeout_sec": null,
+        "max_timeout_sec": null,
+        "disable": false
+    },
+    "job_id": "2be2c545-fc88-4df6-be12-d1a5f11d4286"
+}

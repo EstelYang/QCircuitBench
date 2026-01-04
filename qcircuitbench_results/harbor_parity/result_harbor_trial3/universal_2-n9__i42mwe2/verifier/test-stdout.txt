@@ -1,0 +1,52 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 24
+drwxr-xr-x 2  501 dialout 4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root    4096 Jan  2 05:31 ..
+-rwxr-xr-x 1  501 dialout 9746 Dec 31 06:10 test.sh
+-rw-r--r-- 1  501 dialout  220 Dec 31 06:10 universal_n9.qasm
+solution dir: /solution
+app dir: /app
+total 12
+drwxr-xr-x 1 root root 4096 Jan  2 05:31 .
+drwxr-xr-x 1 root root 4096 Jan  2 05:31 ..
+-rw-r--r-- 1 root root  247 Jan  2 05:31 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 247 Jan  2 05:31 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+
+gate prep_state qa, qb, qc, qd {
+  h qa;
+  h qc;
+  h qd;
+  t qa;
+  t qc;
+  s qd;
+  s qd;
+  s qd;
+  h qc;
+  cx qa, qc;
+  h qc;
+}
+
+qubit[4] q;
+bit[4] c;
+
+prep_state q[0], q[1], q[2], q[3];
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 247 Jan  2  2026 /logs/verifier/solution.py
+Random Circuit Synthesis tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Run-time error: shapes (512,) and (16,) not aligned: 512 (dim 0) != 16 (dim 0)
+Random Circuit Synthesis tasks don't need shots. So here nan (N/A) is correct.
+qasm_syntax=0.0
+semantic_score=0.0
+gate_count=0.0

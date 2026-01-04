@@ -1,0 +1,84 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 24
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Jan  2 07:21 ..
+-rw-r--r-- 1  501 dialout   405 Dec 31 06:10 bv_oracle_n9.qasm
+-rwxr-xr-x 1  501 dialout 10985 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 12
+drwxr-xr-x 1 root root 4096 Jan  2 07:21 .
+drwxr-xr-x 1 root root 4096 Jan  2 07:21 ..
+-rw-r--r-- 1 root root  274 Jan  2 07:21 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 274 Jan  2 07:21 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+
+gate Oracle a0, a1, a2, a3, a4, a5, a6, a7, a8, a9 {
+  cx a1, a9;
+  cx a2, a9;
+  cx a3, a9;
+  cx a5, a9;
+  cx a6, a9;
+  cx a7, a9;
+}
+
+qubit[10] q;
+Oracle q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7], q[8], q[9];
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 274 Jan  2 07:21 /logs/verifier/solution.py
+Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Oracle Construction tasks don't need shots. So here nan (N/A) is correct.
+    Input: 010100011, Expected output: 1
+    Success
+    Input: 101001000, Expected output: 0
+    Success
+    Input: 001111010, Expected output: 0
+    Success
+    Input: 000110001, Expected output: 1
+    Success
+    Input: 100010011, Expected output: 1
+    Success
+    Input: 111100001, Expected output: 1
+    Success
+    Input: 101110100, Expected output: 1
+    Success
+    Input: 011010101, Expected output: 1
+    Success
+    Input: 010011011, Expected output: 1
+    Success
+    Input: 101001111, Expected output: 0
+    Success
+    Input: 001110101, Expected output: 1
+    Success
+    Input: 001011001, Expected output: 0
+    Success
+    Input: 101110101, Expected output: 1
+    Success
+    Input: 101001010, Expected output: 1
+    Success
+    Input: 000011111, Expected output: 1
+    Success
+    Input: 110010000, Expected output: 1
+    Success
+    Input: 001111100, Expected output: 0
+    Success
+    Input: 110110110, Expected output: 0
+    Success
+    Input: 101100011, Expected output: 1
+    Success
+    Input: 110110111, Expected output: 0
+    Success
+qasm_syntax=1.0
+semantic_score=1.0
+gate_count=1.0

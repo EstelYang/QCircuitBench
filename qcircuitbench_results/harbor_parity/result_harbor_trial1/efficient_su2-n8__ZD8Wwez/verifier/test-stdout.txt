@@ -1,0 +1,132 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 28
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Jan  2 07:49 ..
+-rw-r--r-- 1  501 dialout  2232 Dec 31 06:10 su_n8.qasm
+-rwxr-xr-x 1  501 dialout 13536 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 12
+drwxr-xr-x 1 root root 4096 Jan  2 07:49 .
+drwxr-xr-x 1 root root 4096 Jan  2 07:49 ..
+-rw-r--r-- 1 root root 2500 Jan  2 07:49 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 2500 Jan  2 07:49 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+
+input float[64] theta_0;
+input float[64] phi_0;
+input float[64] lambda_0;
+input float[64] theta_1;
+input float[64] phi_1;
+input float[64] lambda_1;
+input float[64] theta_2;
+input float[64] phi_2;
+input float[64] lambda_2;
+input float[64] theta_3;
+input float[64] phi_3;
+input float[64] lambda_3;
+input float[64] theta_4;
+input float[64] phi_4;
+input float[64] lambda_4;
+input float[64] theta_5;
+input float[64] phi_5;
+input float[64] lambda_5;
+input float[64] theta_6;
+input float[64] phi_6;
+input float[64] lambda_6;
+input float[64] theta_7;
+input float[64] phi_7;
+input float[64] lambda_7;
+input float[64] theta_8;
+input float[64] phi_8;
+input float[64] lambda_8;
+input float[64] theta_9;
+input float[64] phi_9;
+input float[64] lambda_9;
+input float[64] theta_10;
+input float[64] phi_10;
+input float[64] lambda_10;
+input float[64] theta_11;
+input float[64] phi_11;
+input float[64] lambda_11;
+input float[64] theta_12;
+input float[64] phi_12;
+input float[64] lambda_12;
+input float[64] theta_13;
+input float[64] phi_13;
+input float[64] lambda_13;
+input float[64] theta_14;
+input float[64] phi_14;
+input float[64] lambda_14;
+input float[64] theta_15;
+input float[64] phi_15;
+input float[64] lambda_15;
+
+qubit[8] q;
+
+U(theta_0, phi_0, lambda_0) q[0];
+U(theta_1, phi_1, lambda_1) q[1];
+U(theta_2, phi_2, lambda_2) q[2];
+U(theta_3, phi_3, lambda_3) q[3];
+U(theta_4, phi_4, lambda_4) q[4];
+U(theta_5, phi_5, lambda_5) q[5];
+U(theta_6, phi_6, lambda_6) q[6];
+U(theta_7, phi_7, lambda_7) q[7];
+
+cx q[0], q[1];
+cx q[1], q[2];
+cx q[2], q[3];
+cx q[3], q[4];
+cx q[4], q[5];
+cx q[5], q[6];
+cx q[6], q[7];
+
+U(theta_8, phi_8, lambda_8) q[0];
+U(theta_9, phi_9, lambda_9) q[1];
+U(theta_10, phi_10, lambda_10) q[2];
+U(theta_11, phi_11, lambda_11) q[3];
+U(theta_12, phi_12, lambda_12) q[4];
+U(theta_13, phi_13, lambda_13) q[5];
+U(theta_14, phi_14, lambda_14) q[6];
+U(theta_15, phi_15, lambda_15) q[7];
+"""
+
+code_string = """from qiskit_algorithms.minimum_eigensolvers import VQE
+from qiskit_algorithms.optimizers import COBYLA
+from qiskit.primitives import Estimator
+
+
+def run_and_analyze(circuit, hamiltonian, expected_energy, optiter=200, tolerance=1e-3):
+    estimator = Estimator()
+    optimizer = COBYLA(maxiter=optiter)
+    vqe = VQE(estimator=estimator, ansatz=circuit, optimizer=optimizer)
+    result = vqe.compute_minimum_eigenvalue(hamiltonian)
+    energy = float(result.eigenvalue.real)
+    error = abs(energy - expected_energy)
+    return error
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 2500 Jan  2 07:49 /logs/verifier/solution.py
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Post-processing code loaded successfully.
+VQE tasks don't need shots. So here nan (N/A) is correct.
+Computed ground state energy: -8.537109
+Expected ground state energy: -13.499730
+Error: 4.962621
+Computed ground state energy: -8.634766
+Expected ground state energy: -13.499730
+Error: 4.864964
+Accuracy rate:64.1071849214762%
+qasm_syntax=1.0
+semantic_score=1.0
+gate_count=1.0
+code_syntax=1.0

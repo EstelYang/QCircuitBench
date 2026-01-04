@@ -1,0 +1,103 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 36
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Dec 31 06:55 ..
+-rw-r--r-- 1  501 dialout   688 Dec 31 06:10 multi_simon_n8.qasm
+-rwxr-xr-x 1  501 dialout 20957 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 16
+drwxr-xr-x 1 root root 4096 Dec 31 06:55 .
+drwxr-xr-x 1 root root 4096 Dec 31 06:55 ..
+drwxr-xr-x 2 root root 4096 Dec 31 06:55 __pycache__
+-rw-r--r-- 1 root root 1737 Dec 31 06:55 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 1737 Dec 31 06:55 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+include "oracle.inc";
+qubit[17] q;
+bit[8] c;
+h q[0];
+h q[1];
+h q[2];
+h q[3];
+h q[4];
+h q[5];
+h q[6];
+h q[7];
+Oracle q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7], q[8], q[9], q[10], q[11], q[12], q[13], q[14], q[15];
+h q[0];
+h q[1];
+h q[2];
+h q[3];
+h q[4];
+h q[5];
+h q[6];
+h q[7];
+h q[16];
+h q[16];
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+measure q[2] -> c[2];
+measure q[3] -> c[3];
+measure q[4] -> c[4];
+measure q[5] -> c[5];
+measure q[6] -> c[6];
+measure q[7] -> c[7];
+"""
+
+code_string = """from qiskit import transpile
+
+def _score_candidates(counts, n):
+    total = sum(counts.values())
+    scores = [0.0] * (1 << n)
+    for s in range(1, 1 << n):
+        orth = 0
+        for bitstr, cnt in counts.items():
+            y = int(bitstr, 2)
+            if ((y & s).bit_count() & 1) == 0:
+                orth += cnt
+        scores[s] = orth / total
+    return scores
+
+def run_and_analyze(circuit, aer_sim):
+    n = 8
+    shots = 2048
+    best1 = 1
+    best2 = 2
+
+    for _ in range(3):
+        compiled = transpile(circuit, aer_sim, optimization_level=0)
+        result = aer_sim.run(compiled, shots=shots).result()
+        counts = result.get_counts()
+
+        scores = _score_candidates(counts, n)
+        ranked = sorted(range(1, 1 << n), key=lambda s: scores[s], reverse=True)
+        best1, best2 = ranked[0], ranked[1]
+        if scores[best1] >= 0.65 and scores[best2] >= 0.65 and best1 != best2:
+            break
+        shots *= 2
+
+    prediction1 = format(best1, "0{}b".format(n))
+    prediction2 = format(best2, "0{}b".format(n))
+    if prediction2 < prediction1:
+        prediction1, prediction2 = prediction2, prediction1
+    return prediction1, prediction2
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 1737 Dec 31  2025 /logs/verifier/solution.py
+    Error: The OpenQASM 3.0 code is not valid. Details: 
+QASM syntax error detected, using ground truth.
+Post-processing code loaded successfully.
+qasm_syntax=0.0
+semantic_score=0.0
+gate_count=0.0
+code_syntax=1.0

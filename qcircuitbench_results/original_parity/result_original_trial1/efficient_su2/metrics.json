@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 1,
+  "code_syntax": 1,
+  "result_score": 1.0,
+  "gate_count_ratio": 6.7727272727272725,
+  "shot_ratio": NaN,
+  "time_ratio": 0.8320234220079088,
+  "task": "efficient_su2",
+  "group": "algorithm_design",
+  "pass": true
+}

@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 1,
+  "code_syntax": NaN,
+  "result_score": 1.0,
+  "gate_count_ratio": 1.0,
+  "shot_ratio": NaN,
+  "time_ratio": 3.5714285714285716,
+  "task": "bernstein_vazirani_oracle",
+  "group": "oracle_construction",
+  "pass": true
+}

@@ -1,0 +1,94 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 32
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Jan  2 07:04 ..
+-rw-r--r-- 1  501 dialout   454 Dec 31 06:10 bernstein_vazirani_n8.qasm
+-rwxr-xr-x 1  501 dialout 18174 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 12
+drwxr-xr-x 1 root root 4096 Jan  2 07:04 .
+drwxr-xr-x 1 root root 4096 Jan  2 07:04 ..
+-rw-r--r-- 1 root root  775 Jan  2 07:04 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 775 Jan  2 07:04 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+include "oracle.inc";
+qubit[9] q;
+bit[8] c;
+x q[8];
+h q[8];
+h q[0];
+h q[1];
+h q[2];
+h q[3];
+h q[4];
+h q[5];
+h q[6];
+h q[7];
+Oracle q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7], q[8];
+h q[0];
+h q[1];
+h q[2];
+h q[3];
+h q[4];
+h q[5];
+h q[6];
+h q[7];
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+measure q[2] -> c[2];
+measure q[3] -> c[3];
+measure q[4] -> c[4];
+measure q[5] -> c[5];
+measure q[6] -> c[6];
+measure q[7] -> c[7];
+"""
+
+code_string = """from qiskit import transpile
+
+
+def run_and_analyze(circuit, aer_sim):
+    compiled = transpile(circuit, aer_sim)
+    result = aer_sim.run(compiled, shots=1024).result()
+    counts = result.get_counts()
+    prediction = max(counts, key=counts.get)
+    return prediction
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 775 Jan  2 07:04 /logs/verifier/solution.py
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Post-processing code loaded successfully.
+    Running Test Case 1
+        Success: 10/10, Fail: 0/10
+    Running Test Case 2
+        Success: 10/10, Fail: 0/10
+    Running Test Case 3
+        Success: 10/10, Fail: 0/10
+    Running Test Case 4
+        Success: 10/10, Fail: 0/10
+    Running Test Case 5
+        Success: 10/10, Fail: 0/10
+    Running Test Case 6
+        Success: 10/10, Fail: 0/10
+    Running Test Case 7
+        Success: 10/10, Fail: 0/10
+    Running Test Case 8
+        Success: 10/10, Fail: 0/10
+    Running Test Case 9
+        Success: 10/10, Fail: 0/10
+    Running Test Case 10
+        Success: 10/10, Fail: 0/10
+Total Success: 100; Total Fail: 0
+qasm_syntax=1.0
+semantic_score=1.0
+gate_count=1.0
+code_syntax=1.0

@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 1,
+  "code_syntax": NaN,
+  "result_score": 1.0,
+  "gate_count_ratio": 0.2857142857142857,
+  "shot_ratio": NaN,
+  "time_ratio": NaN,
+  "task": "data_encoding",
+  "group": "algorithm_design",
+  "pass": true
+}

@@ -1,0 +1,65 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 28
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Dec 31 07:02 ..
+-rw-r--r-- 1  501 dialout   205 Dec 31 06:10 qrng_n5.qasm
+-rwxr-xr-x 1  501 dialout 15406 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 16
+drwxr-xr-x 1 root root 4096 Dec 31 07:02 .
+drwxr-xr-x 1 root root 4096 Dec 31 07:02 ..
+drwxr-xr-x 2 root root 4096 Dec 31 07:02 __pycache__
+-rw-r--r-- 1 root root  677 Dec 31 07:02 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 677 Dec 31 07:02 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+qubit[5] q;
+bit[5] c;
+h q[0];
+h q[1];
+h q[2];
+h q[3];
+h q[4];
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+measure q[2] -> c[2];
+measure q[3] -> c[3];
+measure q[4] -> c[4];
+"""
+
+code_string = """from qiskit import transpile
+
+def run_and_analyze(circuit, aer_sim):
+    compiled = transpile(circuit, aer_sim)
+    job = aer_sim.run(compiled, shots=1, memory=True)
+    result = job.result()
+
+    try:
+        memory = result.get_memory(compiled)
+        random_number = memory[0]
+    except Exception:
+        counts = result.get_counts(compiled)
+        random_number = next(iter(counts.keys()))
+
+    return random_number
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 677 Dec 31  2025 /logs/verifier/solution.py
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Post-processing code loaded successfully.
+    Chi-Squared Test: Statistic=33.2, P-value=0.36041143137037035
+    Autocorrelation Coefficient: 0.07874942669316617
+    Entropy: 4.852498269724508 bits
+qasm_syntax=1.0
+semantic_score=1.0
+gate_count=1.0
+code_syntax=1.0

@@ -1,0 +1,56 @@
+{
+    "id": "0ed0b289-0ba2-4b23-bf8b-424e7135aa6a",
+    "started_at": "2025-12-31T14:10:36.338024",
+    "finished_at": "2025-12-31T14:12:50.358592",
+    "n_total_trials": 28,
+    "stats": {
+        "n_trials": 28,
+        "n_errors": 0,
+        "evals": {
+            "oracle__qcircuitbench": {
+                "n_trials": 28,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 1.0
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "clifford_2-n5__BoMPoQQ",
+                            "simon-n8__cCfRvUz",
+                            "universal_1-n4__NANnNtu",
+                            "universal_2-n9__gMU4UaT",
+                            "data_encoding-n2__pHsvQvU",
+                            "bernstein_vazirani-n8__aZ9e8dy",
+                            "ghz_state-n8__c2byP2E",
+                            "shor-n18__z9dMm5b",
+                            "diffusion_operator-n7__avdvXge",
+                            "simon_oracle-n4__NcAeXwQ",
+                            "generalized_simon_multi_oracle-n__mxk5inc",
+                            "qaoa-n8__ggRujbr",
+                            "bernstein_vazirani_oracle-n9__3ZRX9Cn",
+                            "generalized_simon_multi-n8__3wYF9ig",
+                            "grover_oracle-n5__E266hYr",
+                            "swap_test-n8__LXwPY6f",
+                            "generalized_simon_ternary-n3__kk7YN8j",
+                            "random_number_generator-n5__mZF5Qvz",
+                            "grover-n8__wM9tqQe",
+                            "generalized_simon_ternary_oracle__VVWG8Hb",
+                            "deutsch_jozsa_oracle-n7__YUQyFYn",
+                            "clifford_1-n3__TDuUXP4",
+                            "quantum_fourier_transform-n8__nADGNjp",
+                            "qae-n8__mHRJeys",
+                            "w_state-n8__6JrmUB2",
+                            "efficient_su2-n8__XPuoXfo",
+                            "phase_estimation-n8__Y4Eji2E",
+                            "deutsch_jozsa-n8__oKvvczf"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

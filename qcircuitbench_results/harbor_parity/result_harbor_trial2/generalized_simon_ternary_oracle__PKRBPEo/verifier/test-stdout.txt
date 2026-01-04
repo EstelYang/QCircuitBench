@@ -1,0 +1,16 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 28
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Dec 31 07:00 ..
+-rw-r--r-- 1  501 dialout  3953 Dec 31 06:10 ternary_simon_oracle_n2.qasm
+-rwxr-xr-x 1  501 dialout 13217 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 8
+drwxr-xr-x 2 root root 4096 Dec 27 14:20 .
+drwxr-xr-x 1 root root 4096 Dec 31 07:00 ..
+Python 3.13.2
+conda 25.3.1
+Missing solution.py (checked /app, /solution, /home/agent/workspace)

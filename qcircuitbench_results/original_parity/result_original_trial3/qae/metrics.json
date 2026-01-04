@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 0,
+  "code_syntax": 1,
+  "result_score": 0.0,
+  "gate_count_ratio": NaN,
+  "shot_ratio": NaN,
+  "time_ratio": NaN,
+  "task": "qae",
+  "group": "algorithm_design",
+  "pass": true
+}

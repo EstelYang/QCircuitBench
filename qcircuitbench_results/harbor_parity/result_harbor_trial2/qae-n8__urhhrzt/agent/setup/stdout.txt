@@ -1,0 +1,77 @@
+bash: cannot set terminal process group (-1): Inappropriate ioctl for device
+bash: no job control in this shell
+Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+Get:4 http://deb.debian.org/debian bookworm/main arm64 Packages [8693 kB]
+Get:5 http://deb.debian.org/debian bookworm-updates/main arm64 Packages [6936 B]
+Get:6 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [285 kB]
+Fetched 9239 kB in 8s (1118 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  libcurl3-gnutls libcurl4
+The following NEW packages will be installed:
+  curl libcurl4
+The following packages will be upgraded:
+  libcurl3-gnutls
+1 upgraded, 2 newly installed, 0 to remove and 41 not upgraded.
+Need to get 1039 kB of archives.
+After this operation, 1365 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bookworm/main arm64 libcurl4 arm64 7.88.1-10+deb12u14 [367 kB]
+Get:2 http://deb.debian.org/debian bookworm/main arm64 curl arm64 7.88.1-10+deb12u14 [309 kB]
+Get:3 http://deb.debian.org/debian bookworm/main arm64 libcurl3-gnutls arm64 7.88.1-10+deb12u14 [362 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 1039 kB in 5s (222 kB/s)
+Selecting previously unselected package libcurl4:arm64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 12332 files and directories currently installed.)
+Preparing to unpack .../libcurl4_7.88.1-10+deb12u14_arm64.deb ...
+Unpacking libcurl4:arm64 (7.88.1-10+deb12u14) ...
+Selecting previously unselected package curl.
+Preparing to unpack .../curl_7.88.1-10+deb12u14_arm64.deb ...
+Unpacking curl (7.88.1-10+deb12u14) ...
+Preparing to unpack .../libcurl3-gnutls_7.88.1-10+deb12u14_arm64.deb ...
+Unpacking libcurl3-gnutls:arm64 (7.88.1-10+deb12u14) over (7.88.1-10+deb12u12) ...
+Setting up libcurl3-gnutls:arm64 (7.88.1-10+deb12u14) ...
+Setting up libcurl4:arm64 (7.88.1-10+deb12u14) ...
+Setting up curl (7.88.1-10+deb12u14) ...
+Processing triggers for libc-bin (2.36-9+deb12u10) ...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 16631  100 16631    0     0  18607      0 --:--:-- --:--:-- --:--:-- 18602
+=> Downloading nvm from git to '/root/.nvm'
+=> Cloning into '/root/.nvm'...
+* (HEAD detached at FETCH_HEAD)
+  master
+=> Compressing and cleaning up git repository
+
+=> Appending nvm source string to /root/.bashrc
+=> Appending bash_completion source string to /root/.bashrc
+=> Close and reopen your terminal to start using nvm or run the following to use it now:
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+Downloading and installing node v22.21.1...
+Downloading https://nodejs.org/dist/v22.21.1/node-v22.21.1-linux-arm64.tar.xz...
+#=#=#                                                                         ##O#-#                                                                        ##O=#  #                                                                                                                                                 0.1%                                                                           0.2%                                                                           0.3%                                                                           0.4%                                                                           0.5%                                                                           0.7%#                                                                          1.4%#                                                                          2.5%##                                                                         3.9%####                                                                       5.6%#####                                                                      7.6%######                                                                     9.6%########                                                                  11.6%##########                                                                14.1%##########                                                                14.5%#################                                                         23.9%##################                                                        25.6%######################                                                    31.0%#########################                                                 35.0%##########################                                                36.9%#############################                                             41.4%################################                                          45.0%##########################################                                58.3%################################################                          67.6%#########################################################                 79.7%################################################################          89.6%######################################################################## 100.0%
+Computing checksum with sha256sum
+Checksums matched!
+Now using node v22.21.1 (npm v10.9.4)
+Creating default alias: default -> 22 (-> v22.21.1 *)
+10.9.4
+npm error code ECONNRESET
+npm error network aborted
+npm error network This is a problem related to network connectivity.
+npm error network In most cases you are behind a proxy or have bad network settings.
+npm error network
+npm error network If you are behind a proxy, please make sure that the
+npm error network 'proxy' config is set properly.  See: 'npm help config'
+npm notice
+npm notice New major version of npm available! 10.9.4 -> 11.7.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.7.0
+npm notice To update run: npm install -g npm@11.7.0
+npm notice
+npm error A complete log of this run can be found in: /root/.npm/_logs/2025-12-31T07_03_45_130Z-debug-0.log

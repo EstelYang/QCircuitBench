@@ -1,0 +1,61 @@
+{
+  "n_total_trials": 28,
+  "stats": {
+    "n_trials": 28,
+    "n_errors": 0,
+    "evals": {
+      "codex__qcircuitbench": {
+        "n_trials": 28,
+        "n_errors": 0,
+        "metrics": [
+          {
+            "mean": 0.5605515873015873
+          }
+        ],
+        "reward_stats": {
+          "reward": {
+            "1.0": [
+              "bernstein_vazirani",
+              "bernstein_vazirani_oracle",
+              "clifford_2",
+              "data_encoding",
+              "deutsch_jozsa",
+              "deutsch_jozsa_oracle",
+              "diffusion_operator",
+              "ghz_state",
+              "grover_oracle",
+              "qaoa",
+              "random_number_generator",
+              "simon",
+              "efficient_su2",
+              "generalized_simon_ternary",
+              "universal_1"
+            ],
+            "0.3333333333333333": [
+              "generalized_simon_ternary_oracle"
+            ],
+            "0.2509999999999996": [
+              "clifford_1"
+            ],
+            "0.11111111111111112": [
+              "grover"
+            ],
+            "0.0": [
+              "generalized_simon_multi",
+              "generalized_simon_multi_oracle",
+              "phase_estimation",
+              "qae",
+              "quantum_fourier_transform",
+              "simon_oracle",
+              "universal_2",
+              "w_state",
+              "shor",
+              "swap_test"
+            ]
+          }
+        },
+        "exception_stats": {}
+      }
+    }
+  }
+}

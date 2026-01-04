@@ -1,0 +1,560 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 32
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Dec 31 07:38 ..
+-rw-r--r-- 1  501 dialout  2324 Dec 31 06:10 phase_estimation_n8.qasm
+-rwxr-xr-x 1  501 dialout 18945 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 20
+drwxr-xr-x 1 root root 4096 Dec 31 07:20 .
+drwxr-xr-x 1 root root 4096 Dec 31 07:38 ..
+drwxr-xr-x 2 root root 4096 Dec 31 07:20 __pycache__
+-rw-r--r-- 1 root root 7288 Dec 31 07:20 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 7288 Dec 31 07:20 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+include "oracle.inc";
+qubit[9] q;
+bit[8] c;
+Psi q[8];
+h q[0];
+h q[1];
+h q[2];
+h q[3];
+h q[4];
+h q[5];
+h q[6];
+h q[7];
+CU_0 q[0], q[8];
+CU_0 q[1], q[8];
+CU_0 q[1], q[8];
+CU_0 q[2], q[8];
+CU_0 q[2], q[8];
+CU_0 q[2], q[8];
+CU_0 q[2], q[8];
+CU_0 q[3], q[8];
+CU_0 q[3], q[8];
+CU_0 q[3], q[8];
+CU_0 q[3], q[8];
+CU_0 q[3], q[8];
+CU_0 q[3], q[8];
+CU_0 q[3], q[8];
+CU_0 q[3], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[4], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[5], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[6], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+CU_0 q[7], q[8];
+h q[7];
+cp(-pi/2) q[7], q[6];
+h q[6];
+cp(-pi/4) q[7], q[5];
+cp(-pi/2) q[6], q[5];
+h q[5];
+cp(-pi/8) q[7], q[4];
+cp(-pi/4) q[6], q[4];
+cp(-pi/2) q[5], q[4];
+h q[4];
+cp(-pi/16) q[7], q[3];
+cp(-pi/8) q[6], q[3];
+cp(-pi/4) q[5], q[3];
+cp(-pi/2) q[4], q[3];
+h q[3];
+cp(-pi/32) q[7], q[2];
+cp(-pi/16) q[6], q[2];
+cp(-pi/8) q[5], q[2];
+cp(-pi/4) q[4], q[2];
+cp(-pi/2) q[3], q[2];
+h q[2];
+cp(-pi/64) q[7], q[1];
+cp(-pi/32) q[6], q[1];
+cp(-pi/16) q[5], q[1];
+cp(-pi/8) q[4], q[1];
+cp(-pi/4) q[3], q[1];
+cp(-pi/2) q[2], q[1];
+h q[1];
+cp(-pi/128) q[7], q[0];
+cp(-pi/64) q[6], q[0];
+cp(-pi/32) q[5], q[0];
+cp(-pi/16) q[4], q[0];
+cp(-pi/8) q[3], q[0];
+cp(-pi/4) q[2], q[0];
+cp(-pi/2) q[1], q[0];
+h q[0];
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+measure q[2] -> c[2];
+measure q[3] -> c[3];
+measure q[4] -> c[4];
+measure q[5] -> c[5];
+measure q[6] -> c[6];
+measure q[7] -> c[7];
+"""
+
+code_string = """from qiskit import transpile
+
+def run_and_analyze(circuit, aer_sim):
+    compiled = transpile(circuit, aer_sim)
+    job = aer_sim.run(compiled, shots=4096)
+    result = job.result()
+    counts = result.get_counts()
+    best = max(counts, key=counts.get)
+    prediction = int(best, 2)
+    return prediction
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 7288 Dec 31  2025 /logs/verifier/solution.py
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Post-processing code loaded successfully.
+    Running Test Case 1
+        Fail. Prediction: 174, True Phase0.45112256870005474, Error: 173.54887743129996
+        Fail. Prediction: 174, True Phase0.45112256870005474, Error: 173.54887743129996
+        Fail. Prediction: 174, True Phase0.45112256870005474, Error: 173.54887743129996
+        Fail. Prediction: 174, True Phase0.45112256870005474, Error: 173.54887743129996
+        Fail. Prediction: 174, True Phase0.45112256870005474, Error: 173.54887743129996
+        Fail. Prediction: 174, True Phase0.45112256870005474, Error: 173.54887743129996
+        Fail. Prediction: 174, True Phase0.45112256870005474, Error: 173.54887743129996
+        Fail. Prediction: 174, True Phase0.45112256870005474, Error: 173.54887743129996
+        Fail. Prediction: 174, True Phase0.45112256870005474, Error: 173.54887743129996
+        Fail. Prediction: 174, True Phase0.45112256870005474, Error: 173.54887743129996
+    Running Test Case 2
+        Fail. Prediction: 28, True Phase0.2210223417135454, Error: 27.778977658286454
+        Fail. Prediction: 28, True Phase0.2210223417135454, Error: 27.778977658286454
+        Fail. Prediction: 28, True Phase0.2210223417135454, Error: 27.778977658286454
+        Fail. Prediction: 28, True Phase0.2210223417135454, Error: 27.778977658286454
+        Fail. Prediction: 28, True Phase0.2210223417135454, Error: 27.778977658286454
+        Fail. Prediction: 28, True Phase0.2210223417135454, Error: 27.778977658286454
+        Fail. Prediction: 28, True Phase0.2210223417135454, Error: 27.778977658286454
+        Fail. Prediction: 28, True Phase0.2210223417135454, Error: 27.778977658286454
+        Fail. Prediction: 28, True Phase0.2210223417135454, Error: 27.778977658286454
+        Fail. Prediction: 28, True Phase0.2210223417135454, Error: 27.778977658286454
+    Running Test Case 3
+        Fail. Prediction: 250, True Phase0.3690812525293783, Error: 249.63091874747062
+        Fail. Prediction: 250, True Phase0.3690812525293783, Error: 249.63091874747062
+        Fail. Prediction: 250, True Phase0.3690812525293783, Error: 249.63091874747062
+        Fail. Prediction: 250, True Phase0.3690812525293783, Error: 249.63091874747062
+        Fail. Prediction: 250, True Phase0.3690812525293783, Error: 249.63091874747062
+        Fail. Prediction: 250, True Phase0.3690812525293783, Error: 249.63091874747062
+        Fail. Prediction: 250, True Phase0.3690812525293783, Error: 249.63091874747062
+        Fail. Prediction: 250, True Phase0.3690812525293783, Error: 249.63091874747062
+        Fail. Prediction: 250, True Phase0.3690812525293783, Error: 249.63091874747062
+        Fail. Prediction: 250, True Phase0.3690812525293783, Error: 249.63091874747062
+    Running Test Case 4
+        Fail. Prediction: 210, True Phase0.2907757037664177, Error: 209.70922429623357
+        Fail. Prediction: 210, True Phase0.2907757037664177, Error: 209.70922429623357
+        Fail. Prediction: 210, True Phase0.2907757037664177, Error: 209.70922429623357
+        Fail. Prediction: 210, True Phase0.2907757037664177, Error: 209.70922429623357
+        Fail. Prediction: 210, True Phase0.2907757037664177, Error: 209.70922429623357
+        Fail. Prediction: 210, True Phase0.2907757037664177, Error: 209.70922429623357
+        Fail. Prediction: 210, True Phase0.2907757037664177, Error: 209.70922429623357
+        Fail. Prediction: 210, True Phase0.2907757037664177, Error: 209.70922429623357
+        Fail. Prediction: 210, True Phase0.2907757037664177, Error: 209.70922429623357
+        Fail. Prediction: 210, True Phase0.2907757037664177, Error: 209.70922429623357
+    Running Test Case 5
+        Fail. Prediction: 188, True Phase0.24107792750279944, Error: 187.7589220724972
+        Fail. Prediction: 188, True Phase0.24107792750279944, Error: 187.7589220724972
+        Fail. Prediction: 188, True Phase0.24107792750279944, Error: 187.7589220724972
+        Fail. Prediction: 188, True Phase0.24107792750279944, Error: 187.7589220724972
+        Fail. Prediction: 188, True Phase0.24107792750279944, Error: 187.7589220724972
+        Fail. Prediction: 188, True Phase0.24107792750279944, Error: 187.7589220724972
+        Fail. Prediction: 188, True Phase0.24107792750279944, Error: 187.7589220724972
+        Fail. Prediction: 188, True Phase0.24107792750279944, Error: 187.7589220724972
+        Fail. Prediction: 188, True Phase0.24107792750279944, Error: 187.7589220724972
+        Fail. Prediction: 188, True Phase0.24107792750279944, Error: 187.7589220724972
+    Running Test Case 6
+        Fail. Prediction: 147, True Phase0.7820464329601959, Error: 146.2179535670398
+        Fail. Prediction: 147, True Phase0.7820464329601959, Error: 146.2179535670398
+        Fail. Prediction: 147, True Phase0.7820464329601959, Error: 146.2179535670398
+        Fail. Prediction: 147, True Phase0.7820464329601959, Error: 146.2179535670398
+        Fail. Prediction: 147, True Phase0.7820464329601959, Error: 146.2179535670398
+        Fail. Prediction: 147, True Phase0.7820464329601959, Error: 146.2179535670398
+        Fail. Prediction: 147, True Phase0.7820464329601959, Error: 146.2179535670398
+        Fail. Prediction: 147, True Phase0.7820464329601959, Error: 146.2179535670398
+        Fail. Prediction: 147, True Phase0.7820464329601959, Error: 146.2179535670398
+        Fail. Prediction: 147, True Phase0.7820464329601959, Error: 146.2179535670398
+    Running Test Case 7
+        Fail. Prediction: 115, True Phase0.8110943659648512, Error: 114.18890563403515
+        Fail. Prediction: 115, True Phase0.8110943659648512, Error: 114.18890563403515
+        Fail. Prediction: 115, True Phase0.8110943659648512, Error: 114.18890563403515
+        Fail. Prediction: 115, True Phase0.8110943659648512, Error: 114.18890563403515
+        Fail. Prediction: 115, True Phase0.8110943659648512, Error: 114.18890563403515
+        Fail. Prediction: 115, True Phase0.8110943659648512, Error: 114.18890563403515
+        Fail. Prediction: 115, True Phase0.8110943659648512, Error: 114.18890563403515
+        Fail. Prediction: 115, True Phase0.8110943659648512, Error: 114.18890563403515
+        Fail. Prediction: 115, True Phase0.8110943659648512, Error: 114.18890563403515
+        Fail. Prediction: 115, True Phase0.8110943659648512, Error: 114.18890563403515
+    Running Test Case 8
+        Fail. Prediction: 230, True Phase0.40079054077367393, Error: 229.59920945922633
+        Fail. Prediction: 230, True Phase0.40079054077367393, Error: 229.59920945922633
+        Fail. Prediction: 230, True Phase0.40079054077367393, Error: 229.59920945922633
+        Fail. Prediction: 230, True Phase0.40079054077367393, Error: 229.59920945922633
+        Fail. Prediction: 230, True Phase0.40079054077367393, Error: 229.59920945922633
+        Fail. Prediction: 230, True Phase0.40079054077367393, Error: 229.59920945922633
+        Fail. Prediction: 230, True Phase0.40079054077367393, Error: 229.59920945922633
+        Fail. Prediction: 230, True Phase0.40079054077367393, Error: 229.59920945922633
+        Fail. Prediction: 230, True Phase0.40079054077367393, Error: 229.59920945922633
+        Fail. Prediction: 230, True Phase0.40079054077367393, Error: 229.59920945922633
+    Running Test Case 9
+        Fail. Prediction: 224, True Phase0.025999202611485694, Error: 223.97400079738853
+        Fail. Prediction: 224, True Phase0.025999202611485694, Error: 223.97400079738853
+        Fail. Prediction: 224, True Phase0.025999202611485694, Error: 223.97400079738853
+        Fail. Prediction: 224, True Phase0.025999202611485694, Error: 223.97400079738853
+        Fail. Prediction: 224, True Phase0.025999202611485694, Error: 223.97400079738853
+        Fail. Prediction: 224, True Phase0.025999202611485694, Error: 223.97400079738853
+        Fail. Prediction: 224, True Phase0.025999202611485694, Error: 223.97400079738853
+        Fail. Prediction: 224, True Phase0.025999202611485694, Error: 223.97400079738853
+        Fail. Prediction: 224, True Phase0.025999202611485694, Error: 223.97400079738853
+        Fail. Prediction: 224, True Phase0.025999202611485694, Error: 223.97400079738853
+    Running Test Case 10
+        Fail. Prediction: 57, True Phase0.6093730480301904, Error: 56.39062695196981
+        Fail. Prediction: 57, True Phase0.6093730480301904, Error: 56.39062695196981
+        Fail. Prediction: 57, True Phase0.6093730480301904, Error: 56.39062695196981
+        Fail. Prediction: 57, True Phase0.6093730480301904, Error: 56.39062695196981
+        Fail. Prediction: 57, True Phase0.6093730480301904, Error: 56.39062695196981
+        Fail. Prediction: 57, True Phase0.6093730480301904, Error: 56.39062695196981
+        Fail. Prediction: 57, True Phase0.6093730480301904, Error: 56.39062695196981
+        Fail. Prediction: 57, True Phase0.6093730480301904, Error: 56.39062695196981
+        Fail. Prediction: 57, True Phase0.6093730480301904, Error: 56.39062695196981
+        Fail. Prediction: 57, True Phase0.6093730480301904, Error: 56.39062695196981
+Total Success: 0; Total Fail: 100
+qasm_syntax=1.0
+semantic_score=0.0
+gate_count=0.06483790523690773
+code_syntax=1.0

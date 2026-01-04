@@ -1,0 +1,11 @@
+{
+  "qasm_syntax": 1,
+  "code_syntax": 1,
+  "result_score": 1.0,
+  "gate_count_ratio": 1.0,
+  "shot_ratio": NaN,
+  "time_ratio": 132.3875,
+  "task": "ghz_state",
+  "group": "algorithm_design",
+  "pass": true
+}

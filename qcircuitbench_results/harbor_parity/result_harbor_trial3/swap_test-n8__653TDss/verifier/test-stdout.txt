@@ -1,0 +1,221 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 32
+drwxr-xr-x 2  501 dialout  4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root     4096 Jan  2 05:58 ..
+-rw-r--r-- 1  501 dialout   439 Dec 31 06:10 swap_test_n8.qasm
+-rwxr-xr-x 1  501 dialout 18062 Dec 31 06:10 test.sh
+solution dir: /solution
+app dir: /app
+total 12
+drwxr-xr-x 1 root root 4096 Jan  2 05:58 .
+drwxr-xr-x 1 root root 4096 Jan  2 05:58 ..
+-rw-r--r-- 1 root root 1631 Jan  2 05:58 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 1631 Jan  2 05:58 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+include "oracle.inc";
+qubit[16] q;
+bit[16] c;
+
+Psi q[0], q[1], q[2], q[3], q[4], q[5], q[6], q[7];
+Phi q[8], q[9], q[10], q[11], q[12], q[13], q[14], q[15];
+
+cx q[0], q[8];
+h q[0];
+measure q[0] -> c[0];
+measure q[8] -> c[8];
+
+cx q[1], q[9];
+h q[1];
+measure q[1] -> c[1];
+measure q[9] -> c[9];
+
+cx q[2], q[10];
+h q[2];
+measure q[2] -> c[2];
+measure q[10] -> c[10];
+
+cx q[3], q[11];
+h q[3];
+measure q[3] -> c[3];
+measure q[11] -> c[11];
+
+cx q[4], q[12];
+h q[4];
+measure q[4] -> c[4];
+measure q[12] -> c[12];
+
+cx q[5], q[13];
+h q[5];
+measure q[5] -> c[5];
+measure q[13] -> c[13];
+
+cx q[6], q[14];
+h q[6];
+measure q[6] -> c[6];
+measure q[14] -> c[14];
+
+cx q[7], q[15];
+h q[7];
+measure q[7] -> c[7];
+measure q[15] -> c[15];
+"""
+
+code_string = """from qiskit import transpile
+from qiskit_aer import AerSimulator
+
+def run_and_analyze(circuit, aer_sim):
+    compiled = transpile(circuit, aer_sim)
+    shots = 20000
+    result = aer_sim.run(compiled, shots=shots).result()
+    counts = result.get_counts(compiled)
+
+    total = 0.0
+    total_shots = 0
+
+    for bitstring, count in counts.items():
+        total_shots += count
+        product = 1
+        for i in range(8):
+            b_a = 1 if bitstring[-1 - i] == "1" else 0
+            b_b = 1 if bitstring[-1 - (i + 8)] == "1" else 0
+            product *= -1 if (b_a == 1 and b_b == 1) else 1
+        total += product * count
+
+    if total_shots == 0:
+        return 0.0
+
+    estimate = total / total_shots
+    if estimate < 0.0:
+        estimate = 0.0
+    if estimate > 1.0:
+        estimate = 1.0
+    return float(estimate)
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 1631 Jan  2  2026 /logs/verifier/solution.py
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Post-processing code loaded successfully.
+    Running Test Case 1
+        Success. True Overlap: 0.000821003378945246; Prediction: 0.0012; Error: 0.0003789966210547539
+        Success. True Overlap: 0.000821003378945246; Prediction: 0.0095; Error: 0.008678996621054754
+        Success. True Overlap: 0.000821003378945246; Prediction: 0.0; Error: 0.000821003378945246
+        Success. True Overlap: 0.000821003378945246; Prediction: 0.0; Error: 0.000821003378945246
+        Success. True Overlap: 0.000821003378945246; Prediction: 0.0013; Error: 0.00047899662105475394
+        Success. True Overlap: 0.000821003378945246; Prediction: 0.0; Error: 0.000821003378945246
+        Success. True Overlap: 0.000821003378945246; Prediction: 0.0; Error: 0.000821003378945246
+        Success. True Overlap: 0.000821003378945246; Prediction: 0.0057; Error: 0.0048789966210547545
+        Success. True Overlap: 0.000821003378945246; Prediction: 0.0027; Error: 0.001878996621054754
+        Success. True Overlap: 0.000821003378945246; Prediction: 0.0038; Error: 0.002978996621054754
+    Running Test Case 2
+        Success. True Overlap: 0.0005116579156816642; Prediction: 0.007; Error: 0.006488342084318336
+        Success. True Overlap: 0.0005116579156816642; Prediction: 0.0138; Error: 0.013288342084318335
+        Success. True Overlap: 0.0005116579156816642; Prediction: 0.0; Error: 0.0005116579156816642
+        Success. True Overlap: 0.0005116579156816642; Prediction: 0.0037; Error: 0.003188342084318336
+        Success. True Overlap: 0.0005116579156816642; Prediction: 0.0036; Error: 0.0030883420843183357
+        Success. True Overlap: 0.0005116579156816642; Prediction: 0.0; Error: 0.0005116579156816642
+        Fail. True Overlap: 0.0005116579156816642; Prediction: 0.0156; Error: 0.015088342084318335
+        Success. True Overlap: 0.0005116579156816642; Prediction: 0.0; Error: 0.0005116579156816642
+        Success. True Overlap: 0.0005116579156816642; Prediction: 0.0; Error: 0.0005116579156816642
+        Success. True Overlap: 0.0005116579156816642; Prediction: 0.0013; Error: 0.0007883420843183358
+    Running Test Case 3
+        Success. True Overlap: 0.00010435881887306238; Prediction: 0.0; Error: 0.00010435881887306238
+        Success. True Overlap: 0.00010435881887306238; Prediction: 0.0083; Error: 0.008195641181126938
+        Success. True Overlap: 0.00010435881887306238; Prediction: 0.0; Error: 0.00010435881887306238
+        Success. True Overlap: 0.00010435881887306238; Prediction: 0.0; Error: 0.00010435881887306238
+        Success. True Overlap: 0.00010435881887306238; Prediction: 0.0; Error: 0.00010435881887306238
+        Success. True Overlap: 0.00010435881887306238; Prediction: 0.0042; Error: 0.004095641181126937
+        Success. True Overlap: 0.00010435881887306238; Prediction: 0.0008; Error: 0.0006956411811269377
+        Success. True Overlap: 0.00010435881887306238; Prediction: 0.0001; Error: 4.358818873062377e-06
+        Success. True Overlap: 0.00010435881887306238; Prediction: 0.0; Error: 0.00010435881887306238
+        Success. True Overlap: 0.00010435881887306238; Prediction: 0.0; Error: 0.00010435881887306238
+    Running Test Case 4
+        Success. True Overlap: 0.002628275039720299; Prediction: 0.0042; Error: 0.0015717249602797008
+        Success. True Overlap: 0.002628275039720299; Prediction: 0.0; Error: 0.002628275039720299
+        Success. True Overlap: 0.002628275039720299; Prediction: 0.0115; Error: 0.0088717249602797
+        Success. True Overlap: 0.002628275039720299; Prediction: 0.0002; Error: 0.002428275039720299
+        Success. True Overlap: 0.002628275039720299; Prediction: 0.0086; Error: 0.005971724960279701
+        Success. True Overlap: 0.002628275039720299; Prediction: 0.0; Error: 0.002628275039720299
+        Success. True Overlap: 0.002628275039720299; Prediction: 0.0; Error: 0.002628275039720299
+        Success. True Overlap: 0.002628275039720299; Prediction: 0.0; Error: 0.002628275039720299
+        Success. True Overlap: 0.002628275039720299; Prediction: 0.0136; Error: 0.0109717249602797
+        Success. True Overlap: 0.002628275039720299; Prediction: 0.0; Error: 0.002628275039720299
+    Running Test Case 5
+        Success. True Overlap: 0.0029580529492044855; Prediction: 0.0105; Error: 0.007541947050795516
+        Success. True Overlap: 0.0029580529492044855; Prediction: 0.0; Error: 0.0029580529492044855
+        Success. True Overlap: 0.0029580529492044855; Prediction: 0.0039; Error: 0.0009419470507955143
+        Success. True Overlap: 0.0029580529492044855; Prediction: 0.0097; Error: 0.006741947050795515
+        Success. True Overlap: 0.0029580529492044855; Prediction: 0.0; Error: 0.0029580529492044855
+        Success. True Overlap: 0.0029580529492044855; Prediction: 0.0049; Error: 0.0019419470507955144
+        Success. True Overlap: 0.0029580529492044855; Prediction: 0.0095; Error: 0.006541947050795515
+        Success. True Overlap: 0.0029580529492044855; Prediction: 0.0; Error: 0.0029580529492044855
+        Success. True Overlap: 0.0029580529492044855; Prediction: 0.0; Error: 0.0029580529492044855
+        Success. True Overlap: 0.0029580529492044855; Prediction: 0.0035; Error: 0.0005419470507955146
+    Running Test Case 6
+        Success. True Overlap: 0.0032060866314266834; Prediction: 0.009; Error: 0.0057939133685733155
+        Success. True Overlap: 0.0032060866314266834; Prediction: 0.0; Error: 0.0032060866314266834
+        Success. True Overlap: 0.0032060866314266834; Prediction: 0.0; Error: 0.0032060866314266834
+        Success. True Overlap: 0.0032060866314266834; Prediction: 0.0034; Error: 0.00019391336857331638
+        Success. True Overlap: 0.0032060866314266834; Prediction: 0.0; Error: 0.0032060866314266834
+        Success. True Overlap: 0.0032060866314266834; Prediction: 0.0084; Error: 0.005193913368573316
+        Success. True Overlap: 0.0032060866314266834; Prediction: 0.0008; Error: 0.0024060866314266835
+        Success. True Overlap: 0.0032060866314266834; Prediction: 0.0066; Error: 0.0033939133685733165
+        Success. True Overlap: 0.0032060866314266834; Prediction: 0.0147; Error: 0.011493913368573316
+        Success. True Overlap: 0.0032060866314266834; Prediction: 0.0026; Error: 0.0006060866314266835
+    Running Test Case 7
+        Success. True Overlap: 0.004571396728265666; Prediction: 0.0; Error: 0.004571396728265666
+        Success. True Overlap: 0.004571396728265666; Prediction: 0.0; Error: 0.004571396728265666
+        Fail. True Overlap: 0.004571396728265666; Prediction: 0.0199; Error: 0.015328603271734336
+        Success. True Overlap: 0.004571396728265666; Prediction: 0.0145; Error: 0.009928603271734334
+        Success. True Overlap: 0.004571396728265666; Prediction: 0.0013; Error: 0.003271396728265666
+        Success. True Overlap: 0.004571396728265666; Prediction: 0.012; Error: 0.0074286032717343345
+        Success. True Overlap: 0.004571396728265666; Prediction: 0.0143; Error: 0.009728603271734335
+        Success. True Overlap: 0.004571396728265666; Prediction: 0.0; Error: 0.004571396728265666
+        Success. True Overlap: 0.004571396728265666; Prediction: 0.0; Error: 0.004571396728265666
+        Success. True Overlap: 0.004571396728265666; Prediction: 0.0; Error: 0.004571396728265666
+    Running Test Case 8
+        Success. True Overlap: 0.0008494412715704658; Prediction: 0.0094; Error: 0.008550558728429535
+        Success. True Overlap: 0.0008494412715704658; Prediction: 0.0; Error: 0.0008494412715704658
+        Success. True Overlap: 0.0008494412715704658; Prediction: 0.0; Error: 0.0008494412715704658
+        Success. True Overlap: 0.0008494412715704658; Prediction: 0.0; Error: 0.0008494412715704658
+        Success. True Overlap: 0.0008494412715704658; Prediction: 0.0; Error: 0.0008494412715704658
+        Success. True Overlap: 0.0008494412715704658; Prediction: 0.0; Error: 0.0008494412715704658
+        Success. True Overlap: 0.0008494412715704658; Prediction: 0.0039; Error: 0.003050558728429534
+        Success. True Overlap: 0.0008494412715704658; Prediction: 0.0073; Error: 0.006450558728429534
+        Success. True Overlap: 0.0008494412715704658; Prediction: 0.0; Error: 0.0008494412715704658
+        Success. True Overlap: 0.0008494412715704658; Prediction: 0.0033; Error: 0.002450558728429534
+    Running Test Case 9
+        Success. True Overlap: 0.004698954591592324; Prediction: 0.0053; Error: 0.0006010454084076763
+        Success. True Overlap: 0.004698954591592324; Prediction: 0.0; Error: 0.004698954591592324
+        Success. True Overlap: 0.004698954591592324; Prediction: 0.0; Error: 0.004698954591592324
+        Success. True Overlap: 0.004698954591592324; Prediction: 0.0; Error: 0.004698954591592324
+        Success. True Overlap: 0.004698954591592324; Prediction: 0.0114; Error: 0.006701045408407677
+        Success. True Overlap: 0.004698954591592324; Prediction: 0.0083; Error: 0.0036010454084076764
+        Success. True Overlap: 0.004698954591592324; Prediction: 0.0034; Error: 0.001298954591592324
+        Success. True Overlap: 0.004698954591592324; Prediction: 0.0081; Error: 0.003401045408407676
+        Success. True Overlap: 0.004698954591592324; Prediction: 0.0; Error: 0.004698954591592324
+        Success. True Overlap: 0.004698954591592324; Prediction: 0.0; Error: 0.004698954591592324
+    Running Test Case 10
+        Success. True Overlap: 0.0017353463973224384; Prediction: 0.0077; Error: 0.005964653602677562
+        Success. True Overlap: 0.0017353463973224384; Prediction: 0.0084; Error: 0.006664653602677561
+        Success. True Overlap: 0.0017353463973224384; Prediction: 0.0; Error: 0.0017353463973224384
+        Success. True Overlap: 0.0017353463973224384; Prediction: 0.0024; Error: 0.0006646536026775614
+        Success. True Overlap: 0.0017353463973224384; Prediction: 0.0063; Error: 0.004564653602677562
+        Success. True Overlap: 0.0017353463973224384; Prediction: 0.0104; Error: 0.008664653602677562
+        Success. True Overlap: 0.0017353463973224384; Prediction: 0.0; Error: 0.0017353463973224384
+        Success. True Overlap: 0.0017353463973224384; Prediction: 0.0; Error: 0.0017353463973224384
+        Success. True Overlap: 0.0017353463973224384; Prediction: 0.0091; Error: 0.007364653602677562
+        Success. True Overlap: 0.0017353463973224384; Prediction: 0.0055; Error: 0.0037646536026775613
+Total Success: 98; Total Fail: 2
+qasm_syntax=1.0
+semantic_score=1.0
+gate_count=0.34375
+code_syntax=1.0

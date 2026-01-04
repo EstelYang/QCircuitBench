@@ -1,0 +1,76 @@
+qasm_string = (
+    'OPENQASM 3.0;\n'
+    'include "stdgates.inc";\n'
+    'include "oracle.inc";\n'
+    'qubit[9] q;\n'
+    'bit[8] c;\n'
+    'Psi q[8];\n'
+    'h q[0];\n'
+    'h q[1];\n'
+    'h q[2];\n'
+    'h q[3];\n'
+    'h q[4];\n'
+    'h q[5];\n'
+    'h q[6];\n'
+    'h q[7];\n'
+    + ('CU_0 q[0], q[8];\n' * 1)
+    + ('CU_0 q[1], q[8];\n' * 2)
+    + ('CU_0 q[2], q[8];\n' * 4)
+    + ('CU_0 q[3], q[8];\n' * 8)
+    + ('CU_0 q[4], q[8];\n' * 16)
+    + ('CU_0 q[5], q[8];\n' * 32)
+    + ('CU_0 q[6], q[8];\n' * 64)
+    + ('CU_0 q[7], q[8];\n' * 128)
+    + (
+        'swap q[0], q[7];\n'
+        'swap q[1], q[6];\n'
+        'swap q[2], q[5];\n'
+        'swap q[3], q[4];\n'
+        'h q[7];\n'
+        'cp(-pi/2) q[7], q[6];\n'
+        'h q[6];\n'
+        'cp(-pi/4) q[7], q[5];\n'
+        'cp(-pi/2) q[6], q[5];\n'
+        'h q[5];\n'
+        'cp(-pi/8) q[7], q[4];\n'
+        'cp(-pi/4) q[6], q[4];\n'
+        'cp(-pi/2) q[5], q[4];\n'
+        'h q[4];\n'
+        'cp(-pi/16) q[7], q[3];\n'
+        'cp(-pi/8) q[6], q[3];\n'
+        'cp(-pi/4) q[5], q[3];\n'
+        'cp(-pi/2) q[4], q[3];\n'
+        'h q[3];\n'
+        'cp(-pi/32) q[7], q[2];\n'
+        'cp(-pi/16) q[6], q[2];\n'
+        'cp(-pi/8) q[5], q[2];\n'
+        'cp(-pi/4) q[4], q[2];\n'
+        'cp(-pi/2) q[3], q[2];\n'
+        'h q[2];\n'
+        'cp(-pi/64) q[7], q[1];\n'
+        'cp(-pi/32) q[6], q[1];\n'
+        'cp(-pi/16) q[5], q[1];\n'
+        'cp(-pi/8) q[4], q[1];\n'
+        'cp(-pi/4) q[3], q[1];\n'
+        'cp(-pi/2) q[2], q[1];\n'
+        'h q[1];\n'
+        'cp(-pi/128) q[7], q[0];\n'
+        'cp(-pi/64) q[6], q[0];\n'
+        'cp(-pi/32) q[5], q[0];\n'
+        'cp(-pi/16) q[4], q[0];\n'
+        'cp(-pi/8) q[3], q[0];\n'
+        'cp(-pi/4) q[2], q[0];\n'
+        'cp(-pi/2) q[1], q[0];\n'
+        'h q[0];\n'
+        'measure q[0] -> c[0];\n'
+        'measure q[1] -> c[1];\n'
+        'measure q[2] -> c[2];\n'
+        'measure q[3] -> c[3];\n'
+        'measure q[4] -> c[4];\n'
+        'measure q[5] -> c[5];\n'
+        'measure q[6] -> c[6];\n'
+        'measure q[7] -> c[7];\n'
+    )
+)
+
+code_string = "from qiskit import transpile\n\ndef run_and_analyze(circuit, aer_sim):\n    compiled = transpile(circuit, aer_sim)\n    result = aer_sim.run(compiled, shots=4096).result()\n    counts = result.get_counts()\n\n    bitstring = max(counts, key=counts.get)\n    bitstring = bitstring.replace(' ', '').zfill(8)\n\n    value = int(bitstring, 2)\n    prediction = value / (2 ** 8)\n    return prediction\n"

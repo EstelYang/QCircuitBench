@@ -1,0 +1,35 @@
+QCircuitBench test starting
+pwd: /app
+tests dir: /tests
+total 24
+drwxr-xr-x 2  501 dialout 4096 Dec 31 06:10 .
+drwxr-xr-x 1 root root    4096 Dec 31 06:24 ..
+-rwxr-xr-x 1  501 dialout 9746 Dec 31 06:10 test.sh
+-rw-r--r-- 1  501 dialout   74 Dec 31 06:10 universal_n4.qasm
+solution dir: /solution
+app dir: /app
+total 12
+drwxr-xr-x 1 root root 4096 Dec 31 06:24 .
+drwxr-xr-x 1 root root 4096 Dec 31 06:24 ..
+-rw-r--r-- 1 root root   89 Dec 31 06:24 solution.py
+Python 3.13.2
+conda 25.3.1
+===== BEGIN solution.py =====
+Printing from: /app/solution.py
+-rw-r--r-- 1 root root 89 Dec 31 06:24 /app/solution.py
+qasm_string = """OPENQASM 3.0;
+include "stdgates.inc";
+qubit[4] q;
+bit[4] c;
+h q[2];
+"""
+
+===== END solution.py =====
+Copied solution.py to /logs/verifier/solution.py
+-rw-r--r-- 1 root root 89 Dec 31  2025 /logs/verifier/solution.py
+Random Circuit Synthesis tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.
+    The OpenQASM 3.0 code is valid and has been successfully loaded as a QuantumCircuit.
+Random Circuit Synthesis tasks don't need shots. So here nan (N/A) is correct.
+qasm_syntax=1.0
+semantic_score=1.0
+gate_count=1.0
