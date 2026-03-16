@@ -14,6 +14,7 @@ Key features of QCircuitBench include:
 2. **Wide Range of Quantum Algorithms**: Implementation for a wide range of quantum algorithms from basic primitives to advanced applications, with easy extension to more quantum algorithms.
 3. **Validation and Verification Functions**: Automatic validation and verification functions, allowing for iterative evaluation and interactive reasoning without human inspection.
 4. **Training Potential**: Promising potential as a training dataset through preliminary fine-tuning results.
+5. **Circuit Visualization**: Representative circuit diagram images (`.png`) are provided for circuit instances, improving dataset readability and enabling future multimodal research on quantum circuit understanding.
 
 ![image](./readme_img/Dataset.png)
 
@@ -70,9 +71,12 @@ Each subdirectory contains algorithm-specific data. For instance, the directory 
         ├──📄 simon_verification.txt        # Verification results of the data points
         ├──📂 full_circuit/                 # Raw data of quantum circuits
         │   ├──📂 simon_n2/
+        │   │   ├──🖼️ simon_n2_s11_k11.png  # Circuit visualization
         │   │   └──📄 simon_n2_s11_k11.qasm # Full circuit for a concrete setting
         │   └──📂 simon_n3/
+        │       ├──🖼️ simon_n3_s011_k011.png 
         │       ├──📄 simon_n3_s011_k001.qasm
+        │       ├──🖼️ simon_n3_s011_k101.png 
         │       ├──📄 simon_n3_s011_k101.qasm
         │       └── ...                   
         └──📂 test_oracle/                  # Extracted oracle definitions
@@ -175,6 +179,21 @@ c[0] = measure q[0];
 c[1] = measure q[1];
 c[2] = measure q[2];
 ```
+
+### Circuit Visualization
+
+For better interpretability, QCircuitBench also provides rendered circuit diagram images for circuit instances, which are generated automatically from the corresponding QASM files.
+
+For example, a specific Simon circuit instance may be stored as both:
+
+- `{instance_name}.qasm`: the circuit source code
+- `{instance_name}.png`: the rendered circuit diagram image
+
+<p align="center">
+  <img src="./readme_img/simon_n6.png" width="75%">
+</p>
+
+This design allows users to quickly inspect circuit structures and also enables future multimodal benchmarking scenarios involving quantum circuit diagrams.
 
 ### Post-Processing Function
 
@@ -342,6 +361,18 @@ def main():
         extract_gate_definition()
     elif args.func == "check":
         check_dataset()
+```
+
+### Image Generation Script
+
+The circuit visualization images are automatically generated from QASM files using the script `generate_circuit_images.py`.
+
+This script traverses the dataset directory, loads each `.qasm` file with Qiskit's OpenQASM 3 parser, and renders the circuit diagram as a `.png` image with the same filename.
+
+A simplified usage example is:
+
+```
+python generate_circuit_images.py <dataset_root>
 ```
 
 # 📈 Data Proportion
