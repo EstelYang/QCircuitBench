@@ -375,6 +375,46 @@ A simplified usage example is:
 python generate_circuit_images.py <dataset_root>
 ```
 
+# 🧪 Evaluation with lm_eval
+
+QCircuitBench can be evaluated using the **EleutherAI lm-evaluation-harness (`lm_eval`)** framework, which provides a standardized interface for evaluating large language models on structured tasks such as code generation.
+
+Instead of relying solely on text-based metrics, model outputs are evaluated by executing the **task-specific verification functions** included in QCircuitBench. These functions automatically check properties such as:
+
+- syntax correctness of the generated quantum circuit
+- semantic correctness of the quantum algorithm output
+- efficiency-related metrics (e.g., gate count, execution behavior)
+
+## Running Evaluation
+
+QCircuitBench tasks can be evaluated using the `lm_eval` command-line interface.
+
+A typical command template is:
+
+```bash
+lm_eval \
+  --model <model_backend> \
+  --model_args pretrained=<model_path_or_name> \
+  --tasks <qcircuitbench_task_list> \
+  --device <device> \
+  --batch_size <batch_size> \
+  --num_fewshot <num_fewshot> \
+  --output_path <output_directory>
+```
+
+## Terminal-Bench Support
+
+QCircuitBench is also supported as a **task source for the Harbor adapter**, enabling integration with evaluation frameworks **Terminal-Bench**.
+
+The repository includes:
+
+- **`benchmark_subset`** – a lightweight subset of QCircuitBench designed for Terminal-Bench integration.  
+  This subset contains **one representative instance per algorithm**, making it suitable as a compact evaluation source while preserving the diversity of algorithm design tasks.
+
+- **`qcircuitbench_result`** – example evaluation outputs obtained by running the `benchmark_subset` locally.  
+These results are provided for **Harbor parity checking**, allowing users to verify that the Harbor Terminal-Bench evaluation setup reproduces consistent results.
+These resources can serve as references for reproducing evaluation setups involving QCircuitBench within Harbor-based evaluation environments.
+
 # 📈 Data Proportion
 
 The following charts provide an overview of the proportion of different algorithms within the QCircuitBench dataset.
@@ -387,7 +427,7 @@ The following charts provide an overview of the proportion of different algorith
 
 # 🔊 Download
 
-We host a demo version of the dataset on this GitHub repository to illustrate its structure and provide sample data. For the complete dataset, please download it from [Google Drive](https://drive.google.com/file/d/1usO1ur3ArdFtzbotvukM--oLt_-MPcT1/view?usp=share_link).
+We host a demo version of the dataset on this GitHub repository to illustrate its structure and provide sample data. For the complete dataset, please download it from [Google Drive](https://drive.google.com/file/d/1dawEUtGcX4AryN2djZ8VVaLwPe6kpziA/view?usp=sharing).
 
 
 # 📚 Citation
