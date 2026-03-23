@@ -423,7 +423,9 @@ The following charts provide an overview of the proportion of different algorith
   <img src="readme_img/task_oracle.png" width="45%">
 </p>
 
+# ⚖️ License
 
+This project is licensed under the MIT License.
 
 # 🔊 Download
 
