@@ -423,9 +423,6 @@ The following charts provide an overview of the proportion of different algorith
   <img src="readme_img/task_oracle.png" width="45%">
 </p>
 
-# ⚖️ License
-
-This project is licensed under the MIT License.
 
 # 🔊 Download
 
@@ -444,4 +441,8 @@ If you use QCircuitBench in your work, please cite:
   year={2025},
   url={https://arxiv.org/abs/2410.07961}
 }
+
+# ⚖️ License
+
+This project is licensed under the MIT License.
 
