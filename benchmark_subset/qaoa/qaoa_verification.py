@@ -7,6 +7,7 @@ from qiskit_aer import AerSimulator
 from qiskit_algorithms.utils import algorithm_globals
 import numpy as np
 import time
+import random
 
 random.seed(300)
 algorithm_globals.random_seed = 300
