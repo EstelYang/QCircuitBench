@@ -4,7 +4,13 @@ from qiskit.qasm3 import loads
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import AerSimulator
 import random
+import numpy as np
 import math
+from qiskit_algorithms.utils import algorithm_globals
+
+random.seed(300)
+np.random.seed(300)
+algorithm_globals.random_seed = 300
 
 
 def ternary_to_qubits(ternary_str):
@@ -113,18 +119,17 @@ def efficiency_check(qasm_string, n, secret_string, key_string, total_shot):
     aer_sim = AerSimulator()
     model_time = _simulate_time(aer_sim, model_circuit, total_shot)
     ground_time = _simulate_time(aer_sim, ground_truth_circuit, total_shot)
-    time_ratio = model_time / ground_time if ground_time else float("nan")
+    time_ratio = model_time / (ground_time + 1e-8)
 
     return gate_count_ratio, shot_ratio, time_ratio
 
 
 def check_model(qasm_string, n):
-    secret_string = "02"
-    key_string = "20"
+    secret_string = '02'
+    key_string = '20'
     qasm_syntax = -1
     print(
-        "Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct."
-    )
+        "Oracle Construction tasks don't need model to write post-processing. So here code_syntax = nan (N/A) is correct.")
     code_syntax = float("nan")
     result_score = 0.0
     gate_count_ratio = float("nan")
@@ -219,12 +224,11 @@ def check_model(qasm_string, n):
 
 
 def check_description(prompt):
-    s = "it maps triples of inputs $x_1$, $x_2$, and $x_3$"
+    s = "its equivalence class as $C(x) = \{x, x+s mod 3, x+2s \text{mod}\ 3\}$. The promise is that, for any two inputs"
     if s in prompt:
         n = int(prompt.split("$n = ")[1].split("$")[0])
         s = prompt.split("$s = ")[1].split("$")[0]
-        key_str = prompt.split("$b = ")[1].split("$")[0]
-        return s in prompt, {"n": n, "secret_string": s, "key_string": key_str}
+        return s in prompt, {"n": n, "secret_string": s}
     else:
         return False, None
 

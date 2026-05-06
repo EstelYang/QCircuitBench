@@ -8,6 +8,7 @@ from qiskit_algorithms.utils import algorithm_globals
 import numpy as np
 import time
 
+random.seed(300)
 algorithm_globals.random_seed = 300
 np.random.seed(300)
 
@@ -94,7 +95,8 @@ def ground_truth_run_and_analyze(circuit, aer_sim, graph):
 
     def execute_circuit(theta):
         param_binds = {param: [float(value)] for param, value in zip(circuit.parameters, theta)}
-        counts = aer_sim.run(transpiled_circ, parameter_binds=[param_binds], shots=1024).result().get_counts()
+        raw_counts = aer_sim.run(transpiled_circ, parameter_binds=[param_binds], shots=1024).result().get_counts()
+        counts = {state[::-1]: count for state, count in raw_counts.items()}
         return counts
 
     def expectation_value(theta):
@@ -105,7 +107,7 @@ def ground_truth_run_and_analyze(circuit, aer_sim, graph):
     result = minimize(expectation_value, initial_params, method='COBYLA', tol=1e-9)
     counts = execute_circuit(result.x)
     sorted_counts = sorted(counts.items(), key=lambda item: item[1], reverse=True)
-    top_two = [state[::-1] for state, count in sorted_counts[:2]]
+    top_two = [state for state, count in sorted_counts[:2]]
     return top_two
 
 
@@ -396,7 +398,8 @@ def run_and_analyze(circuit, aer_sim, graph):
     # Execute the transpiled circuit with the given parameter bindings
     def execute_circuit(theta):
         param_binds = {param: [float(value)] for param, value in zip(circuit.parameters, theta)}
-        counts = aer_sim.run(transpiled_circ, parameter_binds=[param_binds], shots=512).result().get_counts()
+        raw_counts = aer_sim.run(transpiled_circ, parameter_binds=[param_binds], shots=512).result().get_counts()
+        counts = {state[::-1]: count for state, count in raw_counts.items()}
         return counts
 
     # Define the expectation value function

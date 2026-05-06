@@ -10,6 +10,11 @@ import time
 from qiskit.quantum_info import Operator
 import math
 import random
+from qiskit_algorithms.utils import algorithm_globals
+
+random.seed(300)
+algorithm_globals.random_seed = 300
+np.random.seed(300)
 
 
 def binary_to_ternary(binary_str):
@@ -86,7 +91,7 @@ def recover_secret_string_3d(n, results):
 
 
 def ground_truth_run_and_analyze(circuit, aer_sim):
-    n = circuit.num_qubits // 2
+    n = circuit.num_clbits // 2
     circ = transpile(circuit, aer_sim)
     results = aer_sim.run(circ, shots=n).result()
     counts = results.get_counts()
@@ -314,7 +319,7 @@ def expr_backtrack(expr: str, code_string: str, eval_globals: dict, local_vars: 
 
 
 def efficiency_check(qasm_string, dire_gt, code_string, run_and_analyze_func, gd_run_and_analyze_func, n, oracle_def):
-    aer_sim = AerSimulator()
+    aer_sim = AerSimulator(seed_simulator=300)
     full_qasm = plug_in_oracle(qasm_string, oracle_def)
     pattern = r"^\s*Oracle\s+q\[[^\]]+\](?:\s*,\s*q\[[^\]]+\])*\s*;\s*$"
     lines = full_qasm.splitlines()
@@ -378,7 +383,7 @@ def efficiency_check(qasm_string, dire_gt, code_string, run_and_analyze_func, gd
         shot_m = 1024
 
     # for gd
-    shot_gd = qc_gd.num_qubits // 2
+    shot_gd = qc_gd.num_clbits // 2
     if shot_m * query_m == 0:
         print("Model Shot or Model Query is nan.")
         shot_ratio = float('nan')
@@ -413,7 +418,9 @@ def generate_random_strings(n, test_num=5):
     num_strings = min(3 ** (n - 2), test_num)
     selected_strings = set()
     while len(selected_strings) < num_strings:
-        selected_strings.add("".join(random.choice("012") for _ in range(n)))
+        s = "".join(random.choice("012") for _ in range(n))
+        if s != "0" * n:
+            selected_strings.add(s)
 
     return list(selected_strings)
 
@@ -428,7 +435,7 @@ def generate_test_cases(n, test_num=20):
 
 
 def execute_test_cases(qasm_string, run_and_analyze_func, n, shots=10, test_cases=None):
-    aer_sim = AerSimulator()
+    aer_sim = AerSimulator(seed_simulator=300)
     total_success = total_fail = 0
     if test_cases is None:
         test_cases = generate_test_cases(n)
@@ -528,7 +535,7 @@ def check_model(qasm_string, code_string, n):
 
 
 def check_description(prompt):
-    s = ' each ternary digit (trit) is represen'
+    s = 'For distinct $x_1$, $x_2$, $x_3$, they belong to the same'
     n = int(prompt.split("$n = ")[1].split("$")[0])
     return s in prompt, {"n": n}
 
@@ -692,7 +699,7 @@ def recover_secret_string_3d(n, results):
 
 
 def run_and_analyze(circuit, aer_sim):
-    n = circuit.num_qubits // 2
+    n = circuit.num_clbits // 2
     circ = transpile(circuit, aer_sim)
     results = aer_sim.run(circ, shots=n).result()
     counts = results.get_counts()

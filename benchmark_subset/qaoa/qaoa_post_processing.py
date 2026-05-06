@@ -29,7 +29,8 @@ def run_and_analyze(circuit, aer_sim, graph):
     # Execute the transpiled circuit with the given parameter bindings
     def execute_circuit(theta):
         param_binds = {param: [float(value)] for param, value in zip(circuit.parameters, theta)}
-        counts = aer_sim.run(transpiled_circ, parameter_binds=[param_binds], shots=512).result().get_counts()
+        raw_counts = aer_sim.run(transpiled_circ, parameter_binds=[param_binds], shots=512).result().get_counts()
+        counts = {state[::-1]: count for state, count in raw_counts.items()}
         return counts
 
     # Define the expectation value function

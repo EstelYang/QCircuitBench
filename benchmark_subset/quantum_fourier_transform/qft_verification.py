@@ -9,6 +9,7 @@ from math import pi
 import random
 from qiskit_algorithms.utils import algorithm_globals
 
+random.seed(300)
 algorithm_globals.random_seed = 300
 np.random.seed(300)
 
